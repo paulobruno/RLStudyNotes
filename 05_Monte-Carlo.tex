@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, top=2cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage{makecell}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\title{Aprendizado por Reforço - Notas de aula}
+\author{Paulo Bruno de Sousa Serafim}
+\date{Setembro 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+    Mostrar grafos de MDP's sem probabilidades e com próximos estados desconhecidos.
+    
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
+      \tikzstyle{every state}=[fill=green,draw=none,text=white]
+      \tikzstyle{hidden-state}=[fill=white,draw=none,text=black]
+    
+      \node[initial,state] (A)                    {$s_1$};
+      \node[hidden-state]         (B) [above right of=A] {$s_2$};
+      \node[hidden-state]         (D) [below right of=A] {$s_3$};
+      \node[hidden-state]  (C) [below right of=B] {$s_4$};
+      \node[hidden-state]  (E) [right of=C]       {$s_5$};
+    
+      \path (A) edge              node {$a_1$} (B)
+                edge              node {$a_2$} (C)
+            (B) edge [loop above] node {$a_3$} (B)
+                edge              node {$a_4$} (C)
+            (C) edge              node {$a_5$} (D)
+                edge [bend left]  node {$a_6$} (E)
+            (D) edge [loop below] node {$a_7$} (D)
+                edge              node {$a_8$} (A)
+            (E) edge [bend left]  node {$a_9$} (D);
+    \end{tikzpicture}
+
+    \subsection{Monte-Carlo ``primeira-visita''}
+    
+    \subsection{Monte-Carlo ``cada-visita''}
+
+\section{Estimativas dos valores das ações}
+
+    Explicar o que é \textit{exploring starts}
+
+\section{Controle Monte-Carlo}
+
+\section{Métodos \textit{On-policy} vs. \textit{Off-policy}}
+
+\end{document}
