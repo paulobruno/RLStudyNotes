@@ -11,15 +11,52 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 
-\title{Aprendizado por Reforço - Notas de aula}
-\author{Paulo Bruno de Sousa Serafim}
-\date{Setembro 2019}
+\usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \textbf{\@author} \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+\title{Aprendizado por Reforço}
+\author{Aula 02 - \textit{Multi-Armed bandit}}
+\date{Paulo Bruno S. Serafim - Outubro 2019}
 
 \begin{document}
 
 \maketitle
 
 \section{\textit{Multi-armed bandit}}
+
+    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2.8cm]
+        \tikzstyle{state}=[fill=none, shape=circle, draw=black, thick, text=black]
+        \tikzstyle{hidden-state}=[fill=none, draw=black, text=black]
+        
+        \node[state] (A) {s};
+        \node[hidden-state] (B) [below of=A, xshift=-3.0cm] {$r_1$};
+        \node[hidden-state] (C) [below of=A, xshift=-1.0cm] {$r_2$};
+        \node[hidden-state] (D) [below of=A, xshift=1.0cm] {$r_3$};
+        \node[hidden-state] (E) [below of=A, xshift=3.0cm] {$r_4$};
+        
+        \path
+           (A) edge[bend right=40] node[left]  {$a_1, p_1$} (B)
+               edge[bend right]    node[left]  {$a_1, p_2$} (C)
+               edge[bend left]     node[right] {$a_1, p_3$} (D)
+               edge[bend left=40]  node[right] {$a_2, p_4$} (E);
+    \end{tikzpicture}
 
     \subsection{Descrição informal}
     
@@ -45,8 +82,20 @@
         
         \subsubsection{Índice de Gittins}
 
-\section{Função ação-valor}
+\section{Função valor-ação}
 
+    Função valor-ação ótima:
+
+    \begin{equation}
+        q_*(a) \ \dot{=} \ \mathbb{E}[R_t \mid A_t = a]
+    \end{equation}
+
+    Escolha gulosa:
+
+    \begin{equation}
+        A_t \ \dot{=} \ \argmax_a Q_t(a)
+    \end{equation}
+    
     \begin{center}
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
       \tikzstyle{initial-state}=[fill=green,shape=circle,draw=none,text=white]
@@ -74,6 +123,30 @@
     \subsection{Definição}
     
     \subsection{Versão incremental}
+        
+        \begin{equation}
+            Q_n \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}
+        \end{equation}
+        
+        \begin{equation}
+        \begin{split}
+            Q_{n+1} & \ \dot{=} \ \frac{1}{n} \sum_{i=1}^{n} R_i \\
+            & = \ Q_n + \frac{1}{n} \Big[ R_n - Q_n \Big]
+        \end{split}
+        \end{equation}
+        
+        Ver no livro a derivação dessa equação (eq. 2.3).
+        
+        \begin{equation}
+            NovaEstimativa \leftarrow AntigaEstimativa + TamanhoPasso \Big[ Objetivo - AntigaEstimativa \Big]
+        \end{equation}
+        
+        \begin{equation}
+        \begin{split}
+            Q_{n+1} & \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big] \\
+            & = \ (1 - \alpha)^n Q_1 + \sum_{i=1}^{n} \alpha (1 - \alpha)^{n - i} R_i
+        \end{split}
+        \end{equation}
         
     \subsection{Escolha dos valores iniciais}
         
