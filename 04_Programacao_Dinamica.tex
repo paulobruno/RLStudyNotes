@@ -11,6 +11,9 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 
+\usepackage{amsmath,amssymb}
+
+
 \title{Aprendizado por Reforço - Notas de aula}
 \author{Paulo Bruno de Sousa Serafim}
 \date{Setembro 2019}
@@ -24,45 +27,109 @@
     Mostrar grafos de MDP's.
     
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
-      \tikzstyle{every state}=[fill=red,draw=none,text=white]
+      \tikzstyle{every state}=[fill=none,draw=black,text=black, thick]
+      \tikzstyle{every edge}=[font=\small, align=center, draw=black]
     
-      \node[initial,state] (A)                    {$s_1$};
-      \node[state]         (B) [above right of=A] {$s_2$};
-      \node[state]         (D) [below right of=A] {$s_3$};
-      \node[state]         (C) [below right of=B] {$s_4$};
-      \node[state]         (E) [right of=C]       {$s_5$};
+      \node[state] (A)                              {$s$};
+      \node[state] (B) [below of=A, xshift=-3.5cm]  {$s_1$};
+      \node[state] (C) [below of=A]                 {$s_2$};
+      \node[state] (D) [below of=A, xshift=3.5cm]   {$s_3$};
     
-      \path (A) edge              node {$a_1$} (B)
-                edge              node {$a_2$} (C)
-            (B) edge [loop above] node {$a_3$} (B)
-                edge              node {$a_4$} (C)
-            (C) edge              node {$a_5$} (D)
-                edge [bend left]  node {$a_6$} (E)
-            (D) edge [loop below] node {$a_7$} (D)
-                edge              node {$a_8$} (A)
-            (E) edge [bend left]  node {$a_9$} (D);
+      \path (A) edge [bend right=45] node[left] {$a_1, p_1$\\ $r_1$}  (B)
+                edge [bend right]    node[left] {$a_2, p_2$\\ $r_2$} (C)
+                edge [bend left]     node[right] {$a_3, p_3$\\ $r_3$}  (C)
+                edge [bend left=45]  node[right] {$a_4, p_4$\\ $r_4$} (D)
+                edge [bend left=10]  node[above] {$a_4, p_5$\\ $r_5$} (D);
     \end{tikzpicture}
 
 \section{Equações de otimalidade de Bellman}
 
     \subsection{Função de estado-valor}
     
+        \begin{equation}
+            \begin{split}
+                v_*(s) & = \max_a \mathbb{E} \left[ R_{t+1} + \gamma v_*(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+                & = \max_a \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma v_*(s') \right]
+            \end{split}
+        \end{equation}
+    
     \subsection{Função de ação-valor}
 
+        \begin{equation}
+            \begin{split}
+                q_*(s,a) & = \mathbb{E} \left[ R_{t+1} + \gamma \max_{a'} q_*(S_{t+1}, a') \bigm\vert S_t = s, A_t = a \right] \\
+                & = \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma \max_{a'}q_*(s', a') \right]
+            \end{split}
+        \end{equation}
+        
 \section{Avaliação de política}
 
     Também conhecido como o \textit{problema da predição}.
     
+    \begin{equation}
+        \begin{split}
+            v_{\pi}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ G_t \mid S_t = s \right] \\
+            & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
+            & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s \right] \\
+            & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_{\pi}(s') \Big]
+        \end{split}
+    \end{equation}
+    
+    \begin{equation}
+        \begin{split}
+            v_{k+1}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s \right] \\
+            & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_k(s') \Big]
+        \end{split}
+    \end{equation}
+    
 \section{Melhora da política}
 
     Também conhecido como o \textit{problema do controle}.
+    
+    \begin{equation}
+        \begin{split}
+            q_{\pi}(s,a) & \ \dot{=} \mathbb{E} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+            & = \sum_{s',r} p(s', r \mid s, a) \Big[ r + \gamma v_{\pi}(s') \Big]
+        \end{split}
+    \end{equation}
 
 \section{Iteração da política}
 
     União da avaliação e da melhora.
     
+    \begin{center}
+        \begin{math}
+            \pi_0 \xrightarrow{\ \textrm{E} \ } 
+            v_{\pi_0} \xrightarrow{\ \textrm{I} \ } 
+            \pi_1 \xrightarrow{\ \textrm{E} \ } 
+            v_{\pi_1} \xrightarrow{\ \textrm{I} \ } 
+            \pi_2 \xrightarrow{\ \textrm{E} \ } 
+            \cdots \xrightarrow{\ \textrm{I} \ }
+            \pi_* \xrightarrow{\ \textrm{E} \ } v_{*}
+        \end{math}
+    \end{center}
+    
 \section{Iteração do valor}
+
+    \begin{equation}
+        \begin{split}
+            v_{k+1}(s) & \  \dot{=} \ \max_a \mathbb{E}[R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s, A_t = a] \\
+            & = \ \max_a \sum_{s',r} p(s', r \mid s, a) \Big[ r + \gamma v_k(s') \Big]
+        \end{split}
+    \end{equation}
 
 \section{Iteração de Política Generalizada (GPI)}
 
+    \begin{center}
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
+          \tikzstyle{every state}=[fill=none,draw=none,text=black]
+        
+          \node[state] (A) {$\pi$};
+          \node[state] (B) [right of=A] {$V$};
+        
+          \path (A) edge [bend left=50]  node {evaluation} (B)
+                (B) edge [bend left=50]  node {improvement} (A);
+        \end{tikzpicture}
+    \end{center}
+    
 \end{document}
