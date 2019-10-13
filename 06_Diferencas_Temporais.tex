@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+\usepackage{makecell}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{argmax} % thin space, limits underneath in displays
+
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \@author \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+\title{Aprendizado por Reforço \vskip .5em Notas de aula}
+\author{Paulo Bruno de Sousa Serafim}
+\date{2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+    \subsection{Equação de atualização}
+    
+\section{Sarsa}
+
+    \begin{equation}
+        Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t) \right]
+    \end{equation}
+    
+\section{Q-Learning}
+
+    \begin{equation}
+        Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \max_{a} Q(S_{t+1}, a) - Q(S_t, A_t) \right]
+    \end{equation}
+
+\section{Expected Sarsa}
+
+    \begin{equation}
+        Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \mathbb{E}[Q(S_{t+1}, A_{t+1} \mid S_{t+1}] - Q(S_t, A_t) \right]
+    \end{equation}
+    
+\section{Double Learning}
+
+    \begin{equation}
+        Q_{1}(S_t, A_t) \leftarrow Q_{1}(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma Q_{2}(S_{t+1}, \argmax_a Q_{1}(S_{t+1}, a)) - Q_{1}(S_t, A_t) \right]
+    \end{equation}
+    
+\end{document}
