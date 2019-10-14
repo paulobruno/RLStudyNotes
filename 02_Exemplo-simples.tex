@@ -41,21 +41,25 @@
 
 \section{\textit{Multi-armed bandit}}
 
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=2.8cm]
+    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.5cm]
         \tikzstyle{state}=[fill=none, shape=circle, draw=black, thick, text=black]
         \tikzstyle{hidden-state}=[fill=none, draw=black, text=black]
+        \tikzstyle{action-node}=[fill=black, draw=none, text=black, shape=circle, ,inner sep=0,outer sep=0, minimum size=0.1cm]
         
-        \node[state] (A) {s};
-        \node[hidden-state] (B) [below of=A, xshift=-3.0cm] {$r_1$};
-        \node[hidden-state] (C) [below of=A, xshift=-1.0cm] {$r_2$};
-        \node[hidden-state] (D) [below of=A, xshift=1.0cm] {$r_3$};
-        \node[hidden-state] (E) [below of=A, xshift=3.0cm] {$r_4$};
+        \node[state] (S1) {s};
+        \node[action-node]  (A1) [below of=S1, xshift=-2.0cm] {};
+        \node[action-node]  (A2) [below of=S1, xshift=2.0cm]  {};
+        \node[hidden-state] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
+        \node[hidden-state] (R2) [below of=A1, xshift=0.0cm]  {$r_2$};
+        \node[hidden-state] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
+        \node[hidden-state] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
         
-        \path
-           (A) edge[bend right=40] node[left]  {$a_1, p_1$} (B)
-               edge[bend right]    node[left]  {$a_1, p_2$} (C)
-               edge[bend left]     node[right] {$a_1, p_3$} (D)
-               edge[bend left=40]  node[right] {$a_2, p_4$} (E);
+        \draw[bend right=40] (S1) to node[left]  {$a_1$} (A1);
+        \draw[bend left=40]  (S1) to node[right] {$a_2$} (A2);
+        \draw[bend right]    (A1) to node[left]  {$p_1$} (R1);
+        \draw                (A1) to node[left]  {$p_2$} (R2);
+        \draw[bend left]     (A1) to node[right] {$p_3$} (R3);
+        \draw                (A2) to node[right] {$p_4$} (R4);
     \end{tikzpicture}
 
     \subsection{Descrição informal}
