@@ -41,10 +41,10 @@
 
 \section{\textit{Multi-armed bandit}}
 
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=1.5cm]
+    \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm]
         \tikzstyle{state}=[fill=none, shape=circle, draw=black, thick, text=black]
         \tikzstyle{hidden-state}=[fill=none, draw=black, text=black]
-        \tikzstyle{action-node}=[fill=black, draw=none, text=black, shape=circle, ,inner sep=0,outer sep=0, minimum size=0.1cm]
+        \tikzstyle{action-node}=[fill=black, draw=none, text=black, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm]
         
         \node[state] (S1) {s};
         \node[action-node]  (A1) [below of=S1, xshift=-2.0cm] {};
@@ -101,29 +101,33 @@
     \end{equation}
     
     \begin{center}
-    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
-      \tikzstyle{initial-state}=[fill=green,shape=circle,draw=none,text=white]
-      \tikzstyle{second-state}=[fill=red,shape=circle,draw=none,text=white]
-      \tikzstyle{third-state}=[fill=blue,shape=circle,draw=none,text=white]
+    \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
+        \tikzstyle{state}=[fill=none,shape=circle,draw=black,text=black]
+        \tikzstyle{action}=[fill=none, draw=none, text=black, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm]
+        \tikzstyle{reward}=[shape=rectangle, text=black, draw=black, fill=white, minimum size=0.5cm, align=center, yshift=0.0cm, anchor=center]
+        \tikzstyle{reward-edge}=[text=white, draw=none, fill=none, inner sep=0,outer sep=0, minimum size=0.0cm]
         
-        \node[initial-state] (A) {$s_1$};
-        \node[second-state]  (B) [below of=A, xshift=-4.5cm] {$s_2$};
-        \node[second-state]  (C) [below of=A, xshift=-1.5cm] {$s_2$};
-        \node[second-state]  (D) [below of=A, xshift= 1.5cm] {$s_2$};
-        \node[third-state]   (E) [below of=A, xshift= 4.5cm] {$s_3$};
+        \node[state]  (S1) {$s_1$};
+        \node[state]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
+        \node[state]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
+        \node[action] (A1) [above of=S2, yshift=-1.5cm] {};
+        \node[action] (A2) [below of=S1, yshift=2.5cm]  {};
         
-        \path 
-            (A) edge[bend right=5] node[left] {$a_1, p_{1}$} (B)
-                edge[bend right=5] node[left] {$a_1, p_{2}$} (C)
-                edge[bend right=5] node[left] {$a_2, p_{3}$} (D)
-                edge[bend right=5] node[left] {$a_3, p_{4}$} (E)
-            (B) edge[bend right=5] node[right] {$r_1$} (A)
-            (C) edge[bend right=5] node[right] {$r_2$} (A)
-            (D) edge[bend right=5] node[right] {$r_3$} (A)
-            (E) edge[bend right=5] node[right] {$r_4$} (A);
+        \draw[bend right=20,-] (S1) to node[above]          {$a_1$} (A1);
+        \draw[bend right=30]   (A1) to node[left, pos=0.2]  {$p_1$} (S2);
+        \draw[bend left=30]    (A1) to node[right, pos=0.2] {$p_2$} (S2);
+        \draw[-]               (S1) to node[pos=0.4]        {$a_2$} (A2);
+        \draw[bend left=40]    (A2) to node[left, pos=0.3]  {$p_3$} (S2);
+        \draw[bend right=40]   (A2) to node[right, pos=0.3] {$p_4$} (S3);
+        \draw[bend left=40]    (S1) to node[above, pos=0.25] {$a_3$} (S3);
+        \draw[reward-edge, bend right=30] (A1) to node[reward]           {$r_1$} (S2);
+        \draw[reward-edge, bend left=30]  (A1) to node[reward]           {$r_2$} (S2);
+        \draw[reward-edge, bend left=40]  (A2) to node[reward]           {$r_3$} (S2);
+        \draw[reward-edge, bend right=40] (A2) to node[reward]           {$r_4$} (S3);
+        \draw[reward-edge, bend left=40]  (S1) to node[reward, pos=0.65] {$r_5$} (S3);
     \end{tikzpicture}
     \end{center}
-
+    
     \subsection{Definição}
     
     \subsection{Versão incremental}
