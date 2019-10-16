@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+\usepackage{makecell}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \textbf{\@author} \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+\title{Aprendizado por Reforço}
+\author{Aula  - Policy Gradient}
+\date{Paulo Bruno de Sousa Serafim - Outubro 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Preferências}
+
+    \subsection{\emph{Softmax}}
+        
+    \subsection{Adição de um \emph{Baseline}}
+    
+    \subsection{Gradiente Ascendente}
+    
+\section{Aproximação de políticas}
+
+    \subsection{\emph{Policy Gradient Theorem}}
+    
+\section{\emph{REINFORCE}}
+
+\section{Modelos \emph{Actor-Critic}}
+
+\section{Problemas Contínuos}
+
+\section{Comparação com Diferenças Temporais}
+
+    \subsection{Vantagens x Desvantagens}
+    
+\end{document}
