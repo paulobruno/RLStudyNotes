@@ -43,9 +43,46 @@
 
     \subsection{\emph{Softmax}}
         
+        \begin{equation}
+            f(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{k}e^{x_j}}
+        \end{equation}
+    
+        Uma propriedade interessante da função \emph{softmax} é que adicionar ou subtrair um valor constante $B$ de todos os elementos não modifica o valor de $f(x_i)$, i.e.:
+        
+        \begin{equation}
+        \label{eq:softmax-constant}
+            \frac{e^{x_i + B}}{\sum_{j=1}^{k}e^{x_j + B}} = \frac{e^{x_i}}{\sum_{j=1}^{k}e^{x_j}}
+        \end{equation}
+    
+        Exercício: comparar se essa propriedade existe em uma média aritmética.
+        
+        Exercício: provar o resultado da equação \eqref{eq:softmax-constant}
+
+        \begin{equation}
+            Pr\{A_t=a\} \ \dot{=} \  \frac{e^{H_t(a)}}{\sum_{b=1}^{k}e^{H_t(b)}} \ \dot{=} \ \pi_t(a)
+        \end{equation}
+    
+        \begin{equation}
+            H_{t+1}(A_t) \ \dot{=} \ H_t(A_t) + \alpha R_t
+        \end{equation}
+
     \subsection{Adição de um \emph{Baseline}}
     
-    \subsection{Gradiente Ascendente}
+        \begin{equation}
+            H_{t+1}(A_t) \ \dot{=} \ H_t(A_t) + \alpha (R_t - B_t)
+        \end{equation}
+    
+    \subsection{Gradient Ascendente}
+    
+        \begin{equation}
+            H_{t+1}(a) \ \dot{=} \ H_t(a) + \alpha \frac{\partial \mathbb{E}[R_t]}{\partial H_t(a)}
+        \end{equation}
+        
+        onde:
+        
+        \begin{equation}
+            \mathbb{E}[R_t] = \sum_x \pi_t(x) q_*(x)
+        \end{equation}
     
 \section{Aproximação de políticas}
 
