@@ -13,10 +13,26 @@
 
 \usepackage{amsmath,amssymb}
 
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \textbf{\@author} \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
 
-\title{Aprendizado por Reforço - Notas de aula}
-\author{Paulo Bruno de Sousa Serafim}
-\date{Setembro 2019}
+\title{Aprendizado por Reforço}
+\author{Aula 04 - Programação Dinâmica}
+\date{Paulo Bruno de Sousa Serafim - Outubro 2019}
 
 \begin{document}
 

@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage[a4paper, top=2cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+\usepackage[a4paper, top=2cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
 \usepackage{makecell}
 
 \usepackage{pgf}
@@ -11,9 +11,26 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 
-\title{Aprendizado por Reforço - Notas de aula}
-\author{Paulo Bruno de Sousa Serafim}
-\date{Setembro 2019}
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \textbf{\@author} \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+\title{Aprendizado por Reforço}
+\author{Aula 05 - Métodos de Monte-Carlo}
+\date{Paulo Bruno de Sousa Serafim - Outubro 2019}
 
 \begin{document}
 
