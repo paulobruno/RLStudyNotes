@@ -79,9 +79,9 @@
         \subsubsection{Estratégias $\epsilon$}
         
             \begin{itemize}
-                \item $epsilon$-greedy
-                \item $epsilon$-first
-                \item $epsilon$-decay
+                \item \textbf{$\epsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\epsilon)$ e executa uma ação aleatória $\epsilon$.
+                \item \textbf{$\epsilon$-first}: para um conjunto N de ações, executa $(1 - \epsilon N$ ações gulosas e executa $(\epsilon N)$ ações não-gulosas.
+                \item \textbf{$\epsilon$-decay}: Similar à estratégia $\epsilon$-greedy, mas com $\epsilon$ decaindo ao longo do tempo.
             \end{itemize}
         
         \subsubsection{Índice de Gittins}
