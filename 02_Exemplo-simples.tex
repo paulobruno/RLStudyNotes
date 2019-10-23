@@ -76,12 +76,21 @@
     
     \subsection{Estratégias}
     
+        As estratégias para lidar com o dilema anterior se baseiam em executar ações de maneira gulosa na maior parte do tempo, mas ainda executar ações não-gulosas algumas vezes.
+    
         \subsubsection{Estratégias $\epsilon$}
         
             \begin{itemize}
                 \item \textbf{$\epsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\epsilon)$ e executa uma ação aleatória $\epsilon$.
-                \item \textbf{$\epsilon$-first}: para um conjunto N de ações, executa $(1 - \epsilon N$ ações gulosas e executa $(\epsilon N)$ ações não-gulosas.
-                \item \textbf{$\epsilon$-decay}: Similar à estratégia $\epsilon$-greedy, mas com $\epsilon$ decaindo ao longo do tempo.
+                \item \textbf{$\epsilon$-first}: para um conjunto N de ações, executa $(1 - \epsilon N)$ ações gulosas e executa $(\epsilon N)$ ações não-gulosas.
+                \item \textbf{$\epsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar ações. Após algumas iterações a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\epsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\epsilon_{F}$ bem baixo a partir da iteração $F$ e um $\epsilon$ que diminui (decai) de $\epsilon_{I}$ a $\epsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura \ref{fig:epsilon-decay}, com $\epsilon_{I} = 1.0$, $\epsilon_{F} = 0.1$, $I = 6$ e $F = 31$.
+                
+                \begin{figure}[ht]
+                    \centering
+                    \includegraphics[width=200pt]{epsilon-decay.png}
+                    \caption{Fonte:}
+                    \label{fig:epsilon-decay}
+                \end{figure}
             \end{itemize}
         
         \subsubsection{Índice de Gittins}
