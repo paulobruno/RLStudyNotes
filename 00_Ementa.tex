@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+\usepackage{makecell}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \textbf{\@author} \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+\title{Aprendizado por Reforço}
+\author{Ementa}
+\date{Paulo Bruno de Sousa Serafim - Outubro 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+    \subsection{O que é Reforço}
+    \subsection{Conceitos básicos}
+    \subsection{Breve história}
+    \subsection{Transição a um MDP}
+
+\section{Processo de Decisão de Markov}
+
+    \subsection{Descrição Formal}
+    \subsection{Funções de Valor}
+    \subsection{Equação de Bellman}
+    \subsection{MDP Parcialmente Observável}
+
+\section{Exemplo com estado único}
+
+    \subsection{Descrição do problema}
+    \subsection{Funções de valor-ação}
+    \subsection{Prospecção vs. Exploração}
+
+\section{Programação Dinâmica}
+
+    \subsection{Introdução}
+    \subsection{Tabulação e Memoização}
+    \subsection{Funções de valor esperado}
+    \subsection{Avaliação de política}
+    \subsection{Melhora da política}
+    \subsection{Iteração da política}
+
+\section{Métodos de Monte-Carlo}
+
+    \subsection{Atualizações episódicas}
+    \subsection{Iteração de política}
+    \subsection{Árvore de Busca de Monte-Carlo}
+
+\section{Diferenças Temporais}
+
+    \subsection{TD(0)}
+    \subsection{Sarsa}
+    \subsection{Q-Learning}
+    
+\end{document}
