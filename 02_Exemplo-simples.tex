@@ -31,6 +31,23 @@
 }
 \makeatother
 
+\tikzset{
+    state-node/.style={
+        fill=none, shape=circle, draw=black, thick, text=black, minimum size=0.6cm},
+    action-node/.style={
+        fill=black, draw=none, text=white, shape=circle, inner sep=0.05cm, minimum size=0.2cm},
+    reward-node/.style={
+        fill=none, draw=black, text=black},
+    hidden-node/.style={
+        fill=none, draw=none, text=white, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm},
+    action-label/.style={
+        shape=circle, text=white, draw=none, fill=black, inner sep=0.05cm, minimum size=0.2cm, align=center, yshift=0.0cm, anchor=center},
+    reward-label/.style={
+        shape=rectangle, text=black, draw=black, fill=white, minimum size=0.5cm, align=center, yshift=0.0cm, anchor=center},
+    hidden-edge/.style={
+        text=white, draw=none, fill=none, inner sep=0,outer sep=0, minimum size=0.0cm},
+}
+
 \title{Aprendizado por Reforço}
 \author{Aula 02 - Exemplo com um único Estado}
 \date{Paulo Bruno de Sousa Serafim - Outubro 2019}
@@ -42,20 +59,16 @@
 \section{\textit{Multi-armed bandit}}
 
     \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm]
-        \tikzstyle{state}=[fill=none, shape=circle, draw=black, thick, text=black]
-        \tikzstyle{hidden-state}=[fill=none, draw=black, text=black]
-        \tikzstyle{action-node}=[fill=black, draw=none, text=black, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm]
+        \node[state-node] (S1) {s};
+        \node[action-node]  (A1) [below of=S1, xshift=-2.0cm] {$a_1$};
+        \node[action-node]  (A2) [below of=S1, xshift=2.0cm]  {$a_2$};
+        \node[reward-node] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
+        \node[reward-node] (R2) [below of=A1, xshift=0.0cm]  {$r_2$};
+        \node[reward-node] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
+        \node[reward-node] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
         
-        \node[state] (S1) {s};
-        \node[action-node]  (A1) [below of=S1, xshift=-2.0cm] {};
-        \node[action-node]  (A2) [below of=S1, xshift=2.0cm]  {};
-        \node[hidden-state] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
-        \node[hidden-state] (R2) [below of=A1, xshift=0.0cm]  {$r_2$};
-        \node[hidden-state] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
-        \node[hidden-state] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
-        
-        \draw[bend right=40] (S1) to node[left]  {$a_1$} (A1);
-        \draw[bend left=40]  (S1) to node[right] {$a_2$} (A2);
+        \draw[bend right=40] (S1) to node[left]  {} (A1);
+        \draw[bend left=40]  (S1) to node[right] {} (A2);
         \draw[bend right]    (A1) to node[left]  {$p_1$} (R1);
         \draw                (A1) to node[left]  {$p_2$} (R2);
         \draw[bend left]     (A1) to node[right] {$p_3$} (R3);
@@ -111,31 +124,30 @@
     
     \begin{center}
     \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
-        \tikzstyle{state}=[fill=none,shape=circle,draw=black,text=black]
-        \tikzstyle{action}=[fill=none, draw=none, text=black, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm]
-        \tikzstyle{reward}=[shape=rectangle, text=black, draw=black, fill=white, minimum size=0.5cm, align=center, yshift=0.0cm, anchor=center]
-        \tikzstyle{reward-edge}=[text=white, draw=none, fill=none, inner sep=0,outer sep=0, minimum size=0.0cm]
+        \node[state-node]  (S1) {$s_1$};
+        \node[state-node]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
+        \node[state-node]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
+        \node[hidden-node] (A1) [above of=S2, yshift=-1.5cm] {};
+        \node[hidden-node] (A2) [below of=S1, yshift=2.5cm]  {};
         
-        \node[state]  (S1) {$s_1$};
-        \node[state]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
-        \node[state]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
-        \node[action] (A1) [above of=S2, yshift=-1.5cm] {};
-        \node[action] (A2) [below of=S1, yshift=2.5cm]  {};
+        \draw[bend right=20,-] (S1) to node[action-label]           {$a_1$} (A1);
+        \draw[-]               (S1) to node[action-label, pos=0.4]  {$a_2$} (A2);
+        \draw[bend left=40]    (S1) to node[action-label, pos=0.25] {$a_3$} (S3);
         
-        \draw[bend right=20,-] (S1) to node[above]          {$a_1$} (A1);
         \draw[bend right=30]   (A1) to node[left, pos=0.2]  {$p_1$} (S2);
         \draw[bend left=30]    (A1) to node[right, pos=0.2] {$p_2$} (S2);
-        \draw[-]               (S1) to node[pos=0.4]        {$a_2$} (A2);
         \draw[bend left=40]    (A2) to node[left, pos=0.3]  {$p_3$} (S2);
         \draw[bend right=40]   (A2) to node[right, pos=0.3] {$p_4$} (S3);
-        \draw[bend left=40]    (S1) to node[above, pos=0.25] {$a_3$} (S3);
-        \draw[reward-edge, bend right=30] (A1) to node[reward]           {$r_1$} (S2);
-        \draw[reward-edge, bend left=30]  (A1) to node[reward]           {$r_2$} (S2);
-        \draw[reward-edge, bend left=40]  (A2) to node[reward]           {$r_3$} (S2);
-        \draw[reward-edge, bend right=40] (A2) to node[reward]           {$r_4$} (S3);
-        \draw[reward-edge, bend left=40]  (S1) to node[reward, pos=0.65] {$r_5$} (S3);
+        
+        \draw[hidden-edge, bend right=30] (A1) to node[reward-label]           {$r_1$} (S2);
+        \draw[hidden-edge, bend left=30]  (A1) to node[reward-label]           {$r_2$} (S2);
+        \draw[hidden-edge, bend left=40]  (A2) to node[reward-label]           {$r_3$} (S2);
+        \draw[hidden-edge, bend right=40] (A2) to node[reward-label]           {$r_4$} (S3);
+        \draw[hidden-edge, bend left=40]  (S1) to node[reward-label, pos=0.65] {$r_5$} (S3);
     \end{tikzpicture}
     \end{center}
+    
+    Para simplificar o grafo, na maioria das vezes os nós das ações serão omitidos e as ações serão indicadas nos rótulos das arestas. Além disso, se a probabilidade for 1, ela é omitida.
     
     \subsection{Definição}
     
