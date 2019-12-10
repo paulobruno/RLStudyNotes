@@ -28,6 +28,25 @@
 }
 \makeatother
 
+
+\tikzset{
+    state-node/.style={
+        fill=none, shape=circle, draw=black, thick, text=black, minimum size=0.6cm},
+    action-node/.style={
+        fill=black, draw=none, text=white, shape=circle, inner sep=0.05cm, minimum size=0.2cm},
+    reward-node/.style={
+        fill=none, draw=black, text=black},
+    hidden-node/.style={
+        fill=none, draw=none, text=white, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm},
+    action-label/.style={
+        shape=circle, text=white, draw=none, fill=black, inner sep=0.05cm, minimum size=0.2cm, align=center, yshift=0.0cm, anchor=center},
+    reward-label/.style={
+        shape=rectangle, text=black, draw=black, fill=white, minimum size=0.5cm, align=center, yshift=0.0cm, anchor=center},
+    hidden-edge/.style={
+        text=white, draw=none, fill=none, inner sep=0,outer sep=0, minimum size=0.0cm},
+}
+
+
 \title{Aprendizado por Reforço}
 \author{Aula 03 - Processo de Decisão de Markov (MDP)}
 \date{Paulo Bruno de Sousa Serafim - Outubro 2019}
@@ -88,6 +107,33 @@
                 edge              node {$a_8$} (A)
             (E) edge [bend left]  node {$a_9$} (D);
     \end{tikzpicture}
+
+
+    
+    \begin{center}
+    \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
+        \node[state-node]  (S1) {$s_1$};
+        \node[state-node]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
+        \node[state-node]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
+        \node[hidden-node] (A1) [above of=S2, yshift=-1.5cm] {};
+        \node[hidden-node] (A2) [below of=S1, yshift=2.5cm]  {};
+        
+        \draw[bend right=20,-] (S1) to node[action-label]           {$a_1$} (A1);
+        \draw[-]               (S1) to node[action-label, pos=0.4]  {$a_2$} (A2);
+        \draw[bend left=40]    (S1) to node[action-label, pos=0.25] {$a_3$} (S3);
+        
+        \draw[bend right=30]   (A1) to node[left, pos=0.2]  {$p_1$} (S2);
+        \draw[bend left=30]    (A1) to node[right, pos=0.2] {$p_2$} (S2);
+        \draw[bend left=40]    (A2) to node[left, pos=0.3]  {$p_3$} (S2);
+        \draw[bend right=40]   (A2) to node[right, pos=0.3] {$p_4$} (S3);
+        
+        \draw[hidden-edge, bend right=30] (A1) to node[reward-label]           {$r_1$} (S2);
+        \draw[hidden-edge, bend left=30]  (A1) to node[reward-label]           {$r_2$} (S2);
+        \draw[hidden-edge, bend left=40]  (A2) to node[reward-label]           {$r_3$} (S2);
+        \draw[hidden-edge, bend right=40] (A2) to node[reward-label]           {$r_4$} (S3);
+        \draw[hidden-edge, bend left=40]  (S1) to node[reward-label, pos=0.65] {$r_5$} (S3);
+    \end{tikzpicture}
+    \end{center}
 
 
 \section{Objetivos}

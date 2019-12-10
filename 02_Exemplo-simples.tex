@@ -61,7 +61,13 @@
 
 \section{\textit{Multi-armed bandit}}
 
-    O caso em que temos somente um estado é um problema bem conhecido e chamado de "Multi-Armed Bandit" (adicionar nota: a tradução para ``one-armed bandit'' é máquina caça-níquel, então ``multi-armed bandit'' seria uma máquina caça-níquel com múltiplas alavancas). 
+    Vamos imaginar o caso mais simples, em que só temos um único estado. Assim a dinâmica de interação é bem simples, escolhemos uma ação e recebemos uma recompensa por ela. Nesse caso, só temos que nos preocupar com qual ação tomar imediatamente e com a sua recompensa. Se existirem k ações possíveis, podemos executar qualquer uma delas e receberemos uma recompensa. O diagrama a seguir representa essa dinâmica:
+
+    \todo{diagrama com um único estado}
+
+    \textit{O caso em que temos somente um estado é um problema bem conhecido e chamado de "Multi-Armed Bandit" (adicionar nota: a tradução para ``one-armed bandit'' é máquina caça-níquel, então ``multi-armed bandit'' seria uma máquina caça-níquel com múltiplas alavancas).}
+    
+    Esse é um problema bem conhecido e muito estudado na literatura: k-armed bandit [nota tradução máquina caça-níquel]. Imagine que você vá jogar em máquinas caça-níquel. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo os valores ganhos possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
 
     \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm]
         \node[state-node] (S1) {s};
@@ -79,6 +85,16 @@
         \draw[bend left]     (A1) to node[right] {$p_3$} (R3);
         \draw                (A2) to node[right] {$p_4$} (R4);
     \end{tikzpicture}
+
+    A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a máquina cujo valor esperado seja o maior. Lembrando que estamos considerando que uma máquina é uma ação, podemos representar essa escolha da seguinte forma:
+    
+    Valor de uma máquina \textit{a} = Valor esperado do retorno ao jogar a máquina \textit{a}
+    
+    De outra forma:
+    
+    \begin{equation}
+        q_*(a) \ \dot{=} \ \mathbb{E}[R_t \mid A_t = a]
+    \end{equation}
 
     \subsection{Descrição informal}
     
