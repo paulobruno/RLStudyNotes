@@ -14,6 +14,10 @@
 \usepackage{amsmath,amssymb}
 \DeclareMathOperator*{\argmax}{argmax}
 
+\linespread{1.3}
+\setlength{\parindent}{4em}
+\setlength{\parskip}{0.75em}
+
 % PB: redefinir maketitle
 \makeatletter
 \def\@maketitle
@@ -21,9 +25,9 @@
     \begin{flushleft}
         \let \footnote \thanks
         {\Large \textbf{\@title} \par}
-        \vskip 1em
+        %\vskip 0.5em
         {\large \textbf{\@author} \par}
-        \vskip 1em
+        %\vskip 0.5em
         {\large \textit{\@date}}
     \end{flushleft}
     \par
@@ -51,6 +55,19 @@
 \newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
 %\newcommand{\todo}[1]{}
 
+\newcommand{\simplebandit}{
+    \begin{tikzpicture}[->,>=stealth', auto, node distance=1.5cm]
+        \node[state-node]  (SimpleBanditS1) {$s$};
+        \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditS1, xshift=-1.0cm] {$r$};
+        \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditS1, xshift=0.0cm]  {$r$};
+        \node[reward-node] (SimpleBanditR3) [below of=SimpleBanditS1, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (SimpleBanditS1) to node[action-label] {$a$} (SimpleBanditR1);
+        \draw             (SimpleBanditS1) to node[action-label] {$a$} (SimpleBanditR2);
+        \draw[bend left]  (SimpleBanditS1) to node[action-label] {$a$} (SimpleBanditR3);
+    \end{tikzpicture}
+}
+    
 \title{Aprendizado por Reforço}
 \author{Aula 02 - Exemplo com um único estado}
 \date{Paulo Bruno de Sousa Serafim - Outubro 2019}
@@ -69,8 +86,9 @@
     
     Esse é um problema bem conhecido e muito estudado na literatura: k-armed bandit [nota tradução máquina caça-níquel]. Imagine que você vá jogar em máquinas caça-níquel. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo os valores ganhos possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
 
+    \begin{center}
     \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm]
-        \node[state-node] (S1) {s};
+        \node[state-node] (S1) {$s$};
         \node[action-node] (A1) [below of=S1, xshift=-2.0cm] {$a_1$};
         \node[action-node] (A2) [below of=S1, xshift=2.0cm]  {$a_2$};
         \node[reward-node] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
@@ -80,11 +98,12 @@
         
         \draw[bend right=40] (S1) to node[left]  {} (A1);
         \draw[bend left=40]  (S1) to node[right] {} (A2);
-        \draw[bend right]    (A1) to node[left]  {$p_1$} (R1);
-        \draw                (A1) to node[left]  {$p_2$} (R2);
-        \draw[bend left]     (A1) to node[right] {$p_3$} (R3);
-        \draw                (A2) to node[right] {$p_4$} (R4);
+        \draw[bend right]    (A1) to node[left]  {$p_{11}$} (R1);
+        \draw                (A1) to node[left]  {$p_{12}$} (R2);
+        \draw[bend left]     (A1) to node[right] {$p_{13}$} (R3);
+        \draw                (A2) to node[right] {$p_{21}$} (R4);
     \end{tikzpicture}
+    \end{center}
 
     A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a máquina cujo valor esperado seja o maior. Lembrando que estamos considerando que uma máquina é uma ação, podemos representar essa escolha da seguinte forma:
     
@@ -207,5 +226,188 @@
         \subsubsection{Valores otimistas}
         
         \subsubsection{Limite Superior de Confiança (UCB)}
+        
+\section{Nonassociative, Associative, Full RL Problem}
+
+    \subsection{Nonassociative}
+    
+        \begin{center}
+            \simplebandit
+        \end{center}
+
+    \subsection{Associative}
+
+        \begin{center}
+        \begin{tikzpicture}[]
+            \node[draw=black] (AB1) {
+                \begin{tikzpicture}[]
+                    \node[] (B1) {
+                        \simplebandit
+                    };
+                    \node[right of=B1, xshift=2.0cm] (B2) {
+                        \simplebandit
+                    };
+                    \node[right of=B2, xshift=2.0cm] (B3) {
+                        \simplebandit
+                    };
+                    \node[right of=B3, xshift=1.0cm] (B4) {
+                        $\boldsymbol{\cdots}$
+                    };
+                    \node[right of=B4, xshift=1.0cm] (B5) {
+                        \simplebandit
+                    };
+                \end{tikzpicture}
+            };
+            
+            \node[draw=red, below of=AB1, yshift=-2.0cm] (AB2) {
+                \begin{tikzpicture}[]
+                    \node[] (B1) {
+                        \simplebandit
+                    };
+                    \node[right of=B1, xshift=2.0cm] (B2) {
+                        \simplebandit
+                    };
+                    \node[right of=B2, xshift=2.0cm] (B3) {
+                        \simplebandit
+                    };
+                    \node[right of=B3, xshift=1.0cm] (B4) {
+                        $\boldsymbol{\cdots}$
+                    };
+                    \node[right of=B4, xshift=1.0cm] (B5) {
+                        \simplebandit
+                    };
+                \end{tikzpicture}
+            };
+            
+            \node[draw=blue, below of=AB2, yshift=-1.0cm] (AB3) {
+                $\Huge\vdots$
+            };
+        
+            \node[draw=green, below of=AB3, yshift=-1.0cm] (AB4) {
+                \begin{tikzpicture}[]
+                    \node[] (B1) {
+                        \simplebandit
+                    };
+                    \node[right of=B1, xshift=2.0cm] (B2) {
+                        \simplebandit
+                    };
+                    \node[right of=B2, xshift=2.0cm] (B3) {
+                        \simplebandit
+                    };
+                    \node[right of=B3, xshift=1.0cm] (B4) {
+                        $\boldsymbol{\cdots}$
+                    };
+                    \node[right of=B4, xshift=1.0cm] (B5) {
+                        \simplebandit
+                    };
+                \end{tikzpicture}
+            };
+            
+            \draw[->, thick] (AB1) to node {} (AB2);
+            \draw[->, thick] (AB2) to node {} (AB3);
+            \draw[->, thick] (AB3) to node {} (AB4);
+        \end{tikzpicture}
+        \end{center}
+        
+        
+    \subsection{Full RL Problem}
+    
+        \begin{center}
+        \begin{tikzpicture}[]
+            \node[draw=black] (RL1) {
+                \begin{tikzpicture}[]
+                    \node[] (SB1) {
+                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                            \node[state-node]  (SB1S1) {$s$};
+                            \node[reward-node] (SB1R1) [below of=SB1S1, xshift=-1.0cm] {$r$};
+                            \node[reward-node] (SB1R2) [below of=SB1S1, xshift=0.0cm]  {$r$};
+                            \node[reward-node] (SB1R3) [below of=SB1S1, xshift=1.0cm]  {$r$};
+                            
+                            \draw[bend right] (SB1S1) to node[action-label] {$a$} (SB1R1);
+                            \draw             (SB1S1) to node[action-label] {$a$} (SB1R2);
+                            \draw[bend left]  (SB1S1) to node[action-label] {$a$} (SB1R3);
+                        \end{tikzpicture}
+                    };
+                    
+                    \node[right of=SB1, xshift=2.0cm] (SB2) {
+                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                            \node[state-node]  (SB2S1) {$s$};
+                            \node[reward-node] (SB2R1) [below of=SB2S1, xshift=-1.0cm] {$r$};
+                            \node[reward-node] (SB2R2) [below of=SB2S1, xshift=0.0cm]  {$r$};
+                            \node[reward-node] (SB2R3) [below of=SB2S1, xshift=1.0cm]  {$r$};
+                            
+                            \draw[bend right] (SB2S1) to node[action-label] {$a$} (SB2R1);
+                            \draw             (SB2S1) to node[action-label] {$a$} (SB2R2);
+                            \draw[bend left]  (SB2S1) to node[action-label] {$a$} (SB2R3);
+                        \end{tikzpicture}
+                    };
+                    
+                    \node[right of=SB2, xshift=1.0cm] (DOTS1) {
+                        $\boldsymbol{\cdots}$
+                    };
+                    
+                    \node[right of=DOTS1, xshift=1.0cm] (SB3) {
+                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                            \node[state-node]  (SB3S1) {$s$};
+                            \node[reward-node] (SB3R1) [below of=SB3S1, xshift=-1.0cm] {$r$};
+                            \node[reward-node] (SB3R2) [below of=SB3S1, xshift=0.0cm]  {$r$};
+                            \node[reward-node] (SB3R3) [below of=SB3S1, xshift=1.0cm]  {$r$};
+                            
+                            \draw[bend right] (SB3S1) to node[action-label] {$a$} (SB3R1);
+                            \draw             (SB3S1) to node[action-label] {$a$} (SB3R2);
+                            \draw[bend left]  (SB3S1) to node[action-label] {$a$} (SB3R3);
+                        \end{tikzpicture}
+                    };
+                \end{tikzpicture}
+            };
+            
+            \node[draw=red, below of=RL1, yshift=-2.0cm] (RL2) {
+                \begin{tikzpicture}[remember picture]
+                    \node[] (SB4) {
+                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                            \node[state-node]  (SB4S1) {$s$};
+                            \node[reward-node] (SB4R1) [below of=SB4S1, xshift=-1.0cm] {$r$};
+                            \node[reward-node] (SB4R2) [below of=SB4S1, xshift=0.0cm]  {$r$};
+                            \node[reward-node] (SB4R3) [below of=SB4S1, xshift=1.0cm]  {$r$};
+                            
+                            \draw[bend right] (SB4S1) to node[action-label] {$a$} (SB4R1);
+                            \draw             (SB4S1) to node[action-label] {$a$} (SB4R2);
+                            \draw[bend left]  (SB4S1) to node[action-label] {$a$} (SB4R3);
+                        \end{tikzpicture}
+                    };
+                    
+                    \node[right of=SB4, xshift=2.0cm] (SB5) {
+                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                            \node[state-node]  (SB5S1) {$s$};
+                            \node[reward-node] (SB5R1) [below of=SB5S1, xshift=-1.0cm] {$r$};
+                            \node[reward-node] (SB5R2) [below of=SB5S1, xshift=0.0cm]  {$r$};
+                            \node[reward-node] (SB5R3) [below of=SB5S1, xshift=1.0cm]  {$r$};
+                            
+                            \draw[bend right] (SB5S1) to node[action-label] {$a$} (SB5R1);
+                            \draw             (SB5S1) to node[action-label] {$a$} (SB5R2);
+                            \draw[bend left]  (SB5S1) to node[action-label] {$a$} (SB5R3);
+                        \end{tikzpicture}
+                    };
+                    
+                    \node[right of=SB5, xshift=1.0cm] (DOTS2) {
+                        $\boldsymbol{\cdots}$
+                    };
+                    
+                    \node[right of=DOTS2, xshift=1.0cm] (SB6) {
+                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                            \node[state-node]  (SB6S1) {$s$};
+                            \node[reward-node] (SB6R1) [below of=SB6S1, xshift=-1.0cm] {$r$};
+                            \node[reward-node] (SB6R2) [below of=SB6S1, xshift=0.0cm]  {$r$};
+                            \node[reward-node] (SB6R3) [below of=SB6S1, xshift=1.0cm]  {$r$};
+                            
+                            \draw[bend right] (SB6S1) to node[action-label] {$a$} (SB6R1);
+                            \draw             (SB6S1) to node[action-label] {$a$} (SB6R2);
+                            \draw[bend left]  (SB6S1) to node[action-label] {$a$} (SB6R3);
+                        \end{tikzpicture}
+                    };
+                \end{tikzpicture}
+            };
+        \end{tikzpicture}
+        \end{center}
     
 \end{document}
