@@ -56,7 +56,7 @@
 %\newcommand{\todo}[1]{}
 
 \newcommand{\simplebandit}{
-    \begin{tikzpicture}[->,>=stealth', auto, node distance=1.5cm]
+    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
         \node[state-node]  (SimpleBanditS1) {$s$};
         \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditS1, xshift=-1.0cm] {$r$};
         \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditS1, xshift=0.0cm]  {$r$};
@@ -65,6 +65,175 @@
         \draw[bend right] (SimpleBanditS1) to node[action-label] {$a$} (SimpleBanditR1);
         \draw             (SimpleBanditS1) to node[action-label] {$a$} (SimpleBanditR2);
         \draw[bend left]  (SimpleBanditS1) to node[action-label] {$a$} (SimpleBanditR3);
+    \end{tikzpicture}
+}
+
+\newcommand{\associativebandits}{
+    \begin{tikzpicture}[]
+        \node[draw=black] (AB1) {
+            \begin{tikzpicture}[]
+                \node[] (B1) {
+                    \simplebandit
+                };
+                \node[right of=B1, xshift=2.0cm] (B2) {
+                    \simplebandit
+                };
+                \node[right of=B2, xshift=2.0cm] (B3) {
+                    \simplebandit
+                };
+                \node[right of=B3, xshift=1.0cm] (B4) {
+                    $\boldsymbol{\cdots}$
+                };
+                \node[right of=B4, xshift=1.0cm] (B5) {
+                    \simplebandit
+                };
+            \end{tikzpicture}
+        };
+        
+        \node[draw=black, below of=AB1, yshift=-2.0cm] (AB2) {
+            \begin{tikzpicture}[]
+                \node[] (B1) {
+                    \simplebandit
+                };
+                \node[right of=B1, xshift=2.0cm] (B2) {
+                    \simplebandit
+                };
+                \node[right of=B2, xshift=2.0cm] (B3) {
+                    \simplebandit
+                };
+                \node[right of=B3, xshift=1.0cm] (B4) {
+                    $\boldsymbol{\cdots}$
+                };
+                \node[right of=B4, xshift=1.0cm] (B5) {
+                    \simplebandit
+                };
+            \end{tikzpicture}
+        };
+        
+        \node[below of=AB2, yshift=-1.0cm] (AB3) {
+            $\Huge\vdots$
+        };
+    
+        \node[draw=black, below of=AB3, yshift=-1.0cm] (AB4) {
+            \begin{tikzpicture}[]
+                \node[] (B1) {
+                    \simplebandit
+                };
+                \node[right of=B1, xshift=2.0cm] (B2) {
+                    \simplebandit
+                };
+                \node[right of=B2, xshift=2.0cm] (B3) {
+                    \simplebandit
+                };
+                \node[right of=B3, xshift=1.0cm] (B4) {
+                    $\boldsymbol{\cdots}$
+                };
+                \node[right of=B4, xshift=1.0cm] (B5) {
+                    \simplebandit
+                };
+            \end{tikzpicture}
+        };
+        
+        \draw[->, thick] (AB1) to node {} (AB2);
+        \draw[->, thick] (AB2) to node {} (AB3);
+        \draw[->, thick] (AB3) to node {} (AB4);
+    \end{tikzpicture}
+}
+
+\newcommand{\fullrldiagram}{
+    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+        \node[state-node] (S1) {$s$};
+        \node[reward-node] (R1S1) [below of=S1, xshift=-1.0cm] {$r$};
+        \node[reward-node] (R2S1) [below of=S1]                {$r$};
+        \node[reward-node] (R3S1) [below of=S1, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (S1) to node[action-label] {$a$} (R1S1);
+        \draw[]           (S1) to node[action-label] {$a$} (R2S1);
+        \draw[bend left]  (S1) to node[action-label] {$a$} (R3S1);
+        
+        \node[state-node] (S2) [right of=S1, xshift=2.0cm] {$s$};
+        \node[reward-node] (R1S2) [below of=S2, xshift=-1.0cm] {$r$};
+        \node[reward-node] (R2S2) [below of=S2]                {$r$};
+        \node[reward-node] (R3S2) [below of=S2, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (S2) to node[action-label] {$a$} (R1S2);
+        \draw[]           (S2) to node[action-label] {$a$} (R2S2);
+        \draw[bend left]  (S2) to node[action-label] {$a$} (R3S2);
+        
+        \node[right of=S2, xshift=0.65cm, yshift=-0.75cm] (DOTS1) {
+            $\boldsymbol{\cdots}$
+        };
+        
+        \node[state-node] (S3) [right of=S2, xshift=3.0cm] {$s$};
+        \node[reward-node] (R1S3) [below of=S3, xshift=-1.0cm] {$r$};
+        \node[reward-node] (R2S3) [below of=S3]                {$r$};
+        \node[reward-node] (R3S3) [below of=S3, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (S3) to node[action-label] {$a$} (R1S3);
+        \draw[]           (S3) to node[action-label] {$a$} (R2S3);
+        \draw[bend left]  (S3) to node[action-label] {$a$} (R3S3);
+        
+        
+        \node[state-node] (S4) [below of=S1, yshift=-2.0cm] {$s$};
+        \node[reward-node] (R1S4) [below of=S4, xshift=-1.0cm] {$r$};
+        \node[reward-node] (R2S4) [below of=S4]                {$r$};
+        \node[reward-node] (R3S4) [below of=S4, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (S4) to node[action-label] {$a$} (R1S4);
+        \draw[]           (S4) to node[action-label] {$a$} (R2S4);
+        \draw[bend left]  (S4) to node[action-label] {$a$} (R3S4);
+        
+        \node[state-node] (S5) [right of=S4, xshift=2.0cm] {$s$};
+        \node[reward-node] (R1S5) [below of=S5, xshift=-1.0cm] {$r$};
+        \node[reward-node] (R2S5) [below of=S5]                {$r$};
+        \node[reward-node] (R3S5) [below of=S5, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (S5) to node[action-label] {$a$} (R1S5);
+        \draw[]           (S5) to node[action-label] {$a$} (R2S5);
+        \draw[bend left]  (S5) to node[action-label] {$a$} (R3S5);
+        
+        \node[right of=S5, xshift=0.65cm, yshift=-0.75cm] (DOTS2) {$\boldsymbol{\cdots}$};
+        
+        \node[state-node] (S6) [right of=S5, xshift=3.0cm] {$s$};
+        \node[reward-node] (R1S6) [below of=S6, xshift=-1.0cm] {$r$};
+        \node[reward-node] (R2S6) [below of=S6]                {$r$};
+        \node[reward-node] (R3S6) [below of=S6, xshift=1.0cm]  {$r$};
+        
+        \draw[bend right] (S6) to node[action-label] {$a$} (R1S6);
+        \draw[]           (S6) to node[action-label] {$a$} (R2S6);
+        \draw[bend left]  (S6) to node[action-label] {$a$} (R3S6);
+        
+        
+        \draw[->, out=-90, in=90] (R1S1) to node[] {} (S5);
+        \draw[->, out=-90, in=90] (R2S1) to node[] {} (S6);
+        \draw[->, out=-90, in=90] (R3S1) to node[] {} (S4);
+        
+        \draw[->, out=-90, in=90] (R1S2) to node[] {} (DOTS2);
+        \draw[->, out=-90, in=90] (R2S2) to node[] {} (S4);
+        \draw[->, out=-90, in=90] (R3S2) to node[] {} (S5);
+        
+        \draw[->, out=-90, in=90] (R1S3) to node[] {} (S6);
+        \draw[->, out=-90, in=90] (R2S3) to node[] {} (DOTS2);
+        \draw[->, out=-90, in=90] (R3S3) to node[] {} (DOTS2);
+        
+        
+        \node[below of=S4, yshift=-2.0cm] (DOTS3) {$\Huge\vdots$};
+        \node[right of=DOTS3, xshift=2.0cm] (DOTS4) {$\Huge\vdots$};
+        \node[right of=DOTS4, xshift=0.65cm] (DOTS5) {$\boldsymbol{\cdots}$};
+        \node[right of=DOTS4, xshift=3.0cm] (DOTS6) {$\Huge\vdots$};
+        
+        
+        \draw[->, out=-90, in=90] (R1S4) to node[] {} (DOTS4);
+        \draw[->, out=-90, in=90] (R2S4) to node[] {} (DOTS3);
+        \draw[->, out=-90, in=90] (R3S4) to node[] {} (DOTS5);
+        
+        \draw[->, out=-90, in=90] (R1S5) to node[] {} (DOTS5);
+        \draw[->, out=-90, in=90] (R2S5) to node[] {} (DOTS3);
+        \draw[->, out=-90, in=90] (R3S5) to node[] {} (DOTS6);
+        
+        \draw[->, out=-90, in=90] (R1S6) to node[] {} (DOTS4);
+        \draw[->, out=-90, in=90] (R2S6) to node[] {} (DOTS4);
+        \draw[->, out=-90, in=90] (R3S6) to node[] {} (DOTS5);
     \end{tikzpicture}
 }
     
@@ -80,7 +249,9 @@
 
     Vamos imaginar o caso mais simples, em que só temos um único estado. Assim a dinâmica de interação é bem simples, escolhemos uma ação e recebemos uma recompensa por ela. Nesse caso, só temos que nos preocupar com qual ação tomar imediatamente e com a sua recompensa. Se existirem k ações possíveis, podemos executar qualquer uma delas e receberemos uma recompensa. O diagrama a seguir representa essa dinâmica:
 
-    \todo{diagrama com um único estado}
+    \begin{center}
+        \simplebandit
+    \end{center}
 
     \textit{O caso em que temos somente um estado é um problema bem conhecido e chamado de "Multi-Armed Bandit" (adicionar nota: a tradução para ``one-armed bandit'' é máquina caça-níquel, então ``multi-armed bandit'' seria uma máquina caça-níquel com múltiplas alavancas).}
     
@@ -227,187 +398,36 @@
         
         \subsubsection{Limite Superior de Confiança (UCB)}
         
-\section{Nonassociative, Associative, Full RL Problem}
+\section{Tarefas \todo{ou problema?, verificar texto todo} Não-Associativas, Associativas e o Problema Completo do Aprendizado por Reforço}
 
     \subsection{Nonassociative}
     
+        Um problema \emph{não-associativo} é basicamente um problema em que não uma mudança de ambiente \todo{configuração seria melhor? verificar no sutton}. Assim, após uma ação ser escolhida, o agente recebe a recompensa adequada e volta para o início do problema. 
+        
         \begin{center}
             \simplebandit
         \end{center}
+        
+        Para resolver um problema não-associativo utilizamos as técnicas de avaliação das ações discutidas anteriormente.
 
     \subsection{Associative}
+    
+        Em um problema \emph{associativo} o ambiente pode mudar após uma ação ser escolhida. Nesse caso, existem diversas configurações de ambientes diferentes e uma delas será aquela a ser avaliada no momento. Observe que a escolha de uma ação não influencia na configuração encontrada na iteração seguinte.
 
         \begin{center}
-        \begin{tikzpicture}[]
-            \node[draw=black] (AB1) {
-                \begin{tikzpicture}[]
-                    \node[] (B1) {
-                        \simplebandit
-                    };
-                    \node[right of=B1, xshift=2.0cm] (B2) {
-                        \simplebandit
-                    };
-                    \node[right of=B2, xshift=2.0cm] (B3) {
-                        \simplebandit
-                    };
-                    \node[right of=B3, xshift=1.0cm] (B4) {
-                        $\boldsymbol{\cdots}$
-                    };
-                    \node[right of=B4, xshift=1.0cm] (B5) {
-                        \simplebandit
-                    };
-                \end{tikzpicture}
-            };
-            
-            \node[draw=red, below of=AB1, yshift=-2.0cm] (AB2) {
-                \begin{tikzpicture}[]
-                    \node[] (B1) {
-                        \simplebandit
-                    };
-                    \node[right of=B1, xshift=2.0cm] (B2) {
-                        \simplebandit
-                    };
-                    \node[right of=B2, xshift=2.0cm] (B3) {
-                        \simplebandit
-                    };
-                    \node[right of=B3, xshift=1.0cm] (B4) {
-                        $\boldsymbol{\cdots}$
-                    };
-                    \node[right of=B4, xshift=1.0cm] (B5) {
-                        \simplebandit
-                    };
-                \end{tikzpicture}
-            };
-            
-            \node[draw=blue, below of=AB2, yshift=-1.0cm] (AB3) {
-                $\Huge\vdots$
-            };
-        
-            \node[draw=green, below of=AB3, yshift=-1.0cm] (AB4) {
-                \begin{tikzpicture}[]
-                    \node[] (B1) {
-                        \simplebandit
-                    };
-                    \node[right of=B1, xshift=2.0cm] (B2) {
-                        \simplebandit
-                    };
-                    \node[right of=B2, xshift=2.0cm] (B3) {
-                        \simplebandit
-                    };
-                    \node[right of=B3, xshift=1.0cm] (B4) {
-                        $\boldsymbol{\cdots}$
-                    };
-                    \node[right of=B4, xshift=1.0cm] (B5) {
-                        \simplebandit
-                    };
-                \end{tikzpicture}
-            };
-            
-            \draw[->, thick] (AB1) to node {} (AB2);
-            \draw[->, thick] (AB2) to node {} (AB3);
-            \draw[->, thick] (AB3) to node {} (AB4);
-        \end{tikzpicture}
+            \associativebandits
         \end{center}
         
+        Para resolver esse tipo de problema não podemos utilizar as técnicas de avaliação da função de valor da ação, pois o ambiente pode mudar completamente na iteração seguinte. Dessa forma, é necessário que haja uma informação adicional sobre qual ambiente está sendo jogado agora, para que possamos fazer um mapeamento de cada um deles, assim podemos ter uma resposta ótima para cada. Esse tipo de mapeamento se chama \emph{política} e será explorado no futuro.
         
     \subsection{Full RL Problem}
     
+        O \emph{problema completo de aprendizado por reforço} é um passo além de um não-associativo, pois cada ação levará a um determinado ``ambiente''. 
+    
         \begin{center}
-        \begin{tikzpicture}[]
-            \node[draw=black] (RL1) {
-                \begin{tikzpicture}[]
-                    \node[] (SB1) {
-                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
-                            \node[state-node]  (SB1S1) {$s$};
-                            \node[reward-node] (SB1R1) [below of=SB1S1, xshift=-1.0cm] {$r$};
-                            \node[reward-node] (SB1R2) [below of=SB1S1, xshift=0.0cm]  {$r$};
-                            \node[reward-node] (SB1R3) [below of=SB1S1, xshift=1.0cm]  {$r$};
-                            
-                            \draw[bend right] (SB1S1) to node[action-label] {$a$} (SB1R1);
-                            \draw             (SB1S1) to node[action-label] {$a$} (SB1R2);
-                            \draw[bend left]  (SB1S1) to node[action-label] {$a$} (SB1R3);
-                        \end{tikzpicture}
-                    };
-                    
-                    \node[right of=SB1, xshift=2.0cm] (SB2) {
-                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
-                            \node[state-node]  (SB2S1) {$s$};
-                            \node[reward-node] (SB2R1) [below of=SB2S1, xshift=-1.0cm] {$r$};
-                            \node[reward-node] (SB2R2) [below of=SB2S1, xshift=0.0cm]  {$r$};
-                            \node[reward-node] (SB2R3) [below of=SB2S1, xshift=1.0cm]  {$r$};
-                            
-                            \draw[bend right] (SB2S1) to node[action-label] {$a$} (SB2R1);
-                            \draw             (SB2S1) to node[action-label] {$a$} (SB2R2);
-                            \draw[bend left]  (SB2S1) to node[action-label] {$a$} (SB2R3);
-                        \end{tikzpicture}
-                    };
-                    
-                    \node[right of=SB2, xshift=1.0cm] (DOTS1) {
-                        $\boldsymbol{\cdots}$
-                    };
-                    
-                    \node[right of=DOTS1, xshift=1.0cm] (SB3) {
-                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
-                            \node[state-node]  (SB3S1) {$s$};
-                            \node[reward-node] (SB3R1) [below of=SB3S1, xshift=-1.0cm] {$r$};
-                            \node[reward-node] (SB3R2) [below of=SB3S1, xshift=0.0cm]  {$r$};
-                            \node[reward-node] (SB3R3) [below of=SB3S1, xshift=1.0cm]  {$r$};
-                            
-                            \draw[bend right] (SB3S1) to node[action-label] {$a$} (SB3R1);
-                            \draw             (SB3S1) to node[action-label] {$a$} (SB3R2);
-                            \draw[bend left]  (SB3S1) to node[action-label] {$a$} (SB3R3);
-                        \end{tikzpicture}
-                    };
-                \end{tikzpicture}
-            };
-            
-            \node[draw=red, below of=RL1, yshift=-2.0cm] (RL2) {
-                \begin{tikzpicture}[remember picture]
-                    \node[] (SB4) {
-                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
-                            \node[state-node]  (SB4S1) {$s$};
-                            \node[reward-node] (SB4R1) [below of=SB4S1, xshift=-1.0cm] {$r$};
-                            \node[reward-node] (SB4R2) [below of=SB4S1, xshift=0.0cm]  {$r$};
-                            \node[reward-node] (SB4R3) [below of=SB4S1, xshift=1.0cm]  {$r$};
-                            
-                            \draw[bend right] (SB4S1) to node[action-label] {$a$} (SB4R1);
-                            \draw             (SB4S1) to node[action-label] {$a$} (SB4R2);
-                            \draw[bend left]  (SB4S1) to node[action-label] {$a$} (SB4R3);
-                        \end{tikzpicture}
-                    };
-                    
-                    \node[right of=SB4, xshift=2.0cm] (SB5) {
-                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
-                            \node[state-node]  (SB5S1) {$s$};
-                            \node[reward-node] (SB5R1) [below of=SB5S1, xshift=-1.0cm] {$r$};
-                            \node[reward-node] (SB5R2) [below of=SB5S1, xshift=0.0cm]  {$r$};
-                            \node[reward-node] (SB5R3) [below of=SB5S1, xshift=1.0cm]  {$r$};
-                            
-                            \draw[bend right] (SB5S1) to node[action-label] {$a$} (SB5R1);
-                            \draw             (SB5S1) to node[action-label] {$a$} (SB5R2);
-                            \draw[bend left]  (SB5S1) to node[action-label] {$a$} (SB5R3);
-                        \end{tikzpicture}
-                    };
-                    
-                    \node[right of=SB5, xshift=1.0cm] (DOTS2) {
-                        $\boldsymbol{\cdots}$
-                    };
-                    
-                    \node[right of=DOTS2, xshift=1.0cm] (SB6) {
-                        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
-                            \node[state-node]  (SB6S1) {$s$};
-                            \node[reward-node] (SB6R1) [below of=SB6S1, xshift=-1.0cm] {$r$};
-                            \node[reward-node] (SB6R2) [below of=SB6S1, xshift=0.0cm]  {$r$};
-                            \node[reward-node] (SB6R3) [below of=SB6S1, xshift=1.0cm]  {$r$};
-                            
-                            \draw[bend right] (SB6S1) to node[action-label] {$a$} (SB6R1);
-                            \draw             (SB6S1) to node[action-label] {$a$} (SB6R2);
-                            \draw[bend left]  (SB6S1) to node[action-label] {$a$} (SB6R3);
-                        \end{tikzpicture}
-                    };
-                \end{tikzpicture}
-            };
-        \end{tikzpicture}
+            \fullrldiagram
         \end{center}
+        
+        Nesse caso, não precisamos de uma informação adicional sobre o ambiente/estado em que estamos, já que essa informação pode ser encontrada diretamente a partir dos pares (estado, ação). Mas ainda é necessário mapear as melhores ações a partir de cada estado e para isso utilizaremos uma \emph{política}. É justamente sobre o problema completo do aprendizado por reforço que trataremos a seguir. Mais especificamente sobre sua formalização como um \emph{Processo de Decisão de Markov}.
     
 \end{document}
