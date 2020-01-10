@@ -43,13 +43,13 @@
     action-node/.style={
         fill=black, draw=none, text=white, shape=circle, inner sep=0.05cm, minimum size=0.2cm},
     reward-node/.style={
-        fill=none, draw=black, text=black},
+        fill=none, draw=black, text=black, thick},
     hidden-node/.style={
         fill=none, draw=none, text=white, shape=circle, inner sep=0,outer sep=0, minimum size=0.0cm},
     action-label/.style={
         shape=circle, text=white, draw=none, fill=black, inner sep=0.05cm, minimum size=0.2cm, align=center, yshift=0.0cm, anchor=center},
     reward-label/.style={
-        shape=rectangle, text=black, draw=black, fill=white, minimum size=0.5cm, align=center, yshift=0.0cm, anchor=center},
+        shape=rectangle, text=black, draw=black, fill=white, minimum size=0.5cm, align=center, yshift=0.0cm, anchor=center, thick},
     hidden-edge/.style={
         text=white, draw=none, fill=none, inner sep=0,outer sep=0, minimum size=0.0cm},
 }
@@ -58,7 +58,7 @@
 %\newcommand{\todo}[1]{}
 
 \newcommand{\simplebandit}{
-    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
         \node[state-node]  (SimpleBanditS1) {$s$};
         \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditS1, xshift=-1.0cm] {$r$};
         \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditS1, xshift=0.0cm]  {$r$};
@@ -71,7 +71,7 @@
 }
 
 \newcommand{\associativebandits}{
-    \begin{tikzpicture}[]
+    \begin{tikzpicture}[thick]
         \node[draw=black] (AB1) {
             \begin{tikzpicture}[]
                 \node[] (B1) {
@@ -143,7 +143,7 @@
 }
 
 \newcommand{\fullrldiagram}{
-    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
         \node[state-node] (S1) {$s$};
         \node[reward-node] (R1S1) [below of=S1, xshift=-1.0cm] {$r$};
         \node[reward-node] (R2S1) [below of=S1]                {$r$};
@@ -260,7 +260,7 @@
     Esse é um problema bem conhecido e muito estudado na literatura: k-armed bandit [nota tradução máquina caça-níquel]. Imagine que você vá jogar em máquinas caça-níquel. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo os valores ganhos possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
 
     \begin{center}
-    \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm]
+    \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm, thick]
         \node[state-node] (S1) {$s$};
         \node[action-node] (A1) [below of=S1, xshift=-2.0cm] {$a_1$};
         \node[action-node] (A2) [below of=S1, xshift=2.0cm]  {$a_2$};
@@ -269,8 +269,8 @@
         \node[reward-node] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
         \node[reward-node] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
         
-        \draw[bend right=40] (S1) to node[left]  {} (A1);
-        \draw[bend left=40]  (S1) to node[right] {} (A2);
+        \draw[bend right=40, out=325] (S1) to node[left]  {} (A1);
+        \draw[bend left=40, out=35]  (S1) to node[right] {} (A2);
         \draw[bend right]    (A1) to node[left]  {$p_{11}$} (R1);
         \draw                (A1) to node[left]  {$p_{12}$} (R2);
         \draw[bend left]     (A1) to node[right] {$p_{13}$} (R3);
@@ -440,7 +440,7 @@
             \centering
             \begin{subfigure}{.3\linewidth}
                 \centering
-                \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
                     \node[state-node]  (S1) {$s$};
                     \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r$};
                     \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r$};
@@ -455,7 +455,7 @@
             \end{subfigure}
             \begin{subfigure}{.3\linewidth}
                 \centering
-                \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm]
+                \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
                     \node[state-node]  (S1) {$s$};
                     \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r$};
                     \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r$};
@@ -470,5 +470,75 @@
             \end{subfigure}
             \caption{Teste}
         \end{figure}
+        
+\section{Recompensas imediatas e tardias}
+
+    ... é chamado de \emph{distribuição de recompensas}
+
+    \subsection{Recompensas imediatas}
+    
+        \begin{center}
+        \begin{tikzpicture}[-,>=stealth', auto, node distance=2.0cm, thick]
+            \node[state-node]  (S1) {$s_1$};
+            \node[hidden-node] (H1) [above right of=S1] {};
+            \node[state-node]  (S2) [below right of=H1] {$s_2$};
+            \node[hidden-node] (H2) [above right of=S2] {};
+            \node[state-node]  (S3) [below right of=H2] {$s_3$};
+            \node[hidden-node] (H3) [above right of=S3] {};
+            \node[state-node]  (S4) [below right of=H3] {$s_4$};
+            \node[]            (HN) [above right of=S4] {$\cdots$};
+            \node[state-node]  (SN) [below right of=HN] {$s_n$};
+            \node[]            (SH) [below of=HN, yshift=0.5cm] {$\cdots$};
+            
+            \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=0.6] {$a_1$} (H1);
+            \draw[->, bend left, out=40, in=150] (H1) to node[reward-label, pos=0.4] {$r_2$} (S2);
+            \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=0.6] {$a_2$} (H2);
+            \draw[->, bend left, out=40, in=150] (H2) to node[reward-label, pos=0.4] {$r_3$} (S3);
+            \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=0.6] {$a_3$} (H3);
+            \draw[->, bend left, out=40, in=150] (H3) to node[reward-label, pos=0.4] {$r_4$} (S4);
+            \draw[-, bend left, out=30, in=135]  (S4) to node[action-label] {$a_4$} (HN);
+            \draw[->, bend left, out=45, in=150] (HN) to node[reward-label] {$r_n$} (SN);
+        \end{tikzpicture}
+        \end{center}
+        
+        \begin{center}
+            $s_1,\ a_1,\ \mathbf{r_2},\ s_2,\ a_2,\ \mathbf{r_3},\ s_3,\ a_3,\ \mathbf{r_4},\ s_4,\ a_4,\ \dots\,\ \mathbf{r_n},\ s_n$
+        \end{center}
+        
+        temos um total de n recompensas, o que caracteriza um \todo{alguma coisa} de recompensas \emph{densas}.
+    
+    
+    \subsection{Recompensas tardias}
+    
+        \begin{center}
+        \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
+            \node[state-node]  (S1) {$s_1$};
+            \node[hidden-node] (H1) [above right of=S1] {};
+            \node[state-node]  (S2) [below right of=H1] {$s_2$};
+            \node[hidden-node] (H2) [above right of=S2] {};
+            \node[state-node]  (S3) [below right of=H2] {$s_3$};
+            \node[hidden-node] (H3) [above right of=S3] {};
+            \node[state-node]  (S4) [below right of=H3] {$s_4$};
+            \node[]            (HN) [above right of=S4, xshift=0.5cm, yshift=0.3cm] {$\cdots$};
+            \node[state-node]  (SN) [below right of=HN, xshift=0.5cm, yshift=-0.3cm] {$s_n$};
+            \node[]            (SH) [below of=HN] {$\cdots$};
+            
+            \draw[->, bend left, out=40, in=150] (H1) to node {} (S2);
+            \draw[->, bend left, out=40, in=150] (H2) to node {} (S3);
+            \draw[->, bend left, out=40, in=150] (H3) to node {} (S4);
+            \draw[->, bend left, out=45, in=150] (HN) to node[reward-label] {$r_n$} (SN);
+            
+            \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=1.0] {$a_1$} (H1);
+            \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=1.0] {$a_2$} (H2);
+            \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=1.0] {$a_3$} (H3);
+            \draw[-, bend left, out=30, in=135]  (S4) to node[action-label] {$a_4$} (HN);
+        \end{tikzpicture}
+        \end{center}
+        
+        \begin{center}
+            $s_1,\ a_1,\ s_2,\ a_2,\ s_3,\ a_3,\ s_4,\ a_4,\ \dots\,\ \mathbf{r_n},\ s_n$
+        \end{center}
+        
+        Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.
         
 \end{document}
