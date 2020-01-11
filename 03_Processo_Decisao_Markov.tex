@@ -57,34 +57,61 @@
 
 \section{Caracterização da interação agente-ambiente}
 
-    \begin{center}
-    \begin{tikzpicture}[->,>=stealth', auto, node distance=2.0cm, very thick]
-        \tikzstyle{state}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.3cm]
-        \tikzstyle{action}=[fill=none, draw=none, text=black, shape=circle, inner sep=0,outer sep=0.05cm, minimum size=0.0cm]
+    \subsection{Definções importantes}
         
-        \node[state]  (S1)                             {Agent};
-        \node[state]  (S2) [below of=S1]               {Environment};
-        \node[action] (S3) [left of=S2, xshift=-0.5cm] {};
-        \node[action] (S4) [left of=S1, xshift=-0.7cm, yshift=0.14cm] {};
-        \node[action] (S5) [left of=S4, xshift=0.5cm] {};
+        \subsubsection{Agente}
+        \subsubsection{Ambiente}
+        \subsubsection{Estado}
+        \subsubsection{Ação}
+        \subsubsection{Recompensa}
+        \subsubsection{Trajetória}
         
-        \draw[->, ultra thick] (S1) -- node[below right, pos=1.0, yshift=-0.5cm, align=center] {action\\$A_t$} ++(3,0)    |- (S2);
-        \draw[->, ultra thick] (S3) -- node[below left, pos=1.0, yshift=1.5cm, align=center] {state\\$S_t$} ++(-1.0,0) |- (S1.190);
-        \draw[->, ultra thick] (S2) to node[above] {$S_{t+1}$} (S3);
-        \draw[->, very thick] (S4) to node[above, align=center] {reward $R_t$} (S1.170);
-        \draw[->, very thick] (S5) to node[above] {$R_{t+1}$} (S4);
-    \end{tikzpicture}
-    \end{center}
-
+    \subsection{Diagrama de interação}
+    
+        \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
+    
+        \begin{center}
+        \begin{tikzpicture}[->,>=stealth', auto, node distance=2.0cm, very thick]
+            \tikzstyle{state}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.3cm]
+            \tikzstyle{action}=[fill=none, draw=none, text=black, shape=circle, inner sep=0,outer sep=0.05cm, minimum size=0.0cm]
+            
+            \node[state]  (S1)                             {Agent};
+            \node[state]  (S2) [below of=S1]               {Environment};
+            \node[action] (S3) [left of=S2, xshift=-0.5cm] {};
+            \node[action] (S4) [left of=S1, xshift=-0.7cm, yshift=0.14cm] {};
+            \node[action] (S5) [left of=S4, xshift=0.5cm] {};
+            
+            \draw[->, ultra thick] (S1) -- node[below right, pos=1.0, yshift=-0.5cm, align=center] {action\\$A_t$} ++(3,0)    |- (S2);
+            \draw[->, ultra thick] (S3) -- node[below left, pos=1.0, yshift=1.5cm, align=center] {state\\$S_t$} ++(-1.0,0) |- (S1.190);
+            \draw[->, ultra thick] (S2) to node[above] {$S_{t+1}$} (S3);
+            \draw[->, very thick] (S4) to node[above, align=center] {reward $R_t$} (S1.170);
+            \draw[->, very thick] (S5) to node[above] {$R_{t+1}$} (S4);
+        \end{tikzpicture}
+        \end{center}
+    
 \section{Definição de MDP}
 
-    \subsection{Estado}
+    Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
+
+    \subsection{Elementos de um MDP}
+
+        \subsubsection{Estado}
+        
+        \subsubsection{Ação}
+        
+        \subsubsection{\textcolor{red}{Dinâmica / Probabilidade de Transição de estado}}
+        
+            \textcolor{red}{mostrar os dois tipos de notação possíveis $p(s', r \mid s, a)$ e $p(s, a, r, s')$. A primeira "chegar em s' recebendo r, dado que está em s e executou ação a". A segunda "está em s, executa a, recebe r e chega em s'.}
+        
+        \subsubsection{Recompensa}
     
-    \subsection{Ação}
+    \subsection{Características de um MDP}
     
-    \subsection{Probabilidade}
-    
-    \subsection{Recompensa}
+        \subsubsection{MDP's finitos e infinitos}
+        
+        \subsubsection{Propriedade de Markov}
+        
+        \subsubsection{Cadeia de Markov}
     
 \section{Visão gráfica de um MDP}
 
@@ -135,24 +162,42 @@
     \end{tikzpicture}
     \end{center}
 
+\section{Exemplo de como representar um problema via MDP}
+
+    \textcolor{red}{Escadas de Hogwarts}
 
 \section{Objetivos}
 
-    \subsection{Recompensa}
-    
-    \subsection{Retorno}
-    
-\section{Funções de valor}
+    \subsection{Hipótese da recompensa}
 
-    \subsection{Função estado-valor}
+    \subsection{Retorno esperado}
     
-    \subsection{Função ação-valor}
-
+    \subsection{Desconto}
+    
+        Propósito intuitivo: recompensa imediatas são mais importantes do que as futuras.
+        
+        Propósito formal: transformar retornos infinitos em finitos.
+    
 \section{Política}
 
     Definição de política.
 
     \section{Política ótima}
+    
+
+\section{Funções de valor}
+    
+    \subsection{Função estado-valor}
+    
+    \subsection{Função ação-valor}
+    
+    \subsection{Otimalidade das funções de valor}
+    
+        \subsubsection{Valor estado}
+        
+        \subsubsection{Valor ação}
+        
+        \subsubsection{Equações de Bellman}
     
 \section{Processo de Decisão de Markov Parcialmente Observável}
 
