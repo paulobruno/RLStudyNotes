@@ -442,8 +442,8 @@
                 \centering
                 \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
                     \node[state-node]  (S1) {$s$};
-                    \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r$};
-                    \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r$};
+                    \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r_1$};
+                    \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r_2$};
                     
                     \draw[bend right] (S1) to node[left, pos=0.8] {$p_1$} (R1);
                     \draw[bend left]  (S1) to node[right, pos=0.8] {$q_1$} (R2);
@@ -457,8 +457,8 @@
                 \centering
                 \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
                     \node[state-node]  (S1) {$s$};
-                    \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r$};
-                    \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r$};
+                    \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r_1$};
+                    \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r_2w$};
                     
                     \draw[bend right] (S1) to node[left, pos=0.8] {$p_2$} (R1);
                     \draw[bend left]  (S1) to node[right, pos=0.8] {$q_2$} (R2);
@@ -502,7 +502,7 @@
         \end{center}
         
         \begin{center}
-            $s_1,\ a_1,\ \mathbf{r_2},\ s_2,\ a_2,\ \mathbf{r_3},\ s_3,\ a_3,\ \mathbf{r_4},\ s_4,\ a_4,\ \dots\,\ \mathbf{r_n},\ s_n$
+            $s_1,\ a_1,\ \boxed{\mathbf{r_2}},\ s_2,\ a_2,\ \boxed{\mathbf{r_3}},\ s_3,\ a_3,\ \boxed{\mathbf{r_4}},\ s_4,\ a_4,\ \dots\,\ \boxed{\mathbf{r_n}},\ s_n$
         \end{center}
         
         temos um total de n recompensas, o que caracteriza um \todo{alguma coisa} de recompensas \emph{densas}.
@@ -536,7 +536,7 @@
         \end{center}
         
         \begin{center}
-            $s_1,\ a_1,\ s_2,\ a_2,\ s_3,\ a_3,\ s_4,\ a_4,\ \dots\,\ \mathbf{r_n},\ s_n$
+            $s_1,\ a_1,\ s_2,\ a_2,\ s_3,\ a_3,\ s_4,\ a_4,\ \dots\,\ \boxed{\mathbf{r_n}},\ s_n$
         \end{center}
         
         Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.

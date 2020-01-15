@@ -3,6 +3,7 @@
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
 \usepackage{makecell}
+\usepackage{indentfirst}
 
 \usepackage{pgf}
 \usepackage{tikz}
@@ -57,7 +58,7 @@
 
 \section{Caracterização da interação agente-ambiente}
 
-    \subsection{Definções importantes}
+    \subsection{Definções}
         
         \subsubsection{Agente}
         \subsubsection{Ambiente}
@@ -71,21 +72,27 @@
         \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
     
         \begin{center}
-        \begin{tikzpicture}[->,>=stealth', auto, node distance=2.0cm, very thick]
-            \tikzstyle{state}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.3cm]
-            \tikzstyle{action}=[fill=none, draw=none, text=black, shape=circle, inner sep=0,outer sep=0.05cm, minimum size=0.0cm]
+        \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
+            \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
+            \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
             
-            \node[state]  (S1)                             {Agent};
-            \node[state]  (S2) [below of=S1]               {Environment};
-            \node[action] (S3) [left of=S2, xshift=-0.5cm] {};
-            \node[action] (S4) [left of=S1, xshift=-0.7cm, yshift=0.14cm] {};
-            \node[action] (S5) [left of=S4, xshift=0.5cm] {};
+            \node[rect-node]  (Agent)                                     {\normalsize Agent};
+            \node[rect-node]  (Env)     [below of=Agent]                  {\normalsize Environment};
+            \node[hidden-node] (Hidden)  [left of=Env, xshift=-0.5cm]     {};
+            \node[hidden-node] (UpHid)   [above of=Hidden, yshift=-1.0cm] {};
+            \node[hidden-node] (DownHid) [below of=Hidden, yshift=1.0cm]  {};
             
-            \draw[->, ultra thick] (S1) -- node[below right, pos=1.0, yshift=-0.5cm, align=center] {action\\$A_t$} ++(3,0)    |- (S2);
-            \draw[->, ultra thick] (S3) -- node[below left, pos=1.0, yshift=1.5cm, align=center] {state\\$S_t$} ++(-1.0,0) |- (S1.190);
-            \draw[->, ultra thick] (S2) to node[above] {$S_{t+1}$} (S3);
-            \draw[->, very thick] (S4) to node[above, align=center] {reward $R_t$} (S1.170);
-            \draw[->, very thick] (S5) to node[above] {$R_{t+1}$} (S4);
+            \draw[thick, transform canvas={yshift=0.25cm}] (Env) to node[above] 
+                {$R_{t+1}$} (Hidden);
+            \draw[ultra thick, transform canvas={yshift=-0.25cm}] (Env) to node[above] 
+                {$S_{t+1}$} (Hidden);
+            \draw[ultra thick] (Hidden.255) to node[left, pos=1.0, yshift=1.25cm, align=center] 
+                {state\\$S_t$}  ++(-1.5,0) |- (Agent.165);
+            \draw[thick] (Hidden.105) to node[right, pos=1.0, yshift=0.75cm, align=center] 
+                {reward\\$R_t$} ++(-1.0,0) |- (Agent.195);
+            \draw[ultra thick] (Agent) to node[below right, pos=1.0, yshift=-0.5cm, align=center] 
+                {action\\$A_t$} ++(3.5,0)  |- (Env);
+            \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
         \end{tikzpicture}
         \end{center}
     
@@ -97,13 +104,33 @@
 
         \subsubsection{Estado}
         
+            \begin{tikzpicture}
+                \node[state-node] (R) {$s_1$};
+            \end{tikzpicture}
+            
+            Nota: Estado vs Observação: 
+            
         \subsubsection{Ação}
         
+            \begin{tikzpicture}
+                \node[action-node] (R) {$a_1$};
+            \end{tikzpicture}
+            
         \subsubsection{\textcolor{red}{Dinâmica / Probabilidade de Transição de estado}}
         
             \textcolor{red}{mostrar os dois tipos de notação possíveis $p(s', r \mid s, a)$ e $p(s, a, r, s')$. A primeira "chegar em s' recebendo r, dado que está em s e executou ação a". A segunda "está em s, executa a, recebe r e chega em s'.}
-        
+    
+            $p_1$
+            
         \subsubsection{Recompensa}
+    
+            \begin{tikzpicture}
+                \node[reward-node] (R) {$r_1$};
+            \end{tikzpicture}
+            
+    \subsection{Diagrama de interação mais adequado aos casos reais}
+    
+        
     
     \subsection{Características de um MDP}
     
