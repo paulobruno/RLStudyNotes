@@ -137,14 +137,22 @@
 \section{Iteração de Política Generalizada (GPI)}
 
     \begin{center}
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
-          \tikzstyle{state}=[fill=none,draw=none,text=black]
+        \begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=2.8cm, thick]
+            \tikzstyle{state}=[fill=none,draw=none,text=black]
+            
+            \node[state] (A) {\Large$\boldsymbol{\pi}$};
+            \node[state] (B) [right of=A, xshift=0.75cm] {\Large$\mathbf{V}$};
+            \node[state] (DOTS) [below of=A, xshift=1.75cm, yshift=0.5cm] {\mathbf{\vdots}};
+            \node[state] (A2) [below of=A, yshift=-0.5cm] {\Large$\boldsymbol{\pi_{*}}$};
+            \node[state] (B2) [below of=B, yshift=-0.5cm] {\Large$\mathbf{v_{*}}$};
         
-          \node[state] (A) {$\pi$};
-          \node[state] (B) [right of=A] {$V$};
-        
-          \path (A) edge [bend left=50]  node {evaluation} (B)
-                (B) edge [bend left=50]  node {improvement} (A);
+            \draw[bend left=70] (A) to node[above] {evaluation} (B);
+            \draw[bend left=60, draw=none] (A) to node[below] {$V 	\rightsquigarrow v_{\pi}$} (B);
+            \draw[bend left=70] (B) to node[below] {improvement} (A);
+            \draw[bend left=60, draw=none] (B) to node[above] {\small$\pi \rightsquigarrow$ greedy($V$)} (A);
+            
+            \draw[transform canvas={yshift=0.15cm}] (A2) to node[] {} (B2);
+            \draw[transform canvas={yshift=-0.15cm}] (B2) to node[] {} (A2);
         \end{tikzpicture}
     \end{center}
 \end{document}
