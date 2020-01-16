@@ -138,7 +138,7 @@
 
     \begin{center}
         \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
-          \tikzstyle{every state}=[fill=none,draw=none,text=black]
+          \tikzstyle{state}=[fill=none,draw=none,text=black]
         
           \node[state] (A) {$\pi$};
           \node[state] (B) [right of=A] {$V$};
@@ -147,5 +147,4 @@
                 (B) edge [bend left=50]  node {improvement} (A);
         \end{tikzpicture}
     \end{center}
-    
 \end{document}
