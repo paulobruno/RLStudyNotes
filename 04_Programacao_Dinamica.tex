@@ -30,6 +30,7 @@
 }
 \makeatother
 
+\input{rl_tikzgraph.tex}
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 04 - Programação Dinâmica}
@@ -43,21 +44,30 @@
 
     Mostrar grafos de MDP's.
     
-    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm, semithick]
-      \tikzstyle{every state}=[fill=none,draw=black,text=black, thick]
-      \tikzstyle{every edge}=[font=\small, align=center, draw=black]
-    
-      \node[state] (A)                              {$s$};
-      \node[state] (B) [below of=A, xshift=-3.5cm]  {$s_1$};
-      \node[state] (C) [below of=A]                 {$s_2$};
-      \node[state] (D) [below of=A, xshift=3.5cm]   {$s_3$};
-    
-      \path (A) edge [bend right=45] node[left] {$a_1, p_1$\\ $r_1$}  (B)
-                edge [bend right]    node[left] {$a_2, p_2$\\ $r_2$} (C)
-                edge [bend left]     node[right] {$a_3, p_3$\\ $r_3$}  (C)
-                edge [bend left=45]  node[right] {$a_4, p_4$\\ $r_4$} (D)
-                edge [bend left=10]  node[above] {$a_4, p_5$\\ $r_5$} (D);
+    \begin{center}
+    \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
+        \node[state-node]  (S1) {$s_1$};
+        \node[state-node]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
+        \node[state-node]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
+        \node[hidden-node] (A1) [above of=S2, yshift=-1.5cm] {};
+        \node[hidden-node] (A2) [below of=S1, yshift=2.5cm]  {};
+        
+        \draw[bend right=20,-] (S1) to node[action-label]           {$a_1$} (A1);
+        \draw[-]               (S1) to node[action-label, pos=0.4]  {$a_2$} (A2);
+        \draw[bend left=40]    (S1) to node[action-label, pos=0.25] {$a_3$} (S3);
+        
+        \draw[bend right=30]   (A1) to node[left, pos=0.2]  {$p_1$} (S2);
+        \draw[bend left=30]    (A1) to node[right, pos=0.2] {$p_2$} (S2);
+        \draw[bend left=40]    (A2) to node[left, pos=0.3]  {$p_3$} (S2);
+        \draw[bend right=40]   (A2) to node[right, pos=0.3] {$p_4$} (S3);
+        
+        \draw[hidden-edge, bend right=30] (A1) to node[reward-label]           {$r_1$} (S2);
+        \draw[hidden-edge, bend left=30]  (A1) to node[reward-label]           {$r_2$} (S2);
+        \draw[hidden-edge, bend left=40]  (A2) to node[reward-label]           {$r_3$} (S2);
+        \draw[hidden-edge, bend right=40] (A2) to node[reward-label]           {$r_4$} (S3);
+        \draw[hidden-edge, bend left=40]  (S1) to node[reward-label, pos=0.65] {$r_5$} (S3);
     \end{tikzpicture}
+    \end{center}
 
 \section{Equações de otimalidade de Bellman}
 
