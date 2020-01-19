@@ -8,7 +8,9 @@
 
 \usepackage{pgf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata}
+\usetikzlibrary{arrows,automata,plotmarks}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
 
 \usepackage{graphicx}
 \graphicspath{{figures/}}
@@ -309,19 +311,46 @@
     
         As estratégias para lidar com o dilema anterior se baseiam em executar ações de maneira gulosa na maior parte do tempo, mas ainda executar ações não-gulosas algumas vezes.
     
-        \subsubsection{Estratégias $\epsilon$}
+        \subsubsection{Estratégias $\boldsymbol\varepsilon$}
         
             \begin{itemize}
-                \item \textbf{$\epsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\epsilon)$ e executa uma ação aleatória $\epsilon$.
-                \item \textbf{$\epsilon$-first}: para um conjunto N de ações, executa $(1 - \epsilon N)$ ações gulosas e executa $(\epsilon N)$ ações não-gulosas.
-                \item \textbf{$\epsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar ações. Após algumas iterações a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\epsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\epsilon_{F}$ bem baixo a partir da iteração $F$ e um $\epsilon$ que diminui (decai) de $\epsilon_{I}$ a $\epsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura \ref{fig:epsilon-decay}, com $\epsilon_{I} = 1.0$, $\epsilon_{F} = 0.1$, $I = 6$ e $F = 31$.
+                \item \textbf{$\boldsymbol\varepsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\varepsilon)$ e executa uma ação aleatória $\varepsilon$.
+                \item \textbf{$\boldsymbol\varepsilon$-first}: para um conjunto N de ações, executa $(1 - \varepsilon N)$ ações gulosas e executa $(\varepsilon N)$ ações não-gulosas.
+                \item \textbf{$\boldsymbol\varepsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar ações. Após algumas iterações a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura \ref{diag:epsilon-decay}, com $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$ \todo{checar se I e F devem ser 5 e 30 ou 6 e 31}.
                 
                 \begin{figure}[ht]
                     \centering
-                    \includegraphics[width=200pt]{epsilon-decay.png}
-                    \caption{\todo{fazer o grafico usando tikz} Fonte:}
-                    \label{fig:epsilon-decay}
+                    \begin{tikzpicture}
+                        \begin{axis}[
+                            height=4.5cm,
+                            width=6.0cm,
+                    		xlabel=\textbf{\normalsize Épocas},
+                    		ylabel=\Large$\boldsymbol{\varepsilon}$,
+                    		xmin=0, xmax=50,
+                    		ymin=0.0, ymax=1.1,
+                    		xtick={0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50},
+                    		ytick={0.0, 0.2, 0.4, 0.6, 0.8, 1.0},
+                    		tick align=center,
+                    		xtick pos=bottom,
+                    		ytick pos=left,
+                    		yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=1},
+                    		font=\tiny, 
+                            no markers,
+                            every axis plot/.append style={ultra thick},
+                        ]
+                            \addplot[color=black] coordinates {
+                        		( 0, 1.0)
+                        		( 5, 1.0)
+                        		(30, 0.1)
+                        		(50, 0.1)
+    	                    };
+                        \end{axis}
+                    \end{tikzpicture}
+                    
+                    \caption{$\varepsilon$ começa em $1.0$ e decai linearmente até $0.1$.}
+                    \label{diag:epsilon-decay}
                 \end{figure}
+                
             \end{itemize}
         
 \section{Função valor-ação}
