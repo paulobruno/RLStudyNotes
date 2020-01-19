@@ -4,15 +4,10 @@
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
 \usepackage{makecell}
 
-\usepackage{pgf}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata}
 
-\usepackage{graphicx}
-\graphicspath{{figures/}}
+\newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
+%\newcommand{\todo}[1]{}
 
-\usepackage{amsmath,amssymb}
-\DeclareMathOperator*{\argmax}{argmax}
 
 % PB: redefinir maketitle
 \makeatletter
@@ -31,28 +26,25 @@
 }
 \makeatother
 
-\input{rl_tikzgraph.tex}
-
-\newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
-%\newcommand{\todo}[1]{}
-
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 02.1 - Tópicos Adicionais em \textit{Multi-Armed Bandits}}
 \date{Paulo Bruno de Sousa Serafim - Dez/19 - Jan/20}
 
+
 \begin{document}
 
 \maketitle
 
-\section{Introdução}
-
-    \subsection{\textit{Gradient Bandits}}
+    \section{Introdução}
+    
+        \subsection{\textit{Gradient Bandits}}
+            
+        \subsection{\textit{Contextual Bandits}}
         
-    \subsection{\textit{Contextual Bandits}}
-    
-    \subsection{\textit{Thompson Sampling}}
-    
-    \subsection{Índice de \textit{Gittins}}
-    
+        \subsection{\textit{Thompson Sampling}}
+        
+        \subsection{Índice de \textit{Gittins}}
+
+
 \end{document}

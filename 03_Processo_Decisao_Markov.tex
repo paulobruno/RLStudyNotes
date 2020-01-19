@@ -2,15 +2,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
-\usepackage{makecell}
-\usepackage{indentfirst}
 
-\usepackage{pgf}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata}
+\usepackage{indentfirst}
 
 \usepackage{graphicx}
 \graphicspath{{figures/}}
+
+\input{pb_rlstyle_tikzgraph.tex}
+
 
 % PB: redefinir maketitle
 \makeatletter
@@ -29,184 +28,184 @@
 }
 \makeatother
 
-\input{rl_tikzgraph.tex}
-
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 03 - Processo de Decisão de Markov (MDP)}
 \date{Paulo Bruno de Sousa Serafim - Out/19 - Jan/20}
 
+
 \begin{document}
 
 \maketitle
 
-\section{Caracterização da interação agente-ambiente}
-
-    \subsection{Definções}
-        
-        \subsubsection{Agente}
-        \subsubsection{Ambiente}
-        \subsubsection{Estado}
-        \subsubsection{Ação}
-        \subsubsection{Recompensa}
-        \subsubsection{Trajetória}
-        
-    \subsection{Diagrama de interação}
+    \section{Caracterização da interação agente-ambiente}
     
-        \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
+        \subsection{Definções}
+            
+            \subsubsection{Agente}
+            \subsubsection{Ambiente}
+            \subsubsection{Estado}
+            \subsubsection{Ação}
+            \subsubsection{Recompensa}
+            \subsubsection{Trajetória}
+            
+        \subsection{Diagrama de interação}
+        
+            \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
+        
+            \begin{center}
+            \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
+                \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
+                \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
+                
+                \node[rect-node]  (Agent)                                     {\normalsize Agent};
+                \node[rect-node]  (Env)     [below of=Agent]                  {\normalsize Environment};
+                \node[hidden-node] (Hidden)  [left of=Env, xshift=-0.5cm]     {};
+                \node[hidden-node] (UpHid)   [above of=Hidden, yshift=-1.0cm] {};
+                \node[hidden-node] (DownHid) [below of=Hidden, yshift=1.0cm]  {};
+                
+                \draw[thick, transform canvas={yshift=0.25cm}] (Env) to node[above] 
+                    {$R_{t+1}$} (Hidden);
+                \draw[ultra thick, transform canvas={yshift=-0.25cm}] (Env) to node[above] 
+                    {$S_{t+1}$} (Hidden);
+                \draw[ultra thick] (Hidden.255) to node[left, pos=1.0, yshift=1.25cm, align=center] 
+                    {state\\$S_t$}  ++(-1.5,0) |- (Agent.165);
+                \draw[thick] (Hidden.105) to node[right, pos=1.0, yshift=0.75cm, align=center] 
+                    {reward\\$R_t$} ++(-1.0,0) |- (Agent.195);
+                \draw[ultra thick] (Agent) to node[below right, pos=1.0, yshift=-0.5cm, align=center] 
+                    {action\\$A_t$} ++(3.5,0)  |- (Env);
+                \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
+            \end{tikzpicture}
+            \end{center}
+        
+    \section{Definição de MDP}
+    
+        Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
+    
+        \subsection{Elementos de um MDP}
+    
+            \subsubsection{Estado}
+            
+                \begin{tikzpicture}
+                    \node[state-node] (R) {$s_1$};
+                \end{tikzpicture}
+                
+                Nota: Estado vs Observação: 
+                
+            \subsubsection{Ação}
+            
+                \begin{tikzpicture}
+                    \node[action-node] (R) {$a_1$};
+                \end{tikzpicture}
+                
+            \subsubsection{\textcolor{red}{Dinâmica / Probabilidade de Transição de estado}}
+            
+                \textcolor{red}{mostrar os dois tipos de notação possíveis $p(s', r \mid s, a)$ e $p(s, a, r, s')$. A primeira "chegar em s' recebendo r, dado que está em s e executou ação a". A segunda "está em s, executa a, recebe r e chega em s'.}
+        
+                $p_1$
+                
+            \subsubsection{Recompensa}
+        
+                \begin{tikzpicture}
+                    \node[reward-node] (R) {$r_1$};
+                \end{tikzpicture}
+                
+        \subsection{Diagrama de interação mais adequado aos casos reais}
+        
+            
+        
+        \subsection{Características de um MDP}
+        
+            \subsubsection{MDP's finitos e infinitos}
+            
+            \subsubsection{Propriedade de Markov}
+            
+            \subsubsection{Cadeia de Markov}
+        
+    \section{Visão gráfica de um MDP}
     
         \begin{center}
-        \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
-            \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
-            \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
+        \begin{tikzpicture}[->,>=stealth',auto,node distance=3.5cm, thick]
+            \node[state-node] (S1)                     {$s_1$};
+            \node[state-node] (S2) [above right of=S1] {$s_2$};
+            \node[state-node] (S3) [below right of=S1, xshift=1.0cm] {$s_3$};
+            \node[state-node] (S4) [below right of=S2] {$s_4$};
+            \node[state-node] (S5) [right of=S4, xshift=-1.0cm]       {$s_5$};
             
-            \node[rect-node]  (Agent)                                     {\normalsize Agent};
-            \node[rect-node]  (Env)     [below of=Agent]                  {\normalsize Environment};
-            \node[hidden-node] (Hidden)  [left of=Env, xshift=-0.5cm]     {};
-            \node[hidden-node] (UpHid)   [above of=Hidden, yshift=-1.0cm] {};
-            \node[hidden-node] (DownHid) [below of=Hidden, yshift=1.0cm]  {};
+            \node[hidden-node] (A1) [right of=S1, xshift=-2.0cm, yshift=0.5cm] {};
+            \node[hidden-node] (A3) [left of=S3, xshift=1.5cm, yshift=1.0cm] {};
+            \node[hidden-node] (A4) [below of=S4, xshift=0.75cm, yshift=2.0cm] {};
             
-            \draw[thick, transform canvas={yshift=0.25cm}] (Env) to node[above] 
-                {$R_{t+1}$} (Hidden);
-            \draw[ultra thick, transform canvas={yshift=-0.25cm}] (Env) to node[above] 
-                {$S_{t+1}$} (Hidden);
-            \draw[ultra thick] (Hidden.255) to node[left, pos=1.0, yshift=1.25cm, align=center] 
-                {state\\$S_t$}  ++(-1.5,0) |- (Agent.165);
-            \draw[thick] (Hidden.105) to node[right, pos=1.0, yshift=0.75cm, align=center] 
-                {reward\\$R_t$} ++(-1.0,0) |- (Agent.195);
-            \draw[ultra thick] (Agent) to node[below right, pos=1.0, yshift=-0.5cm, align=center] 
-                {action\\$A_t$} ++(3.5,0)  |- (Env);
-            \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
+            % from (S1)
+            \draw[-] (S1) to node[action-label] {$a_1$} (A1);
+            \draw[bend right=20] (A1) to node[left, pos=0.25] {$p_1$} (S2);
+            \draw[bend left=20] (A1) to node[below, pos=0.25] {$p_2$} (S4);
+            \draw[hidden-edge, bend right=20] (A1) to node[reward-label] {$r_1$} (S2);
+            \draw[hidden-edge, bend left=20] (A1) to node[reward-label] {$r_2$} (S4);
+            
+            % from (S2)
+            \draw[bend left=20] (S2) to node[action-label, pos=0.25] {$a_2$} (S4);
+            \draw[hidden-edge, bend left=20] (S2) to node[reward-label, pos=0.65] {$r_3$} (S4);
+            
+            % from (S3)
+            \draw[-, bend right=50] (S3) to node[action-label] {$a_3$} (A3);
+            \draw[bend left=40] (A3) to node[above, pos=0.2] {$p_3$} (S1);
+            \draw[bend right=40] (A3) to node[left, pos=0.3] {$p_4$} (S3);
+            \draw[hidden-edge, bend left=40] (A3) to node[reward-label, pos=0.6] {$r_4$} (S1);
+            \draw[hidden-edge, bend right=40] (A3) to node[reward-label, pos=0.6] {$r_5$} (S3);
+            
+            % from (S4)
+            \draw[-] (S4) to node[action-label] {$a_4$} (A4);
+            \draw[bend left=40] (A4) to node[left, pos=0.2] {$p_3$} (S3);
+            \draw[bend right=40] (A4) to node[above, pos=0.25] {$p_4$} (S5);
+            \draw[hidden-edge, bend left=40] (A4) to node[reward-label, left, pos=0.55] {$r_6$} (S3);
+            \draw[hidden-edge, bend right=40] (A4) to node[reward-label, above right, pos=0.5] {$r_7$} (S5);
+            
+            % from (S5)
+            \draw[bend right] (S5) to node[action-label, pos=0.25] {$a_5$} (S2);
+            \draw[hidden-edge, bend right] (S5) to node[reward-label, pos=0.65] {$r_8$} (S2);
+            
         \end{tikzpicture}
         \end{center}
-    
-\section{Definição de MDP}
-
-    Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
-
-    \subsection{Elementos de um MDP}
-
-        \subsubsection{Estado}
         
-            \begin{tikzpicture}
-                \node[state-node] (R) {$s_1$};
-            \end{tikzpicture}
+    \section{Exemplo de como representar um problema via MDP}
+    
+        \textcolor{red}{Escadas de Hogwarts}
+    
+    \section{Objetivos}
+    
+        \subsection{Hipótese da recompensa}
+    
+        \subsection{Retorno esperado}
+        
+        \subsection{Desconto}
+        
+            Propósito intuitivo: recompensa imediatas são mais importantes do que as futuras.
             
-            Nota: Estado vs Observação: 
+            Propósito formal: transformar retornos infinitos em finitos.
+        
+    \section{Política}
+    
+        Definição de política.
+    
+        \section{Política ótima}
+        
+    
+    \section{Funções de valor}
+        
+        \subsection{Função estado-valor}
+        
+        \subsection{Função ação-valor}
+        
+        \subsection{Otimalidade das funções de valor}
+        
+            \subsubsection{Valor estado}
             
-        \subsubsection{Ação}
-        
-            \begin{tikzpicture}
-                \node[action-node] (R) {$a_1$};
-            \end{tikzpicture}
+            \subsubsection{Valor ação}
             
-        \subsubsection{\textcolor{red}{Dinâmica / Probabilidade de Transição de estado}}
+            \subsubsection{Equações de Bellman}
         
-            \textcolor{red}{mostrar os dois tipos de notação possíveis $p(s', r \mid s, a)$ e $p(s, a, r, s')$. A primeira "chegar em s' recebendo r, dado que está em s e executou ação a". A segunda "está em s, executa a, recebe r e chega em s'.}
-    
-            $p_1$
-            
-        \subsubsection{Recompensa}
-    
-            \begin{tikzpicture}
-                \node[reward-node] (R) {$r_1$};
-            \end{tikzpicture}
-            
-    \subsection{Diagrama de interação mais adequado aos casos reais}
-    
-        
-    
-    \subsection{Características de um MDP}
-    
-        \subsubsection{MDP's finitos e infinitos}
-        
-        \subsubsection{Propriedade de Markov}
-        
-        \subsubsection{Cadeia de Markov}
-    
-\section{Visão gráfica de um MDP}
+    \section{Processo de Decisão de Markov Parcialmente Observável}
 
-    \begin{center}
-    \begin{tikzpicture}[->,>=stealth',auto,node distance=3.5cm, thick]
-        \node[state-node] (S1)                     {$s_1$};
-        \node[state-node] (S2) [above right of=S1] {$s_2$};
-        \node[state-node] (S3) [below right of=S1, xshift=1.0cm] {$s_3$};
-        \node[state-node] (S4) [below right of=S2] {$s_4$};
-        \node[state-node] (S5) [right of=S4, xshift=-1.0cm]       {$s_5$};
-        
-        \node[hidden-node] (A1) [right of=S1, xshift=-2.0cm, yshift=0.5cm] {};
-        \node[hidden-node] (A3) [left of=S3, xshift=1.5cm, yshift=1.0cm] {};
-        \node[hidden-node] (A4) [below of=S4, xshift=0.75cm, yshift=2.0cm] {};
-        
-        % from (S1)
-        \draw[-] (S1) to node[action-label] {$a_1$} (A1);
-        \draw[bend right=20] (A1) to node[left, pos=0.25] {$p_1$} (S2);
-        \draw[bend left=20] (A1) to node[below, pos=0.25] {$p_2$} (S4);
-        \draw[hidden-edge, bend right=20] (A1) to node[reward-label] {$r_1$} (S2);
-        \draw[hidden-edge, bend left=20] (A1) to node[reward-label] {$r_2$} (S4);
-        
-        % from (S2)
-        \draw[bend left=20] (S2) to node[action-label, pos=0.25] {$a_2$} (S4);
-        \draw[hidden-edge, bend left=20] (S2) to node[reward-label, pos=0.65] {$r_3$} (S4);
-        
-        % from (S3)
-        \draw[-, bend right=50] (S3) to node[action-label] {$a_3$} (A3);
-        \draw[bend left=40] (A3) to node[above, pos=0.2] {$p_3$} (S1);
-        \draw[bend right=40] (A3) to node[left, pos=0.3] {$p_4$} (S3);
-        \draw[hidden-edge, bend left=40] (A3) to node[reward-label, pos=0.6] {$r_4$} (S1);
-        \draw[hidden-edge, bend right=40] (A3) to node[reward-label, pos=0.6] {$r_5$} (S3);
-        
-        % from (S4)
-        \draw[-] (S4) to node[action-label] {$a_4$} (A4);
-        \draw[bend left=40] (A4) to node[left, pos=0.2] {$p_3$} (S3);
-        \draw[bend right=40] (A4) to node[above, pos=0.25] {$p_4$} (S5);
-        \draw[hidden-edge, bend left=40] (A4) to node[reward-label, left, pos=0.55] {$r_6$} (S3);
-        \draw[hidden-edge, bend right=40] (A4) to node[reward-label, above right, pos=0.5] {$r_7$} (S5);
-        
-        % from (S5)
-        \draw[bend right] (S5) to node[action-label, pos=0.25] {$a_5$} (S2);
-        \draw[hidden-edge, bend right] (S5) to node[reward-label, pos=0.65] {$r_8$} (S2);
-        
-    \end{tikzpicture}
-    \end{center}
-    
-\section{Exemplo de como representar um problema via MDP}
-
-    \textcolor{red}{Escadas de Hogwarts}
-
-\section{Objetivos}
-
-    \subsection{Hipótese da recompensa}
-
-    \subsection{Retorno esperado}
-    
-    \subsection{Desconto}
-    
-        Propósito intuitivo: recompensa imediatas são mais importantes do que as futuras.
-        
-        Propósito formal: transformar retornos infinitos em finitos.
-    
-\section{Política}
-
-    Definição de política.
-
-    \section{Política ótima}
-    
-
-\section{Funções de valor}
-    
-    \subsection{Função estado-valor}
-    
-    \subsection{Função ação-valor}
-    
-    \subsection{Otimalidade das funções de valor}
-    
-        \subsubsection{Valor estado}
-        
-        \subsubsection{Valor ação}
-        
-        \subsubsection{Equações de Bellman}
-    
-\section{Processo de Decisão de Markov Parcialmente Observável}
 
 \end{document}

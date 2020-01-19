@@ -2,17 +2,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
-\usepackage{makecell}
-
-\usepackage{pgf}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata}
-
-\usepackage{graphicx}
-\graphicspath{{figures/}}
 
 \usepackage{amsmath,amssymb}
-\DeclareMathOperator*{\argmax}{argmax}
+
 
 % PB: redefinir maketitle
 \makeatletter
@@ -36,67 +28,69 @@
 \author{Parte ...  - Gradiente de Política}
 \date{Paulo Bruno de Sousa Serafim - Out/19 - Jan/20}
 
+
 \begin{document}
 
 \maketitle
 
-\section{Preferências}
-
-    \subsection{\emph{Softmax}}
+    \section{Preferências}
+    
+        \subsection{\emph{Softmax}}
+            
+            \begin{equation}
+                f(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{k}e^{x_j}}
+            \end{equation}
         
-        \begin{equation}
-            f(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{k}e^{x_j}}
-        \end{equation}
-    
-        Uma propriedade interessante da função \emph{softmax} é que adicionar ou subtrair um valor constante $B$ de todos os elementos não modifica o valor de $f(x_i)$, i.e.:
+            Uma propriedade interessante da função \emph{softmax} é que adicionar ou subtrair um valor constante $B$ de todos os elementos não modifica o valor de $f(x_i)$, i.e.:
+            
+            \begin{equation}
+            \label{eq:softmax-constant}
+                \frac{e^{x_i + B}}{\sum_{j=1}^{k}e^{x_j + B}} = \frac{e^{x_i}}{\sum_{j=1}^{k}e^{x_j}}
+            \end{equation}
         
-        \begin{equation}
-        \label{eq:softmax-constant}
-            \frac{e^{x_i + B}}{\sum_{j=1}^{k}e^{x_j + B}} = \frac{e^{x_i}}{\sum_{j=1}^{k}e^{x_j}}
-        \end{equation}
+            Exercício: comparar se essa propriedade existe em uma média aritmética.
+            
+            Exercício: provar o resultado da equação \eqref{eq:softmax-constant}
     
-        Exercício: comparar se essa propriedade existe em uma média aritmética.
+            \begin{equation}
+                Pr\{A_t=a\} \ \dot{=} \  \frac{e^{H_t(a)}}{\sum_{b=1}^{k}e^{H_t(b)}} \ \dot{=} \ \pi_t(a)
+            \end{equation}
         
-        Exercício: provar o resultado da equação \eqref{eq:softmax-constant}
-
-        \begin{equation}
-            Pr\{A_t=a\} \ \dot{=} \  \frac{e^{H_t(a)}}{\sum_{b=1}^{k}e^{H_t(b)}} \ \dot{=} \ \pi_t(a)
-        \end{equation}
+            \begin{equation}
+                H_{t+1}(A_t) \ \dot{=} \ H_t(A_t) + \alpha R_t
+            \end{equation}
     
-        \begin{equation}
-            H_{t+1}(A_t) \ \dot{=} \ H_t(A_t) + \alpha R_t
-        \end{equation}
-
-    \subsection{Adição de um \emph{Baseline}}
-    
-        \begin{equation}
-            H_{t+1}(A_t) \ \dot{=} \ H_t(A_t) + \alpha (R_t - B_t)
-        \end{equation}
-    
-    \subsection{Gradient Ascendente}
-    
-        \begin{equation}
-            H_{t+1}(a) \ \dot{=} \ H_t(a) + \alpha \frac{\partial \mathbb{E}[R_t]}{\partial H_t(a)}
-        \end{equation}
+        \subsection{Adição de um \emph{Baseline}}
         
-        onde:
+            \begin{equation}
+                H_{t+1}(A_t) \ \dot{=} \ H_t(A_t) + \alpha (R_t - B_t)
+            \end{equation}
         
-        \begin{equation}
-            \mathbb{E}[R_t] = \sum_x \pi_t(x) q_*(x)
-        \end{equation}
+        \subsection{Gradient Ascendente}
+        
+            \begin{equation}
+                H_{t+1}(a) \ \dot{=} \ H_t(a) + \alpha \frac{\partial \mathbb{E}[R_t]}{\partial H_t(a)}
+            \end{equation}
+            
+            onde:
+            
+            \begin{equation}
+                \mathbb{E}[R_t] = \sum_x \pi_t(x) q_*(x)
+            \end{equation}
+        
+    \section{Aproximação de políticas}
     
-\section{Aproximação de políticas}
-
-    \subsection{\emph{Policy Gradient Theorem}}
+        \subsection{\emph{Policy Gradient Theorem}}
+        
+    \section{\emph{REINFORCE}}
     
-\section{\emph{REINFORCE}}
-
-\section{Modelos \emph{Actor-Critic}}
-
-\section{Problemas Contínuos}
-
-\section{Comparação com Diferenças Temporais}
-
-    \subsection{Vantagens x Desvantagens}
+    \section{Modelos \emph{Actor-Critic}}
+    
+    \section{Problemas Contínuos}
+    
+    \section{Comparação com Diferenças Temporais}
+    
+        \subsection{Vantagens x Desvantagens}
+    
     
 \end{document}
