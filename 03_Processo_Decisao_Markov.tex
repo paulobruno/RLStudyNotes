@@ -77,7 +77,7 @@
                 \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
             \end{tikzpicture}
             \end{center}
-        
+            
     \section{Definição de MDP}
     
         Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
@@ -112,8 +112,59 @@
                 
         \subsection{Diagrama de interação mais adequado aos casos reais}
         
+            \begin{center}
+            \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
+                \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
+                \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
+                
+                \node[rect-node]  (Agent)                                     {\normalsize Agent};
+                \node[rect-node]  (Env)     [below of=Agent]                  {\normalsize Environment};
+                \node[hidden-node] (Hidden)  [left of=Env, xshift=-0.5cm]     {};
+                \node[hidden-node] (UpHid)   [above of=Hidden, yshift=-1.25cm] {};
+                \node[hidden-node] (DownHid) [below of=Hidden, yshift=0.5cm]  {};
+                \node[hidden-node] (Reward) [below of=Env, yshift=2.0cm]  {};
+                
+                \draw[thick, transform canvas={yshift=-0.75cm}] (Reward) to node[above, xshift=-0.65cm] {$R_{t+1}$} (Hidden);
+                \draw[ultra thick] (Env) to node[above] {$O_{t+1}$} (Hidden);
+                    
+                \draw[ultra thick] (Hidden) to node[right, pos=1.0, yshift=1.0cm, align=center] {Observation\\$O_t$}  ++(-1.0,0) |- (Agent.195);
+                \draw[thick, transform canvas={yshift=-0.375cm}] (Hidden.260) to node[left, pos=1.0, yshift=1.5cm, align=center]  {reward\\$R_t$} ++(-1.5,0) |- (Agent.147);
+                
+                \draw[ultra thick] (Agent) to node[below right, pos=1.0, yshift=-0.5cm, align=center] {action\\$A_t$} ++(3.5,0)  |- (Env);
+                
+                \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
+            \end{tikzpicture}
+            \end{center}
             
-        
+            \begin{center}
+            \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
+                \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
+                \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
+                
+                \node[rect-node] (Agent) {\normalsize Agent};
+                \node[rect-node] (Env) [right of=Agent, xshift=4.0cm] {\normalsize Environment};
+                \node[hidden-node] (Hidden) [below of=Env, xshift=-2.0cm, yshift=0.5cm] {};
+                \node[hidden-node] (UpHid) [above of=Hidden, yshift=-1.0cm] {};
+                \node[hidden-node] (DownHid) [below of=Hidden, yshift=1.0cm] {};
+                \node[hidden-node] (Reward) [below of=Env, xshift=0.25cm, yshift=0.5cm] {};
+                
+                \draw[thick, transform canvas={yshift=-0.25cm}] (Reward) to node[below, yshift=-0.1cm] 
+                    {$R_{t+1}$} (Hidden);
+                    
+                \draw[ultra thick, transform canvas={xshift=0.10cm}] (Env.260) to node[xshift=-0.5cm, yshift=-0.4cm] {$O_{t+1}$} ++(0,0) |- (Hidden.105);
+                    
+                \draw[ultra thick] (Hidden.105) to node[above, xshift=-1.5cm, align=center] 
+                    {observation\\$O_t$}  ++(0,0) -| (Agent.290);
+                \draw[thick] (Hidden.255) to node[below, xshift=-1.5cm, align=center] 
+                    {reward\\$R_t$} ++(0,0) -| (Agent.250);
+                    
+                \draw[ultra thick] (Agent) to node[xshift=3.5cm, align=center] 
+                    {action\\$A_t$} ++(0,1.5) -| (Env);
+                    
+                \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
+            \end{tikzpicture}
+            \end{center}
+
         \subsection{Características de um MDP}
         
             \subsubsection{MDP's finitos e infinitos}
