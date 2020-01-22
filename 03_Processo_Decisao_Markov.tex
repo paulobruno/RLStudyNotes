@@ -54,28 +54,7 @@
             \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
         
             \begin{center}
-            \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
-                \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
-                \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
-                
-                \node[rect-node]  (Agent)                                     {\normalsize Agent};
-                \node[rect-node]  (Env)     [below of=Agent]                  {\normalsize Environment};
-                \node[hidden-node] (Hidden)  [left of=Env, xshift=-0.5cm]     {};
-                \node[hidden-node] (UpHid)   [above of=Hidden, yshift=-1.0cm] {};
-                \node[hidden-node] (DownHid) [below of=Hidden, yshift=1.0cm]  {};
-                
-                \draw[thick, transform canvas={yshift=0.25cm}] (Env) to node[above] 
-                    {$R_{t+1}$} (Hidden);
-                \draw[ultra thick, transform canvas={yshift=-0.25cm}] (Env) to node[above] 
-                    {$S_{t+1}$} (Hidden);
-                \draw[ultra thick] (Hidden.255) to node[left, pos=1.0, yshift=1.25cm, align=center] 
-                    {state\\$S_t$}  ++(-1.5,0) |- (Agent.165);
-                \draw[thick] (Hidden.105) to node[right, pos=1.0, yshift=0.75cm, align=center] 
-                    {reward\\$R_t$} ++(-1.0,0) |- (Agent.195);
-                \draw[ultra thick] (Agent) to node[below right, pos=1.0, yshift=-0.5cm, align=center] 
-                    {action\\$A_t$} ++(3.5,0)  |- (Env);
-                \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
-            \end{tikzpicture}
+                \rlinteraction
             \end{center}
             
     \section{Definição de MDP}
