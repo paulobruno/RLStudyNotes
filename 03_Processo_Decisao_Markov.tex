@@ -77,11 +77,18 @@
                     \node[action-node] (R) {$a_1$};
                 \end{tikzpicture}
                 
-            \subsubsection{\textcolor{red}{Dinâmica / Probabilidade de Transição de estado}}
+            \subsubsection{\textcolor{red}{Probabilidade de Transição de Estado}}
             
-                \textcolor{red}{mostrar os dois tipos de notação possíveis $p(s', r \mid s, a)$ e $p(s, a, r, s')$. A primeira "chegar em s' recebendo r, dado que está em s e executou ação a". A segunda "está em s, executa a, recebe r e chega em s'.}
-        
                 $p_1$
+            
+                Dessa forma, a distribuição de probabilidade $p$ caracteriza a \emph{dinâmica} de um MDP.
+            
+                Nota: duas notações são comuns ao para se referir à probabilidade:
+                
+                \begin{enumerate}
+                    \item $p(s', r \mid s, a)$, que pode ser lida como ``chegar no estado $s'$ recebendo uma recompensa $r$ dado que está no estado $s$ e executa a ação $a$'';
+                    \item $p(s, a, r, s')$, que pode ser lida como ``está no estado $s$, executa a ação $a$, recebe a recompensa $r$ e chega no estado $s'$.
+                \end{enumerate}
                 
             \subsubsection{Recompensa}
         
