@@ -69,8 +69,6 @@
                     \node[state-node] (R) {$s_1$};
                 \end{tikzpicture}
                 
-                Nota: Estado vs Observação: 
-                
             \subsubsection{Ação}
             
                 \begin{tikzpicture}
@@ -79,7 +77,7 @@
                 
             \subsubsection{\textcolor{red}{Probabilidade de Transição de Estado}}
             
-                $p_1$
+                $p_1$ \\
             
                 Dessa forma, a distribuição de probabilidade $p$ caracteriza a \emph{dinâmica} de um MDP.
             
@@ -100,9 +98,11 @@
         
             \subsubsection{Nota sobre \emph{observabilidade parcial}}
 
-                Normalmente assumimos que as entradas recebidas do ambiente contêm no estado todas as informações necessárias. Nem sempre isso é verdade. Alguns aspectos importantes do estado podem não ser observáveis. Por exemplo, em um jogo cuja visão da tela é considerada o ``estado'', inimigos atrás da câmera não são observados e portanto não fazem parte do ``estado'' de entrada. Nesses casos, a \emph{Proprieda de Markov} não é completamente satisfeita. 
+                Normalmente, assumimos que as entradas recebidas do ambiente contêm no estado todas as informações necessárias. Nem sempre isso é verdade, alguns aspectos importantes do estado podem não ser observáveis. Por exemplo, em um jogo cuja visão da tela é considerada como o ``estado'', inimigos atrás da câmera não são observados e portanto não fazem parte do ``estado'' de entrada. Nesses casos, a \emph{Proprieda de Markov} não é completamente satisfeita. 
                 
-                Esse tipo de problema caracteriza-se como um "Processo de Decisão de Markov Parcialmente Observável". De fato um estado contém todas as informações necessárias (às vezes mais), por isso nesse tipo de problema utilizamos uma [versão?] do estado, chamada de \emph{observação}. Uma observação ... Tarefas próximas ao mundo real são quase exclusivamente POMDPs e portanto têm grande importância. A abordagem utilizada para resolver ou mitigar os problemas relacionados aos POMDPs será tratada mais adiante.
+                Esse tipo de problema caracteriza-se como um \emph{Processo de Decisão de Markov Parcialmente Observável (POMDP)}. De fato um estado contém todas as informações sobre o sistema, por isso nesse tipo de problema consideramos uma variação do estado chamada de \emph{observação}. Uma observação é uma função do estado que podem ou não se sobrepor.
+                
+                Tarefas próximas ao mundo real são quase exclusivamente \emph{POMDPs} e portanto têm grande importância. A abordagem utilizada para resolver ou mitigar os problemas relacionados aos \emph{POMDPs} será tratada mais adiante.
 
             \subsubsection{Origem da recompensa}
             
@@ -110,30 +110,6 @@
 
             \subsubsection{Diagrama}
 
-                \begin{center}
-                \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
-                    \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
-                    \tikzstyle{hidden-node}=[fill=none, draw=none, text=black, shape=rectangle, inner sep=0,outer sep=0.05cm, minimum height=0.75cm]
-                    
-                    \node[rect-node]  (Agent)                                     {\normalsize Agent};
-                    \node[rect-node]  (Env)     [below of=Agent]                  {\normalsize Environment};
-                    \node[hidden-node] (Hidden)  [left of=Env, xshift=-0.5cm]     {};
-                    \node[hidden-node] (UpHid)   [above of=Hidden, yshift=-1.25cm] {};
-                    \node[hidden-node] (DownHid) [below of=Hidden, yshift=0.5cm]  {};
-                    \node[hidden-node] (Reward) [below of=Env, yshift=2.0cm]  {};
-                    
-                    \draw[thick, transform canvas={yshift=-0.75cm}] (Reward) to node[above, xshift=-0.65cm] {$R_{t+1}$} (Hidden);
-                    \draw[ultra thick] (Env) to node[above] {$O_{t+1}$} (Hidden);
-                        
-                    \draw[ultra thick] (Hidden) to node[right, pos=1.0, yshift=1.0cm, align=center] {Observation\\$O_t$}  ++(-1.0,0) |- (Agent.195);
-                    \draw[thick, transform canvas={yshift=-0.375cm}] (Hidden.260) to node[left, pos=1.0, yshift=1.5cm, align=center]  {reward\\$R_t$} ++(-1.5,0) |- (Agent.147);
-                    
-                    \draw[ultra thick] (Agent) to node[below right, pos=1.0, yshift=-0.5cm, align=center] {action\\$A_t$} ++(3.5,0)  |- (Env);
-                    
-                    \draw[-, thick, dashed] (UpHid) to node {} (DownHid);
-                \end{tikzpicture}
-                \end{center}
-                
                 \begin{center}
                 \begin{tikzpicture}[->,>=latex, auto, node distance=2.0cm, very thick, font=\small]
                     \tikzstyle{rect-node}=[fill=none,shape=rectangle,draw=black,text=black,rounded corners=0.1cm, inner sep=0.4cm]
