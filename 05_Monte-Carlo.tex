@@ -3,6 +3,12 @@
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
 
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{subcaption}
+
+\input{pb_rlstyle_tikzgraph.tex}
+
 
 % PB: redefinir maketitle
 \makeatletter
@@ -30,6 +36,51 @@
 \begin{document}
 
 \maketitle
+
+    \section{Métodos \emph{baseados em modelos} vs. Métodos \emph{livres de modelo}}
+    
+    
+            \begin{figure}[h]
+                \centering
+                \begin{subfigure}{.3\linewidth}
+                    \centering
+                    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
+                        \node[state-node]  (SimpleBanditS1) {$s$};
+                        \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditS1, xshift=-1.0cm] {$r$};
+                        \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditS1, xshift=0.0cm]  {$r$};
+                        \node[reward-node] (SimpleBanditR3) [below of=SimpleBanditS1, xshift=1.0cm]  {$r$};
+                        
+                        \draw[bend right] (SimpleBanditS1) to node[left, pos=0.8] {$p$} (SimpleBanditR1);
+                        \draw             (SimpleBanditS1) to node[pos=0.8] {$p$} (SimpleBanditR2);
+                        \draw[bend left]  (SimpleBanditS1) to node[right, pos=0.8] {$p$} (SimpleBanditR3);
+                        
+                        \draw[hidden-edge, bend right] (SimpleBanditS1) to node[action-label, pos=0.4] {$a$} (SimpleBanditR1);
+                        \draw[hidden-edge]             (SimpleBanditS1) to node[action-label, pos=0.4] {$a$} (SimpleBanditR2);
+                        \draw[hidden-edge, bend left]  (SimpleBanditS1) to node[action-label, pos=0.4] {$a$} (SimpleBanditR3);
+                    \end{tikzpicture}
+                    \caption{Modelo conhecido.}
+                \end{subfigure}
+                \begin{subfigure}{.3\linewidth}
+                    \centering
+                    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
+                        \node[state-node]  (SimpleBanditS1) {$s$};
+                        \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditS1, xshift=-1.0cm] {$r$};
+                        \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditS1, xshift=0.0cm]  {$r$};
+                        \node[reward-node] (SimpleBanditR3) [below of=SimpleBanditS1, xshift=1.0cm]  {$r$};
+                        
+                        \draw[bend right] (SimpleBanditS1) to node[left, pos=0.8] {$?$} (SimpleBanditR1);
+                        \draw             (SimpleBanditS1) to node[pos=0.8] {$?$} (SimpleBanditR2);
+                        \draw[bend left]  (SimpleBanditS1) to node[right, pos=0.8] {$?$} (SimpleBanditR3);
+                        
+                        \draw[hidden-edge, bend right] (SimpleBanditS1) to node[action-label, pos=0.4] {$a$} (SimpleBanditR1);
+                        \draw[hidden-edge]             (SimpleBanditS1) to node[action-label, pos=0.4] {$a$} (SimpleBanditR2);
+                        \draw[hidden-edge, bend left]  (SimpleBanditS1) to node[action-label, pos=0.4] {$a$} (SimpleBanditR3);
+                    \end{tikzpicture}                    
+                    \caption{Modelo desconhecido.}
+                \end{subfigure}
+                \caption{Teste}
+            \end{figure}
+
 
     \section{Introdução}
     
