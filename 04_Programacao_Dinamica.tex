@@ -37,7 +37,7 @@
 
     \section{Recapitulação de MDP}
     
-        Mostrar grafos de MDP's.
+        Considere o MDP abaixo.
         
         \begin{center}
         \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
@@ -63,10 +63,14 @@
             \draw[hidden-edge, bend left=40]  (S1) to node[reward-label, pos=0.65] {$r_5$} (S3);
         \end{tikzpicture}
         \end{center}
+        
+        Perceba que sabemos todas as informações necessárias sobre o modelo, i.e., todos os estados existentes, todas as ações possíveis e, principalmente as probabilidades de transição. Com isso, podemos estimar um valor para o estado $s_1$ de acordo com as equações de Bellman.
     
     \section{Equações de otimalidade de Bellman}
     
-        \subsection{Função de estado-valor}
+        Recaptulando dos estudos de MDP, conhecemos duas funções de valor ótimo, valor-estado e valor-ação.
+    
+        \subsection{Função de valor-estado}
         
             \begin{equation}
                 \begin{split}
@@ -75,7 +79,7 @@
                 \end{split}
             \end{equation}
         
-        \subsection{Função de ação-valor}
+        \subsection{Função de valor-ação}
     
             \begin{equation}
                 \begin{split}
@@ -84,9 +88,13 @@
                 \end{split}
             \end{equation}
             
+        Com essas equações, podemos avaliar um estado e um par estado-ação, desde que tenhamos todas as informações necessárias do modelo. Note que nos casos ótimos consideramos a ação escolhida como sendo a que retorna o maior valor. Caso não tenhamos a política ótima ou estejamos seguindo outra política $\pi$ qualquer, poderíamos usar as funções de valor para avaliar essa política. É o que faremos a seguir.
+        
     \section{Avaliação de política}
     
-        Também conhecido como o \textit{problema da predição}.
+        Também conhecido como o \textit{problema da predição}, a avaliação da política consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Embora esse valor possa ser definido a partir da resolução de um sistema linear nos estados, isso pode ser muito custoso, dessa forma, aqui estamos interessados em computá-lo iterativamente.
+        
+        O valor de um estado $s$ seguindo uma política $\pi$ é dado por:
         
         \begin{equation}
             \begin{split}
@@ -96,6 +104,8 @@
                 & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_{\pi}(s') \Big]
             \end{split}
         \end{equation}
+                
+        A sua versão iterativa é dada por:
         
         \begin{equation}
             \begin{split}
@@ -103,6 +113,20 @@
                 & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_k(s') \Big]
             \end{split}
         \end{equation}
+        
+        Em que a aproximação inicial $v_0(s)$ pode ser escolhida arbitrariamente e o valor de um estado terminal é $0$.
+        
+        \subsection{Exemplo aplicado ao MDP inicial}
+        
+            \begin{equation}
+                \begin{split}
+                    v_\pi(s_1) &= \pi(a_1 \mid s_1) \cdot p(s_2, r_1 \mid s_1, a_1) \cdot \Big[ r_1 + \gamma \cdot v_\pi(s_2) \Big] \\
+                               &+ \pi(a_1 \mid s_1) \cdot p(s_2, r_2 \mid s_1, a_1) \cdot \Big[ r_2 + \gamma \cdot v_\pi(s_2) \Big] \\
+                               &+ \pi(a_2 \mid s_1) \cdot p(s_2, r_3 \mid s_1, a_2) \cdot \Big[ r_3 + \gamma \cdot v_\pi(s_2) \Big] \\
+                               &+ \pi(a_2 \mid s_1) \cdot p(s_3, r_4 \mid s_1, a_2) \cdot \Big[ r_4 + \gamma \cdot v_\pi(s_3) \Big] \\
+                               &+ \pi(a_3 \mid s_1) \cdot p(s_3, r_5 \mid s_1, a_3) \cdot \Big[ r_5 + \gamma \cdot v_\pi(s_3) \Big]
+                \end{split}
+            \end{equation}
         
     \section{Melhora da política}
     
