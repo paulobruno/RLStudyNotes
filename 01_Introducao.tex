@@ -6,6 +6,7 @@
 
 \usepackage{graphicx}
 \graphicspath{{figures/}}
+\usepackage{subcaption}
 
 \input{pb_rlstyle_tikzgraph.tex}
 
@@ -30,16 +31,22 @@
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 01 - Introdução ao Aprendizado por Reforço}
-\date{Paulo Bruno de Sousa Serafim - Out/19 - Jan/20}
+\date{Paulo Bruno de Sousa Serafim - Out/19 - Fev/20}
 
 
 \begin{document}
 
 \maketitle
 
-    \section{O que é ``reforço''}
+    \section{Bibliografia}
     
-        \subsection{Condicionamento}
+        Richard S. Sutton and Andrew G. Barto. \textbf{Reinforcement Learning: An Introduction}. 2nd Edition. MIT Press, Cambridge, MA, 2018.
+    
+    \section{O que é ``reforço''?}
+    
+        A introdução dos termos reforço e punição parte do \emph{Behaviorismo} .
+    
+        \subsection{Behaviorismo}
         
             \subsubsection{Condicionamento Clássico}
             
@@ -53,17 +60,11 @@
         
             \subsubsection{Reforço}
             
-                \begin{itemize}
-                    \item Processo em que a ocorrência de um comportamento é fortalecida por uma consequência de sua ocorrência;
-                    \item Aumenta a frequência do comportamento.
-                \end{itemize}
+                Processo em que a ocorrência de um comportamento é fortalecida por uma consequência de sua ocorrência. Portanto, aumenta a frequência do comportamento.
             
             \subsubsection{Punição}
             
-                \begin{itemize}
-                    \item Processo em que a ocorrência de um comportamento é enfraquecida por uma consequência de sua ocorrência;
-                    \item Diminui a frequência do comportamento.
-                \end{itemize}
+                Processo em que a ocorrência de um comportamento é enfraquecida por uma consequência de sua ocorrência. Portanto, diminui a frequência do comportamento.
                 
             \subsubsection{Positivo}
             
@@ -77,27 +78,40 @@
                     \item Relacionado à ausência ou subtração de algo.
                 \end{itemize}
             
-            \begin{table}[ht]
-                \centering
-                \begin{tabular}{|c|c|c|}
-                    \hline
-                     & \textbf{Adiciona estímulo} & \textbf{Remove ou evita estímulo} \\
-                    \hline
-                    \makecell{\textbf{Aumenta a chance de ocorrência} \\ \textbf{do comportamento}} & Reforço Positivo & Reforço Negativo \\ 
-                    \hline
-                    \makecell{\textbf{Diminui a chance de ocorrência} \\ \textbf{do comportamento}} & Punição Positiva & Punição Negativa \\ 
-                    \hline
-                \end{tabular}
-                \caption{Relação entre estímulo e chance de ocorrência de um comportamento}
-                \label{tab:reforco-punicao}
-            \end{table}
+            \subsubsection{Combinações Reforço/Punição $\times$ Positivo/Negativo}
             
-            \begin{figure}[ht]
-                \centering
-                \includegraphics[width=250pt]{bart-punishment.png}
-                \caption{Fonte: Shrestha (2017)}
-                \label{fig:bart-punicao}
-            \end{figure}
+                Dessa forma, temos 4 combinações possíveis, que são resumidas na Tabela~\ref{tab:reforco-punicao} e ilustradas na Figura~\ref{fig:reforco-punicao}.
+            
+                \begin{table}[ht]
+                    \centering
+                    \begin{tabular}{|c|c|c|}
+                        \hline
+                         & \textbf{Positivo} & \textbf{Negativo} \\
+                        \hline
+                        \textbf{Reforço} & \makecell{Aumenta a chance de ocorrência do \\ comportamento pela adição de estímulo} & \makecell{Aumenta a chance de ocorrência do \\ comportamento pela remoção de estímulo} \\
+                        \hline
+                        \textbf{Punição} & \makecell{Diminui a chance de ocorrência do \\ comportamento pela adição de estímulo} & \makecell{Diminui a chance de ocorrência do \\ comportamento pela remoção de estímulo} \\
+                        \hline
+                    \end{tabular}
+                    \caption{Relação entre estímulo e chance de ocorrência de um comportamento}
+                    \label{tab:reforco-punicao}
+                \end{table}
+            
+                \begin{figure}[ht]
+                    \centering
+                    \begin{subfigure}[b]{.45\textwidth}
+                        \centering
+                        \raisebox{-0.5\height}{\includegraphics[width=200pt]{positive-negative-reinforcement.png}}
+                        \caption{Reforço Positivo/Negativo}
+                    \end{subfigure}
+                    \begin{subfigure}[b]{.45\textwidth}
+                        \centering
+                        \raisebox{-0.5\height}{\includegraphics[width=180pt]{positive-negative-punishment_0.png}}
+                        \caption{Punição Positiva/Negativa}
+                    \end{subfigure}
+                    \caption{Fonte: Shrestha (2017)}
+                    \label{fig:reforco-punicao}
+                \end{figure}
             
     \section{Exemplos}
     
@@ -163,21 +177,14 @@
             
             Foi o que uniu as outras duas correntes, formando uma área só.
             
-        \subsection{Marcos}
+        \subsection{Marcos \emph{recentes} utilizando Aprendizado por Reforço}
         
             \begin{itemize}
-                \item \textbf{março de 2016}: AlphaGo vence Lee Sedol, campão mundial de Go;
-                \item \textbf{janeiro de 2019}: AlphaStar vence MaNa, jogador profissional de StarCraft II.
-            \end{itemize}
-        
-        \subsection{Artigos}
-        
-            \begin{itemize}
-                \item \textbf{1988}, Richard Sutton, \textit{Learning to Predict by the Methods of Temporal Differences}
-                \item \textbf{1989}, Christopher Watkins, \textit{Learning from Delayed Rewards}.
-                \item \textbf{1995}, Gerald Tesauro, \textit{Temporal Difference Learning and TD-Gammon}.
-                \item \textbf{2013}, Volodymyr \textit{Mnih et al.}, \textit{Playing Atari with Deep Reinforcement Learning}.
-                \item \textbf{2016}, David Silver \textit{et al.}, \textit{Mastering the game of Go with deep neural networks and tree search}.
+                \item \textbf{2013}: Publicação no ArXiv do artigo seminal \emph{Playing Atari with Deep Reinforcement Learning} pela então \emph{DeepMind Technologies} \textcolor{red}{referenciar mnih 2013};
+                \item \textbf{2015}: Publicação na revista \emph{Nature} do artigo \emph{Human-level control through deep reinforcement learning} pelo \emph{Google DeepMind}; \textcolor{red}{referenciar mnih 2015}
+                \item \textbf{2017}: \emph{AlphaGo} vence Lee Sedol, campão mundial de Go;  \textcolor{red}{referenciar documentario alphago e o paper}
+                \item \textbf{2019}: \emph{OpenAI Five} vence a equipe OG no jogo Dota2;  \textcolor{red}{referenciar openai five}
+                \item \textbf{2019}: AlphaStar vence MaNa, jogador profissional de StarCraft II. \textcolor{red}{referenciar alphastar}
             \end{itemize}
 
     
