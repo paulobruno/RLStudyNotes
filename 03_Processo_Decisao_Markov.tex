@@ -40,14 +40,24 @@
 
     \section{Caracterização da interação agente-ambiente}
     
+        Inicialmente, vamos recapitular o problema de Aprendizado por Reforço. Um agente interage com o ambiente. No começo ele encontra-se em um estado, então executa uma ação no ambiente, que lhe dá uma recompensa e o leva para outro estado. 
+    
         \subsection{Definções}
             
             \subsubsection{Agente}
+            
+                Entidade 
+            
             \subsubsection{Ambiente}
+            
+                
+            
             \subsubsection{Estado}
             \subsubsection{Ação}
             \subsubsection{Recompensa}
             \subsubsection{Trajetória}
+            
+                
             
         \subsection{Diagrama de interação}
         
@@ -94,11 +104,11 @@
                     \node[reward-node] (R) {$r_1$};
                 \end{tikzpicture}
                 
-        \subsection{Diagrama de interação mais adequado aos casos reais}
+        \subsection{Diagrama de interação mais adequado a outros casos práticos}
         
             \subsubsection{Nota sobre \emph{observabilidade parcial}}
 
-                Normalmente, assumimos que as entradas recebidas do ambiente contêm no estado todas as informações necessárias. Nem sempre isso é verdade, alguns aspectos importantes do estado podem não ser observáveis. Por exemplo, em um jogo cuja visão da tela é considerada como o ``estado'', inimigos atrás da câmera não são observados e portanto não fazem parte do ``estado'' de entrada. Nesses casos, a \emph{Proprieda de Markov} não é completamente satisfeita. 
+                Normalmente, assumimos que as entradas recebidas do ambiente contêm no estado todas as informações necessárias. Nem sempre isso é verdade, alguns aspectos importantes do estado podem não ser observáveis. Por exemplo, em um jogo cuja visão da tela é considerada como o ``estado'', inimigos atrás da câmera não são observados e portanto não fazem parte do ``estado'' de entrada. Nesses casos, a \emph{Propriedade de Markov} não é completamente satisfeita. 
                 
                 Esse tipo de problema caracteriza-se como um \emph{Processo de Decisão de Markov Parcialmente Observável (POMDP)}. De fato um estado contém todas as informações sobre o sistema, por isso nesse tipo de problema consideramos uma variação do estado chamada de \emph{observação}. Uma observação é uma função do estado que podem ou não se sobrepor.
                 
@@ -149,48 +159,10 @@
         
     \section{Visão gráfica de um MDP}
     
+        Graficamente, um MDP é representado como um grafo direcionado em que os nós são pares estados e ações, e as arestas indicam o estado a ser alcançado:
+    
         \begin{center}
-        \begin{tikzpicture}[->,>=stealth',auto,node distance=3.5cm, thick]
-            \node[state-node] (S1)                     {$s_1$};
-            \node[state-node] (S2) [above right of=S1] {$s_2$};
-            \node[state-node] (S3) [below right of=S1, xshift=1.0cm] {$s_3$};
-            \node[state-node] (S4) [below right of=S2] {$s_4$};
-            \node[state-node] (S5) [right of=S4, xshift=-1.0cm]       {$s_5$};
-            
-            \node[hidden-node] (A1) [right of=S1, xshift=-2.0cm, yshift=0.5cm] {};
-            \node[hidden-node] (A3) [left of=S3, xshift=1.5cm, yshift=1.0cm] {};
-            \node[hidden-node] (A4) [below of=S4, xshift=0.75cm, yshift=2.0cm] {};
-            
-            % from (S1)
-            \draw[-] (S1) to node[action-label] {$a_1$} (A1);
-            \draw[bend right=20] (A1) to node[left, pos=0.25] {$p_1$} (S2);
-            \draw[bend left=20] (A1) to node[below, pos=0.25] {$p_2$} (S4);
-            \draw[hidden-edge, bend right=20] (A1) to node[reward-label] {$r_1$} (S2);
-            \draw[hidden-edge, bend left=20] (A1) to node[reward-label] {$r_2$} (S4);
-            
-            % from (S2)
-            \draw[bend left=20] (S2) to node[action-label, pos=0.25] {$a_2$} (S4);
-            \draw[hidden-edge, bend left=20] (S2) to node[reward-label, pos=0.65] {$r_3$} (S4);
-            
-            % from (S3)
-            \draw[-, bend right=50] (S3) to node[action-label] {$a_3$} (A3);
-            \draw[bend left=40] (A3) to node[above, pos=0.2] {$p_3$} (S1);
-            \draw[bend right=40] (A3) to node[left, pos=0.3] {$p_4$} (S3);
-            \draw[hidden-edge, bend left=40] (A3) to node[reward-label, pos=0.6] {$r_4$} (S1);
-            \draw[hidden-edge, bend right=40] (A3) to node[reward-label, pos=0.6] {$r_5$} (S3);
-            
-            % from (S4)
-            \draw[-] (S4) to node[action-label] {$a_4$} (A4);
-            \draw[bend left=40] (A4) to node[left, pos=0.2] {$p_3$} (S3);
-            \draw[bend right=40] (A4) to node[above, pos=0.25] {$p_4$} (S5);
-            \draw[hidden-edge, bend left=40] (A4) to node[reward-label, left, pos=0.55] {$r_6$} (S3);
-            \draw[hidden-edge, bend right=40] (A4) to node[reward-label, above right, pos=0.5] {$r_7$} (S5);
-            
-            % from (S5)
-            \draw[bend right] (S5) to node[action-label, pos=0.25] {$a_5$} (S2);
-            \draw[hidden-edge, bend right] (S5) to node[reward-label, pos=0.65] {$r_8$} (S2);
-            
-        \end{tikzpicture}
+        \mdpbig
         \end{center}
         
     \section{Exemplo de como representar um problema via MDP}

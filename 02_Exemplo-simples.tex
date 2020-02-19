@@ -350,28 +350,7 @@
         \end{equation}
         
         \begin{center}
-        \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
-            \node[state-node]  (S1) {$s_1$};
-            \node[state-node]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
-            \node[state-node]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
-            \node[hidden-node] (A1) [above of=S2, yshift=-1.5cm] {};
-            \node[hidden-node] (A2) [below of=S1, yshift=2.5cm]  {};
-            
-            \draw[bend right=20,-] (S1) to node[action-label]           {$a_1$} (A1);
-            \draw[-]               (S1) to node[action-label, pos=0.4]  {$a_2$} (A2);
-            \draw[bend left=40]    (S1) to node[action-label, pos=0.25] {$a_3$} (S3);
-            
-            \draw[bend right=30]   (A1) to node[left, pos=0.2]  {$p_1$} (S2);
-            \draw[bend left=30]    (A1) to node[right, pos=0.2] {$p_2$} (S2);
-            \draw[bend left=40]    (A2) to node[left, pos=0.3]  {$p_3$} (S2);
-            \draw[bend right=40]   (A2) to node[right, pos=0.3] {$p_4$} (S3);
-            
-            \draw[hidden-edge, bend right=30] (A1) to node[reward-label]           {$r_1$} (S2);
-            \draw[hidden-edge, bend left=30]  (A1) to node[reward-label]           {$r_2$} (S2);
-            \draw[hidden-edge, bend left=40]  (A2) to node[reward-label]           {$r_3$} (S2);
-            \draw[hidden-edge, bend right=40] (A2) to node[reward-label]           {$r_4$} (S3);
-            \draw[hidden-edge, bend left=40]  (S1) to node[reward-label, pos=0.65] {$r_5$} (S3);
-        \end{tikzpicture}
+        \mdpthreestate
         \end{center}
         
         Para simplificar o grafo, na maioria das vezes os nós das ações serão omitidos e as ações serão indicadas nos rótulos das arestas. Além disso, se a probabilidade for 1, ela é omitida.
