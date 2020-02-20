@@ -42,7 +42,7 @@
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 02 - Problemas de \emph{Multi-Armed Bandits}}
-\date{Paulo Bruno de Sousa Serafim - Out/19 - Jan/20}
+\date{Paulo Bruno de Sousa Serafim - Out/19 - Fev/20}
 
 
 \begin{document}
@@ -51,44 +51,50 @@
 
     \section{\textit{Multi-armed bandit}}
     
-        Vamos imaginar o caso mais simples, em que só temos um único estado. Assim a dinâmica de interação é bem simples, escolhemos uma ação e recebemos uma recompensa por ela. Nesse caso, só temos que nos preocupar com qual ação tomar imediatamente e com a sua recompensa. Se existirem k ações possíveis, podemos executar qualquer uma delas e receberemos uma recompensa. O diagrama a seguir representa essa dinâmica:
-    
-        \begin{center}
-            \simplebandit
-        \end{center}
-    
-        \textit{O caso em que temos somente um estado é um problema bem conhecido e chamado de "Multi-Armed Bandit" (adicionar nota: a tradução para ``one-armed bandit'' é máquina caça-níquel, então ``multi-armed bandit'' seria uma máquina caça-níquel com múltiplas alavancas).}
+        \subsection{\emph{One-armed bandit}}
         
-        Esse é um problema bem conhecido e muito estudado na literatura: k-armed bandit [nota tradução máquina caça-níquel]. Imagine que você vá jogar em máquinas caça-níquel. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo os valores ganhos possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
+            Vamos considerar o caso mais simples, em que só temos um estado e uma ação. 
+        
+        \subsection{\emph{Multi-armed bandit}}
     
-        \begin{center}
-        \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm, thick]
-            \node[state-node] (S1) {$s$};
-            \node[action-node] (A1) [below of=S1, xshift=-2.0cm] {$a_1$};
-            \node[action-node] (A2) [below of=S1, xshift=2.0cm]  {$a_2$};
-            \node[reward-node] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
-            \node[reward-node] (R2) [below of=A1, xshift=0.0cm]  {$r_2$};
-            \node[reward-node] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
-            \node[reward-node] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
+            Vamos imaginar o caso mais simples, em que só temos um único estado. Assim a dinâmica de interação é bem simples, escolhemos uma ação e recebemos uma recompensa por ela. Nesse caso, só temos que nos preocupar com qual ação tomar imediatamente e com a sua recompensa. Se existirem k ações possíveis, podemos executar qualquer uma delas e receberemos uma recompensa. O diagrama a seguir representa essa dinâmica:
+        
+            \begin{center}
+                \simplebandit
+            \end{center}
+        
+            \textit{O caso em que temos somente um estado é um problema bem conhecido e chamado de "Multi-Armed Bandit" (adicionar nota: a tradução para ``one-armed bandit'' é máquina caça-níquel, então ``multi-armed bandit'' seria uma máquina caça-níquel com múltiplas alavancas).}
             
-            \draw[bend right=40, out=325] (S1) to node[left]  {} (A1);
-            \draw[bend left=40, out=35]  (S1) to node[right] {} (A2);
-            \draw[bend right]    (A1) to node[left]  {$p_{11}$} (R1);
-            \draw                (A1) to node[left]  {$p_{12}$} (R2);
-            \draw[bend left]     (A1) to node[right] {$p_{13}$} (R3);
-            \draw                (A2) to node[right] {$p_{21}$} (R4);
-        \end{tikzpicture}
-        \end{center}
-    
-        A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a máquina cujo valor esperado seja o maior. Lembrando que estamos considerando que uma máquina é uma ação, podemos representar essa escolha da seguinte forma:
+            Esse é um problema bem conhecido e muito estudado na literatura: k-armed bandit [nota tradução máquina caça-níquel]. Imagine que você vá jogar em máquinas caça-níquel. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo os valores ganhos possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
         
-        Valor de uma máquina \textit{a} = Valor esperado do retorno ao jogar a máquina \textit{a}
+            \begin{center}
+            \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm, thick]
+                \node[state-node] (S1) {$s$};
+                \node[action-node] (A1) [below of=S1, xshift=-2.0cm] {$a_1$};
+                \node[action-node] (A2) [below of=S1, xshift=2.0cm]  {$a_2$};
+                \node[reward-node] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
+                \node[reward-node] (R2) [below of=A1, xshift=0.0cm]  {$r_2$};
+                \node[reward-node] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
+                \node[reward-node] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
+                
+                \draw[bend right=40, out=325] (S1) to node[left]  {} (A1);
+                \draw[bend left=40, out=35]  (S1) to node[right] {} (A2);
+                \draw[bend right]    (A1) to node[left]  {$p_{11}$} (R1);
+                \draw                (A1) to node[left]  {$p_{12}$} (R2);
+                \draw[bend left]     (A1) to node[right] {$p_{13}$} (R3);
+                \draw                (A2) to node[right] {$p_{21}$} (R4);
+            \end{tikzpicture}
+            \end{center}
         
-        De outra forma:
-        
-        \begin{equation}
-            q_*(a) \ \dot{=} \ \mathbb{E}[R_t \mid A_t = a]
-        \end{equation}
+            A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a máquina cujo valor esperado seja o maior. Lembrando que estamos considerando que uma máquina é uma ação, podemos representar essa escolha da seguinte forma:
+            
+            Valor de uma máquina \textit{a} = Valor esperado do retorno ao jogar a máquina \textit{a}
+            
+            De outra forma:
+            
+            \begin{equation}
+                q_*(a) \ \dot{=} \ \mathbb{E}[R_t \mid A_t = a]
+            \end{equation}
     
         \subsection{Descrição informal}
         
@@ -102,9 +108,9 @@
     
         \subsection{Definições}
         
-            \subsection{\textit{``Exploration''} = Prospecção}
+            \subsubsection{\textit{``Exploration''} = Prospecção}
             
-            \subsection{\textit{``Exploitation''} = Exploração}
+            \subsubsection{\textit{``Exploitation''} = Exploração}
         
         \subsection{Estratégias}
         
@@ -149,8 +155,36 @@
                         \caption{$\varepsilon$ começa em $1.0$ e decai linearmente até $0.1$.}
                         \label{diag:epsilon-decay}
                     \end{figure}
-                    
                 \end{itemize}
+            
+        \subsubsection{Limite de Confiança Superior (UCB)}
+        
+            Outra estratégia bastante utilizada leva em consideração o quanto cada ação não-gulosa foi escolhida/testada. Em vez de escolher uma ação não-gulosa de acordo uma mesma probabilidade, vamos escolher uma ação não-gulosa de acordo com o seu \emph{potencial} em ser ótima.
+            
+            Dois fatores influenciam a estimativa de uma ação. O primeiro, naturalmente, é o valor estimado e o segundo é a certeza que temos de que o primeiro é uma boa estimativa. Por exemplo, estimativas com uma grande incerteza associada podem ser bem maiores ou bem menores do que o estimado.
+            
+            Assim, podemos adicionar um termo que considere também a incerteza do valor estimado, de modo que a escolha de uma ação passe a ser baseada em:
+            
+            \begin{equation}
+                A_t \ = \ \argmax_a \left[ Q_t(a) + Incerteza(Q_a) \right]
+            \end{equation}
+            
+            No caso do Limite de Confiação Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:
+            
+            \begin{equation}
+                Incerteza(Q_a) \ = \ c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}}
+            \end{equation}
+            
+            E, portanto, a escolha de uma ação é dada por:
+            
+            \begin{equation}
+                A_t \ \dot{=} \ \argmax_a \left[ Q_t(a) + c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} \ \right]
+            \end{equation}
+            
+            \noindent
+            onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ e $\ln{t}$ aumentam, e se $a$ não for escolhida o valor da incerteza aumenta, pois $N_t(a)$ se mantém e $\ln{t}$ aumenta.
+            
+            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$. Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$.
             
     \section{Função valor-ação}
     
