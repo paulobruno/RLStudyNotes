@@ -41,8 +41,8 @@
 
 
 \title{Notas de estudo - Aprendizado por Reforço}
-\author{Parte 02 - Problemas de \emph{Multi-Armed Bandits}}
-\date{Paulo Bruno de Sousa Serafim - Out/19 - Fev/20}
+\author{Parte 02 - Problemas \emph{Multi-Armed Bandits}}
+\date{Paulo Bruno Serafim - Fev/20}
 
 
 \begin{document}
@@ -53,8 +53,41 @@
     
         \subsection{\emph{One-armed bandit}}
         
-            Vamos considerar o caso mais simples, em que só temos um estado e uma ação. 
-        
+            Vamos considerar o caso mais simples, em que só temos um estado e uma ação. Apesar da ação ser única, ela pode dar recompensas diferentes com probabilidades diferentes. Na literatura, esse problema é conhecido como \emph{one-armed bandit}, cuja tradução para o português é "máquina caça-níquel". Assim, executar a ação seria equivalente a puxar a alavanca de uma caça-níquel e receber alguma recompensa de acordo com uma distribuição de probabilidade interna da máquina.
+
+            Por exemplo, suponha que ao executar a ação temos $80\%$ de chance receber $0$, $19\%$ de receber $2$ e $1\%$ de receber $50$. Ao longo dessas notas, representaremos esses problemas através de diagramas que mostrem estados, ações, recompensas e probabilidades. Nesse exemplo, o diagrama é:
+            
+            \begin{center}
+            \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
+                \node[state-node]  (SimpleBanditS1) {$s$};
+                \node[action-node] (SimpleBanditA1) [below of=SimpleBanditS1, yshift=0.5cm] {$a$};
+                \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditA1, xshift=-1.5cm] {$0$};
+                \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditA1, xshift=0.0cm]  {$2$};
+                \node[reward-node] (SimpleBanditR3) [below of=SimpleBanditA1, xshift=1.5cm]  {$50$};
+                
+                \draw[] (SimpleBanditS1) to node[] {} (SimpleBanditA1);
+                \draw[bend right] (SimpleBanditA1) to node[left] {$80\%$} (SimpleBanditR1);
+                \draw             (SimpleBanditA1) to node[left]     {$19\%$} (SimpleBanditR2);
+                \draw[bend left]  (SimpleBanditA1) to node[]      {$1\%$} (SimpleBanditR3);
+            \end{tikzpicture}
+            \end{center}
+
+            O que queremos saber é: qual é o \emph{valor} da ação $a$? Por definição, o valor de uma ação é o valor esperado das recompensas recebidas quando a ação escolhida $A$ é $a$:
+            \begin{equation}
+            \begin{split}
+                q_*(a) & \ = \ \mathbb{E}[R \mid A = a] \\
+                & \ = \ \sum_{r}{} p(r) \cdot r
+            \end{split}
+            \end{equation}        
+            Para o exemplo anterior, temos:            
+            \begin{equation*}
+            \begin{split}
+                q_*(a) & \ = \ \sum_{r}{} p(r) \cdot r \\
+                & = \ 0.8 \cdot 0 + 0.19 \cdot 2 + 0.01 \cdot 50 \\
+                & = \ 0.88
+            \end{split}
+            \end{equation*}
+            
         \subsection{\emph{Multi-armed bandit}}
     
             Vamos imaginar o caso mais simples, em que só temos um único estado. Assim a dinâmica de interação é bem simples, escolhemos uma ação e recebemos uma recompensa por ela. Nesse caso, só temos que nos preocupar com qual ação tomar imediatamente e com a sua recompensa. Se existirem k ações possíveis, podemos executar qualquer uma delas e receberemos uma recompensa. O diagrama a seguir representa essa dinâmica:
