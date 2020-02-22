@@ -90,48 +90,61 @@
             
         \subsection{\emph{Multi-armed bandit}}
     
-            Vamos imaginar o caso mais simples, em que só temos um único estado. Assim a dinâmica de interação é bem simples, escolhemos uma ação e recebemos uma recompensa por ela. Nesse caso, só temos que nos preocupar com qual ação tomar imediatamente e com a sua recompensa. Se existirem k ações possíveis, podemos executar qualquer uma delas e receberemos uma recompensa. O diagrama a seguir representa essa dinâmica:
+            Vamos agora considerar o caso em que estamos diante de múltiplas máquinas caça-níques. Nesse caso, escolher uma máquina significa ir até ela (estado) e puxar a sua alavanca (ação), de modo que estaremos em um único estado por vez. Esse problema é equivalente a ter um único estado, mas múltiplas ações possíveis. A dinâmica de interação agora envolve também escolher uma ação a ser executada. Portanto, precisamos nos atentar com qual ação executar imediatamente e quais as recompensas esperadas, ou seja, o seu valor. Se existirem $k$ ações possíveis, podemos executar qualquer uma delas e receberemos alguma recompensa de acordo com uma distribuição de probabilidade. O diagrama a seguir representa essa dinâmica:
         
             \begin{center}
                 \simplebandit
             \end{center}
+                    
+            Note que nesse caso podemos considerar que estamos diante de uma máquina caça-níquel com múltiplas alavancas, ou seja, uma \emph{multi-armed bandit}. Esse é um problema bem conhecido e muito estudado na literatura, muitas vezes referido somente como \emph{MAB}. Imagine que você vá jogar em uma caça-níquel com múltiplas alavancas. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo as recompensas possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
         
-            \textit{O caso em que temos somente um estado é um problema bem conhecido e chamado de "Multi-Armed Bandit" (adicionar nota: a tradução para ``one-armed bandit'' é máquina caça-níquel, então ``multi-armed bandit'' seria uma máquina caça-níquel com múltiplas alavancas).}
-            
-            Esse é um problema bem conhecido e muito estudado na literatura: k-armed bandit [nota tradução máquina caça-níquel]. Imagine que você vá jogar em máquinas caça-níquel. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo os valores ganhos possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
-        
+            A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor, é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a ação cujo valor seja o maior. 
+
+            Por exemplo, considere o problema:
+
             \begin{center}
             \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm, thick]
                 \node[state-node] (S1) {$s$};
-                \node[action-node] (A1) [below of=S1, xshift=-2.0cm] {$a_1$};
-                \node[action-node] (A2) [below of=S1, xshift=2.0cm]  {$a_2$};
-                \node[reward-node] (R1) [below of=A1, xshift=-1.0cm] {$r_1$};
-                \node[reward-node] (R2) [below of=A1, xshift=0.0cm]  {$r_2$};
-                \node[reward-node] (R3) [below of=A1, xshift=1.0cm]  {$r_3$};
-                \node[reward-node] (R4) [below of=A2, xshift=0.0cm]  {$r_4$};
+                \node[action-node] (A1) [below of=S1, xshift=-3.5cm] {$a_1$};
+                \node[action-node] (A2) [below of=S1, xshift=0.0cm]  {$a_2$};
+                \node[action-node] (A3) [below of=S1, xshift=3.5cm]  {$a_3$};                
+                \node[reward-node] (A1R1) [below of=A1, xshift=-1.5cm] {$0$};
+                \node[reward-node] (A1R2) [below of=A1, xshift=0.0cm]  {$2$};
+                \node[reward-node] (A1R3) [below of=A1, xshift=1.5cm]  {$50$};
+                \node[reward-node] (A2R1) [below of=A2, xshift=-1.0cm] {$0$};
+                \node[reward-node] (A2R2) [below of=A2, xshift=1.0cm]  {$5$};
+                \node[reward-node] (A3R1) [below of=A3, xshift=-1.5cm] {$0.5$};
+                \node[reward-node] (A3R2) [below of=A3, xshift=0.0cm]  {$1$};
+                \node[reward-node] (A3R3) [below of=A3, xshift=1.5cm]  {$2$};
                 
-                \draw[bend right=40, out=325] (S1) to node[left]  {} (A1);
-                \draw[bend left=40, out=35]  (S1) to node[right] {} (A2);
-                \draw[bend right]    (A1) to node[left]  {$p_{11}$} (R1);
-                \draw                (A1) to node[left]  {$p_{12}$} (R2);
-                \draw[bend left]     (A1) to node[right] {$p_{13}$} (R3);
-                \draw                (A2) to node[right] {$p_{21}$} (R4);
+                \draw[bend right] (S1) to node[] {} (A1);
+                \draw[]           (S1) to node[] {} (A2);
+                \draw[bend left]  (S1) to node[] {} (A3);
+
+                \draw[bend right]    (A1) to node[left]  {$0.80$} (A1R1);
+                \draw                (A1) to node[left]  {$0.19$} (A1R2);
+                \draw[bend left]     (A1) to node[right] {$0.01$} (A1R3);
+                \draw[bend right]    (A2) to node[right] {$0.9$}  (A2R1);
+                \draw[bend left]     (A2) to node[right] {$0.1$}  (A2R2);
+                \draw[bend right]    (A3) to node[left]  {$0.5$}  (A3R1);
+                \draw                (A3) to node[left]  {$0.3$}  (A3R2);
+                \draw[bend left]     (A3) to node[right] {$0.2$}  (A3R3);
             \end{tikzpicture}
             \end{center}
-        
-            A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a máquina cujo valor esperado seja o maior. Lembrando que estamos considerando que uma máquina é uma ação, podemos representar essa escolha da seguinte forma:
-            
-            Valor de uma máquina \textit{a} = Valor esperado do retorno ao jogar a máquina \textit{a}
-            
-            De outra forma:
-            
+            Qual ação escolher, $a_1$, $a_2$ ou $a_3$? Naturalmente, vamos calcular o valor de cada ação e a partir deles tomar alguma decisão. A decisão natural é escolher a ação com maior valor, que é chamada de ação \emph{gulosa}:
             \begin{equation}
-                q_*(a) \ \dot{=} \ \mathbb{E}[R_t \mid A_t = a]
+                A_{greedy} \ = \ \argmax_a q_*(a)
             \end{equation}
-    
-        \subsection{Descrição informal}
-        
-        \subsection{Formalização}
+            
+            Calculando os valores das ações do exemplo anterior, temos:
+            \begin{equation*}
+            \begin{split}
+                q_*(a_1) \ = \ 0.88 \\
+                q_*(a_2) \ = \ 0.50 \\
+                q_*(a_3) \ = \ 0.95
+            \end{split}
+            \end{equation*}
+            Portanto, a ação gulosa é $a_3$.
     
     \section{Dilema \textit{``Exploration vs. Exploitation''}}
     
