@@ -221,28 +221,32 @@
 
             O exemplo anterior ilustra bem o quão importante é ter mais informações sobre cada estado para não fazer escolhas inadequadas. Além disso, evidencia a dúvida de quando parar de prospectar informações e passar a explorar os resultados de maneira gulosa. Na literatura, esse problema é conhecido como o \emph{Dilema Prospecção vs. Exploração}.
     
-    \section{Dilema \textit{``Exploration vs. Exploitation''}}
+    \section{Dilema Prospecção vs. Exploração}
     
-        Pegando emprestado um exemplo \todo{procurar onde vi esse exemplo, provavelmente sutton}, imagine que você goste bastante de uma lanchonete que tem um ótimo hambúrguer. Você pode continuar sempre indo na mesma lanchonete. Você sempre vai comer um ótimo hambúrguer, mas pode ser que exista outra lanchonete que tenha um hambúrguer ainda melhor, e você não vai saber. Você poderia decidir, por exemplo, nunca repetir uma lanchonete, assim você conheceria ótimas lanchonetes com ótimos hambúrguers, mas algumas vezes iria comer sanduíches ruins.
+        \noindent
+        Pegando emprestado um exemplo que não lembro mais onde vi, imagine que você goste bastante de uma lanchonete que tem um ótimo hambúrguer. Você pode continuar sempre indo na mesma lanchonete. Você sempre vai comer um ótimo hambúrguer, mas pode ser que exista outra lanchonete que tenha um hambúrguer ainda melhor e você não vai saber. Você poderia decidir, por exemplo, nunca repetir uma lanchonete, assim você conheceria ótimas lanchonetes com ótimos hambúrguers, mas algumas vezes iria comer sanduíches ruins.
         
-        Esse exemplo ilustra o dilema entre sempre escolher uma boa opção (a mesma lanchonete), ou seja, \textbf{explorar} aquilo que já é conhecido, e prospectar (mudar de lanchonete), ou seja, testar outras opções ainda não verificadas. 
+        Esse exemplo ilustra o dilema entre sempre escolher uma boa opção familiar (a mesma lanchonete), ou seja, \textbf{explorar} aquilo que já é conhecido, e \textbf{prospectar} (mudar de lanchonete), ou seja, testar outras opções ainda não visitadas. 
     
-        \subsection{Definições}
+        \subsection{Nota de tradução}
         
-            \subsubsection{\textit{``Exploration''} = Prospecção}
-            
-            \subsubsection{\textit{``Exploitation''} = Exploração}
-        
-        \subsection{Estratégias}
+            \begin{itemize}
+                \item \textit{``Exploration''} = Prospecção
+                \item \textit{``Exploitation''} = Exploração
+            \end{itemize}
+
+            Em inglês esse problema é conhecido como ``Exploration vs. Exploitation Dilemma''. O termo em português comum tanto para ``exploration'', quanto para ``exploitation'' é ``exploração''. Eu gosto de traduzir ``exploration'', a busca por informações novas, como ``prospecção'' e ``exploitation'', tirar proveito das informações conhecidas, como ``exploração''.
+                
+        \subsection{Estratégias de balanceamento}
         
             As estratégias para lidar com o dilema anterior se baseiam em executar ações de maneira gulosa na maior parte do tempo, mas ainda executar ações não-gulosas algumas vezes.
         
             \subsubsection{Estratégias $\boldsymbol\varepsilon$}
             
                 \begin{itemize}
-                    \item \textbf{$\boldsymbol\varepsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\varepsilon)$ e executa uma ação aleatória $\varepsilon$.
-                    \item \textbf{$\boldsymbol\varepsilon$-first}: para um conjunto N de ações, executa $(1 - \varepsilon N)$ ações gulosas e executa $(\varepsilon N)$ ações não-gulosas.
-                    \item \textbf{$\boldsymbol\varepsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar ações. Após algumas iterações a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura \ref{diag:epsilon-decay}, com $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$ \todo{checar se I e F devem ser 5 e 30 ou 6 e 31}.
+                    \item \textbf{$\boldsymbol\varepsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\varepsilon)$ e executa uma ação aleatória $\varepsilon$. Ex.: seja $\varepsilon = 0.1$, a ação a ser executada terá $90\%$ de chance de ser gulosa e $10\%$ de ser aleatória.
+                    \item \textbf{$\boldsymbol\varepsilon$-first}: para um conjunto N de ações, executa $(1 - \varepsilon)N$ ações gulosas e executa $(\varepsilon N)$ ações não-gulosas. Ex.: sejam $\varepsilon = 0.2$ e $N = 10$, 8 ações serão gulosas e 2 ações serão aleatórias.
+                    \item \textbf{$\boldsymbol\varepsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar as ações. Após algumas iterações, a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura \ref{diag:epsilon-decay}, com $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$.
                     
                     \begin{figure}[ht]
                         \centering
