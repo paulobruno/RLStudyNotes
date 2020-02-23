@@ -288,28 +288,22 @@
             
             Dois fatores influenciam a estimativa de uma ação. O primeiro, naturalmente, é o valor estimado e o segundo é a certeza que temos de que o primeiro é uma boa estimativa. Por exemplo, estimativas com uma grande incerteza associada podem ser bem maiores ou bem menores do que o estimado.
             
-            Assim, podemos adicionar um termo que considere também a incerteza do valor estimado, de modo que a escolha de uma ação passe a ser baseada em:
-            
+            Assim, podemos adicionar um termo que considere também a incerteza do valor estimado, de modo que a escolha de uma ação no tempo $t$, $A_t$, passe a ser baseada em:            
             \begin{equation}
-                A_t \ = \ \argmax_a \left[ Q_t(a) + Incerteza(Q_a) \right]
-            \end{equation}
+                A_t \ = \ \argmax_a \Big[ Q_t(a) + Incerteza(Q_a) \Big]
+            \end{equation}           
             
-            No caso do Limite de Confiação Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:
-            
+            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$. Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$. No caso do Limite de Confiança Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:            
             \begin{equation}
                 Incerteza(Q_a) \ = \ c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}}
             \end{equation}
             
-            E, portanto, a escolha de uma ação é dada por:
-            
+            E, portanto, a escolha de uma ação é dada por:            
             \begin{equation}
                 A_t \ \dot{=} \ \argmax_a \left[ Q_t(a) + c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} \ \right]
-            \end{equation}
-            
+            \end{equation}            
             \noindent
-            onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ e $\ln{t}$ aumentam, e se $a$ não for escolhida o valor da incerteza aumenta, pois $N_t(a)$ se mantém e $\ln{t}$ aumenta.
-            
-            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$. Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$.
+            onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ aumenta mais do que $\ln{t}$, e se $a$ não for escolhida o valor da incerteza aumenta, pois $N_t(a)$ se mantém e $\ln{t}$ aumenta.
             
     \section{Função valor-ação}
     
