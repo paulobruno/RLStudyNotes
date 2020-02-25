@@ -305,53 +305,48 @@
             \noindent
             onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ aumenta mais do que $\ln{t}$, e se $a$ não for escolhida o valor da incerteza aumenta, pois $N_t(a)$ se mantém e $\ln{t}$ aumenta.
             
-    \section{Função valor-ação}
-    
-        Função valor-ação ótima:
-    
+    \section{Versão incremental}
+
+        Lembrando de \eqref{eq:estimativa-acao}, uma maneira ingênua que poderíamos utilizar no cálculo da estimativa $Q_t(a)$ pode ser guardar todos os valores obtidos até o momento, calcular a soma dos valores e dividir por pelo número de vezes em que a ação foi executada. Em termos de implementação, teríamos um inteiro para guardar $N_t(a)$ e um array de valores para todos os $Q_t(a)$. Naturalmente, esse array crescerá a cada iteração, de modo que o uso de memória aumentará com o tempo. Não seria particularmente uma boa solução.
+        
+        Uma maneira de evitar usar um array de tamanho variável e manter o uso de memória constante é guardar a soma de $Q_t(a)$, $Soma_t(a)$ e atualizá-la a cada iteração:
         \begin{equation}
-            q_*(a) \ \dot{=} \ \mathbb{E}[R_t \mid A_t = a]
+        \label{eq:estimativa-soma}
+        \begin{split}
+            Soma_{t+1}(a) & \ = \ Soma_t(a) + Q_t(a) \\
+            Q_{t+1}(a) & \ = \ \frac{Soma_{t+1}(a)}{N_{t+1}(a)}  \\
+        \end{split}
         \end{equation}
-    
-        Escolha gulosa:
-    
+
+        Para simplificar a notação, vamos considerar somente uma única ação, de modo que $(a)$ se torna redundante, e somente as vezes em que ela foi executada, $n$. Assim, o cálculo da estimativa para essa ação após ter sido executada $n-1$ vezes é:
         \begin{equation}
-            A_t \ \dot{=} \ \argmax_a Q_t(a)
+        \begin{split}
+            Q_n & \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}\\
+            & \dot{=} \frac{1}{n-1} \sum_{i=1}^{n-1} R_i
+        \end{split}
         \end{equation}
         
-        \begin{center}
-        \mdpthreestate
-        \end{center}
+        De \eqref{eq:estimativa-soma}, temos uma versão iterativa que utiliza memória constante. Entretanto, uma vez que o valor de $Q_t(a)$ já é guardado, poderíamos atualizá-lo diretamente, sem a necessidade da soma $Soma_t(a)$:
         
-        Para simplificar o grafo, na maioria das vezes os nós das ações serão omitidos e as ações serão indicadas nos rótulos das arestas. Além disso, se a probabilidade for 1, ela é omitida.
+        \begin{subequations}
+        \begin{align}
+            Q_{n+1} & \ \dot{=} \ \frac{1}{n} \sum_{i=1}^{n} R_i\\
+            & = \ \frac{1}{n} \Bigg( R_n + \sum_{i=1}^{n-1} R_i \Bigg) \nonumber\\
+            & = \ \frac{1}{n} R_n + \frac{1}{n} \sum_{i=1}^{n-1} R_i \nonumber\\
+            & = \ \frac{1}{n} R_n + \frac{1}{n} \frac{(n-1)}{(n-1)} \sum_{i=1}^{n-1} R_i \nonumber\\
+            & = \ \frac{1}{n} R_n + \frac{(n-1)}{n} \frac{1}{(n-1)} \sum_{i=1}^{n-1} R_i \nonumber\\
+            & = \ \frac{1}{n} R_n + \frac{(n-1)}{n} Q_n \nonumber\\
+            & = \ \frac{1}{n} R_n + \Bigg( \frac{n}{n} - \frac{1}{n} \Bigg) Q_n \nonumber\\
+            & = \ \frac{1}{n} R_n + Q_n - \frac{1}{n} Q_n \nonumber\\
+            \label{eq:estimativa-qn}
+            & = \ Q_n + \frac{1}{n} \Big[ R_n - Q_n \Big]
+        \end{align}
+        \end{subequations}
         
-        \subsection{Definição}
-        
-        \subsection{Versão incremental}
-            
-            \begin{equation}
-                Q_n \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}
-            \end{equation}
-            
-            \begin{equation}
-            \begin{split}
-                Q_{n+1} & \ \dot{=} \ \frac{1}{n} \sum_{i=1}^{n} R_i \\
-                & = \ Q_n + \frac{1}{n} \Big[ R_n - Q_n \Big]
-            \end{split}
-            \end{equation}
-            
-            Ver no livro a derivação dessa equação (eq. 2.3).
-            
-            \begin{equation}
-                NovaEstimativa \leftarrow AntigaEstimativa + TamanhoPasso \Big[ Objetivo - AntigaEstimativa \Big]
-            \end{equation}
-            
-            \begin{equation}
-            \begin{split}
-                Q_{n+1} & \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big] \\
-                & = \ (1 - \alpha)^n Q_1 + \sum_{i=1}^{n} \alpha (1 - \alpha)^{n - i} R_i
-            \end{split}
-            \end{equation}
+        A forma de \eqref{eq:estimativa-qn} segue um padrão muito comum a várias técnicas de aprendizado por reforço:
+        \begin{equation}
+            NovaEstimativa \leftarrow AntigaEstimativa + TamanhoPasso \Big[ Objetivo - AntigaEstimativa \Big]
+        \end{equation}
             
         \subsection{Escolha dos valores iniciais}
             
