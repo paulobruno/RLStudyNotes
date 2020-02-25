@@ -434,7 +434,22 @@
                 \associativebandits
             \end{center}
             
-            Para resolver esse tipo de problema não podemos utilizar as técnicas de avaliação da função de valor da ação, pois o ambiente pode mudar completamente na iteração seguinte. Dessa forma, é necessário que haja uma informação adicional sobre qual ambiente está sendo jogado agora, para que possamos fazer um mapeamento de cada um deles, assim podemos ter uma resposta ótima para cada. Esse tipo de mapeamento se chama \emph{política} e será explorado no futuro.
+            Para resolver esse tipo de problema não podemos utilizar as técnicas de avaliação da função de valor da ação, pois o ambiente pode mudar completamente na iteração seguinte. Dessa forma, é necessário que haja uma informação adicional, chamada de \emph{contexto}, sobre qual ambiente está sendo jogado agora, para que possamos fazer um mapeamento de cada um deles e assim conseguir uma resposta ótima. Esse tipo de mapeamento se chama \emph{política} e será explorado no futuro.
+
+            Por exemplo, considere que há uma máquina que pode assumir três configurações diferentes, $MAB_1$, $MAB_2$ e $MAB_3$, cada um com duas ações possíveis. Suponha ainda que nós sabemos o valor de cada ação de cada configuração:
+            \begin{equation*}
+            \begin{split}
+                q_{*,1}(a_1) & = 5\\
+                q_{*,1}(a_2) & = 1\\
+                q_{*,2}(a_1) & = 2\\
+                q_{*,2}(a_2) & = 10\\
+                q_{*,3}(a_1) & = 0.5\\
+                q_{*,3}(a_2) & = 0.5
+            \end{split}
+            \end{equation*}
+            No $MAB_1$ deveríamos executar a ação $a_1$. No $MAB_2$ deveríamos executar a ação $a_2$. No $MAB_3$ poderíamos executar qualquer ação.
+            
+            Se não soubermos em qual $MAB$ estamos no momento, saber os valores das ações não adianta muito. Entretanto, se tivermos informações adicionais, ou seja, um contexto, sobre o $MAB$ atual, poderíamos executar a ação gulosa para ele. Digamos que cada um dos $MAB$ mostre uma cor diferente em um display. A informação de cores representa um contexto que nos dá informação suficiente para identificar a configuração atual e então executar as ações de maior valor.
             
         \subsection{Full RL Problem}
         
