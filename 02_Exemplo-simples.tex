@@ -90,11 +90,14 @@
             
         \subsection{\emph{Multi-armed bandit}}
     
-            Vamos agora considerar o caso em que estamos diante de múltiplas máquinas caça-níques. Nesse caso, escolher uma máquina significa ir até ela (estado) e puxar a sua alavanca (ação), de modo que estaremos em um único estado por vez. Esse problema é equivalente a ter um único estado, mas múltiplas ações possíveis. A dinâmica de interação agora envolve também escolher uma ação a ser executada. Portanto, precisamos nos atentar com qual ação executar imediatamente e quais as recompensas esperadas, ou seja, o seu valor. Se existirem $k$ ações possíveis, podemos executar qualquer uma delas e receberemos alguma recompensa de acordo com uma distribuição de probabilidade. O diagrama a seguir representa essa dinâmica:
+            Vamos agora considerar o caso em que estamos diante de múltiplas máquinas caça-níques. Nesse caso, escolher uma máquina significa ir até ela (estado) e puxar a sua alavanca (ação), de modo que estaremos em um único estado por vez. Esse problema é equivalente a ter um único estado, mas múltiplas ações possíveis. A dinâmica de interação agora envolve também escolher uma ação a ser executada. Portanto, precisamos nos atentar com qual ação executar imediatamente e quais as recompensas esperadas, ou seja, o seu valor. Se existirem $k$ ações possíveis, podemos executar qualquer uma delas e receberemos alguma recompensa de acordo com uma distribuição de probabilidade. O diagrama~\ref{diag:simple-bandit} a seguir representa essa dinâmica:
         
-            \begin{center}
+            \begin{figure}[ht]
+                \centering
                 \simplebandit
-            \end{center}
+                \caption{Diagrama de ações e recompensas}
+                \label{diag:simple-bandit}
+            \end{figure}
                     
             Note que nesse caso podemos considerar que estamos diante de uma máquina caça-níquel com múltiplas alavancas, ou seja, uma \emph{multi-armed bandit}. Esse é um problema bem conhecido e muito estudado na literatura, muitas vezes referido somente como \emph{MAB}. Imagine que você vá jogar em uma caça-níquel com múltiplas alavancas. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo as recompensas possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
         
@@ -246,7 +249,7 @@
                 \begin{itemize}
                     \item \textbf{$\boldsymbol\varepsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\varepsilon)$ e executa uma ação aleatória $\varepsilon$. Ex.: seja $\varepsilon = 0.1$, a ação a ser executada terá $90\%$ de chance de ser gulosa e $10\%$ de ser aleatória.
                     \item \textbf{$\boldsymbol\varepsilon$-first}: para um conjunto N de ações, executa $(1 - \varepsilon)N$ ações gulosas e executa $(\varepsilon N)$ ações não-gulosas. Ex.: sejam $\varepsilon = 0.2$ e $N = 10$, 8 ações serão gulosas e 2 ações serão aleatórias.
-                    \item \textbf{$\boldsymbol\varepsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar as ações. Após algumas iterações, a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura \ref{diag:epsilon-decay}, com $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$.
+                    \item \textbf{$\boldsymbol\varepsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar as ações. Após algumas iterações, a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura~ \ref{diag:epsilon-decay}, com $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$.
                     
                     \begin{figure}[ht]
                         \centering
@@ -277,7 +280,7 @@
                             \end{axis}
                         \end{tikzpicture}
                         
-                        \caption{$\varepsilon$ começa em $1.0$ e decai linearmente até $0.1$.}
+                        \caption{$\varepsilon$-decay: $\varepsilon$ começa em $1.0$ e decai linearmente até $0.1$.}
                         \label{diag:epsilon-decay}
                     \end{figure}
                 \end{itemize}
@@ -420,19 +423,26 @@
         \subsection{Nonassociative}
             
             Todos os exemplos vistos nessa nota foram de tarefas \emph{não-associativas}. Uma tarefa \emph{não-associativa} é uma tarefa em que não há mudança de configuração no ambiente. Assim, após uma ação ser escolhida, o agente recebe a recompensa adequada e volta para o início do problema. Por exemplo:            
-            \begin{center}
-                \simplebandit
-            \end{center}
             
-            Para resolver um problema não-associativo podemos utilizar as técnicas de avaliação das ações vistas anteriormente.
+            \begin{figure}[ht]
+                \centering
+                \simplebandit
+                \caption{Os exemplos vistos até aqui são de tarefas não-associativas, como o do diagrama~\ref{diag:simple-bandit}}
+                \label{diag:non-associative}
+            \end{figure}
+            
+            Para resolver um problema não-associativo utilizamos as avaliação das ações vistas anteriormente.
     
         \subsection{Associative}
         
             Em um problema \emph{associativo} o ambiente pode mudar após uma ação ser escolhida. Nesse caso, existem diversas configurações de ambientes diferentes e uma delas será aquela a ser avaliada no momento. Observe que a escolha de uma ação não influencia na configuração encontrada na iteração seguinte.
     
-            \begin{center}
+            \begin{figure}
+                \centering
                 \associativebandits
-            \end{center}
+                \caption{Exemplo de problema addociativo: qualquer configuração é possível no início de cada iteração, sem que a escolha influencie no estado inicial da iteração seguinte}
+                \label{fig:my_label}
+            \end{figure}
             
             Para resolver esse tipo de problema não podemos utilizar as técnicas de avaliação da função de valor da ação, pois o ambiente pode mudar completamente na iteração seguinte. Dessa forma, é necessário que haja uma informação adicional, chamada de \emph{contexto}, sobre qual ambiente está sendo jogado agora, para que possamos fazer um mapeamento de cada um deles e assim conseguir uma resposta ótima. Esse tipo de mapeamento se chama \emph{política} e será explorado no futuro.
 
@@ -455,9 +465,12 @@
         
             O \emph{problema completo de aprendizado por reforço} é um passo além de um não-associativo, pois cada ação levará a um determinado ``ambiente''. 
         
-            \begin{center}
+            \begin{figure}[ht]
+                \centering
                 \fullrldiagram
-            \end{center}
+                \caption{Diagrama ilustrando o problema completo do aprendizado por reforço}
+                \label{fig:full-rl-problem}
+            \end{figure}
             
             Nesse caso, não precisamos de uma informação adicional sobre o ambiente/estado em que estamos, já que essa informação pode ser encontrada diretamente a partir dos pares \emph{(estado, ação)}. Contudo, ainda é necessário mapear as melhores ações a partir de cada estado, a \emph{política}. É justamente sobre o problema completo do aprendizado por reforço que trataremos a seguir. Mais especificamente, sobre sua formalização como um \emph{Processo de Decisão de Markov}.
 
