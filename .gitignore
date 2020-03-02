@@ -1,0 +1,14 @@
+# pdftex
+*.aux
+*.fls
+*.log
+*.pdf
+*_latexmk
+*.synctex*
+
+# commit file
+[Nn]otes.txt
+[Cc]ommit[Mm]essage*
+[Cc]ommit[Mm]sg*
+[Cc]ommit[-_][Mm]essage*
+[Cc]ommit[-_][Mm]sg*
