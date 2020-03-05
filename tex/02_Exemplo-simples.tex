@@ -83,8 +83,8 @@
             \begin{equation*}
             \begin{split}
                 q_*(a) & \ = \ \sum_{r}{} p(r) \cdot r \\
-                & = \ 0.8 \cdot 0 + 0.19 \cdot 2 + 0.01 \cdot 50 \\
-                & = \ 0.88
+                & \ = \ 0.8 \cdot 0 + 0.19 \cdot 2 + 0.01 \cdot 50 \\
+                & \ = \ 0.88
             \end{split}
             \end{equation*}
             
@@ -183,8 +183,8 @@
             Os novos valores das estimativas são:
             \begin{equation*}
             \begin{split}
-                Q_{10}(a_1) \ = \ 1.8\\
-                Q_{10}(a_2) \ = \ 200
+                Q_{10}(a_1) & \ = \ 1.8\\
+                Q_{10}(a_2) & \ = \ 200
             \end{split}
             \end{equation*}
             Portanto, a ação gulosa nesse caso seria $a_2$. 
@@ -213,8 +213,8 @@
             com:
             \begin{equation*}
             \begin{split}
-                q_*(a_1) \ = \ 0.25 \cdot 3 + 0.75 \cdot 1 = 1.5 \\
-                q_*(a_2) \ = \ 0.99 \cdot 0 + 0.01 \cdot 1000 = 10
+                q_*(a_1) & \ = \ 0.25 \cdot 3 + 0.75 \cdot 1 = 1.5 \\
+                q_*(a_2) & \ = \ 0.99 \cdot 0 + 0.01 \cdot 1000 = 10
             \end{split}                
             \end{equation*}
 
@@ -325,7 +325,7 @@
         \begin{equation}
         \begin{split}
             Q_n & \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}\\
-            & \dot{=} \frac{1}{n-1} \sum_{i=1}^{n-1} R_i
+            & = \ \frac{1}{n-1} \sum_{i=1}^{n-1} R_i
         \end{split}
         \end{equation}
         
@@ -401,15 +401,15 @@
         \begin{subequations}
         \begin{align}
             Q_{n+1} & \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big] \nonumber\\
-            & \ = \ Q_n + \alpha R_n - \alpha Q_n \nonumber\\
-            & \ = \ \alpha R_n + (1 - \alpha) Q_n \nonumber\\
-            & \ = \ \alpha R_n + (1 - \alpha) \Big[ \alpha R_{n-1} + (1 - \alpha) Q_{n-1} \Big] \nonumber\\
-            & \ = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + (1 - \alpha)^2 Q_{n-1} \nonumber\\
-            & \ = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + (1 - \alpha)^2 \Big[ \alpha R_{n-2} + (1 - \alpha) Q_{n-2} \Big] \nonumber\\
-            & \ = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \alpha (1 - \alpha)^2 R_{n-2} + (1 - \alpha)^3 Q_{n-3} \nonumber\\
-            & \ = \ (1 - \alpha)^3 Q_{n-3} + \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \alpha (1 - \alpha)^2 R_{n-2} \nonumber\\
-            & \ = \ (1 - \alpha)^n Q_1 + \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \cdots + \alpha (1 - \alpha)^{n-1} R_1 \nonumber\\
-            & \ = \ (1 - \alpha)^n Q_1 + \sum_{i=1}^{n} \alpha (1 - \alpha)^{n - i} R_i
+            & = \ Q_n + \alpha R_n - \alpha Q_n \nonumber\\
+            & = \ \alpha R_n + (1 - \alpha) Q_n \nonumber\\
+            & = \ \alpha R_n + (1 - \alpha) \Big[ \alpha R_{n-1} + (1 - \alpha) Q_{n-1} \Big] \nonumber\\
+            & = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + (1 - \alpha)^2 Q_{n-1} \nonumber\\
+            & = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + (1 - \alpha)^2 \Big[ \alpha R_{n-2} + (1 - \alpha) Q_{n-2} \Big] \nonumber\\
+            & = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \alpha (1 - \alpha)^2 R_{n-2} + (1 - \alpha)^3 Q_{n-3} \nonumber\\
+            & = \ (1 - \alpha)^3 Q_{n-3} + \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \alpha (1 - \alpha)^2 R_{n-2} \nonumber\\
+            & = \ (1 - \alpha)^n Q_1 + \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \cdots + \alpha (1 - \alpha)^{n-1} R_1 \nonumber\\
+            & = \ (1 - \alpha)^n Q_1 + \sum_{i=1}^{n} \alpha (1 - \alpha)^{n - i} R_i
         \end{align}
         \end{subequations}
         Essa nova estimativa recebe o nome de \emph{média ponderada recente}.
