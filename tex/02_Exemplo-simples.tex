@@ -153,7 +153,7 @@
 
             Até agora todos as probabilidades e recompensas eram conhecidas. Se pensarmos em um caso mais real, ao encontrarmos $k$ máquinas saberíamos que temos $k$ ações possíveis, mas sem conhecer as probabilidades e recompensas de cada uma delas. De que modo poderíamos descobrir qual é a melhor ação após interagir com elas?
 
-            Inicialmente, não temos nenhuma informação sobre o valor, então qualquer ação é igualmente boa. Para descobrir informações de cada ação teríamos que executá-las algumas vezes e, a partir daí, ter alguma informação para definir uma estratégia de escolha adequada. Vamos definir essa estimativa como a média das recompensas recebidas até o tempo $t$ após executar uma ação, dada por:
+            Inicialmente, não temos nenhuma informação sobre o valor, então qualquer ação é igualmente boa. Para descobrir informações de cada ação teríamos que executá-las algumas vezes e, a partir daí, ter alguma informação para definir uma estratégia de escolha adequada. Vamos definir a estimativa $Q$ como a média das recompensas recebidas até o tempo $t$ após executar uma ação $a$, dada por:
             \begin{equation}
             \label{eq:estimativa-acao}
                 Q_t(a) \ = \ \frac{\sum\limits_{i=1}^{t-1} R_i(a)}{N_{t-1}(a)}
