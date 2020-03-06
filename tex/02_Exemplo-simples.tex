@@ -296,7 +296,7 @@
                 A_t \ = \ \argmax_a \Big[ Q_t(a) + Incerteza(Q_a) \Big]
             \end{equation}           
             
-            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$. Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$. No caso do Limite de Confiança Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:            
+            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$ (perceba que uma incerteza menor que zero não faz muito sentido prático). Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$. No caso do Limite de Confiança Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:            
             \begin{equation}
                 Incerteza(Q_a) \ = \ c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}}
             \end{equation}
