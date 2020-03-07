@@ -321,7 +321,7 @@
         \end{split}
         \end{equation}
 
-        Para simplificar a notação, vamos considerar somente uma única ação, de modo que $(a)$ se torna redundante, e somente as vezes em que ela foi executada, $n$. Assim, o cálculo da estimativa para essa ação após ter sido executada $n-1$ vezes é:
+        Para simplificar a notação, vamos avaliar uma ação por vez. Nesse caso, o uso do símbolo ``$(a)$'' se torna redundante, pois a ação será sempre $a$. Além disso, consideraremos somente os momentos em que ela foi executada, chamando de $n$. Portanto, $N_{t+1}(a)$ pode ser substituído por $n-1$ e $Q_{t+1}(a)$ por $Q_n$. Assim, o cálculo da estimativa para essa ação após ter sido executada $n-1$ vezes é:
         \begin{equation}
         \begin{split}
             Q_n & \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}\\
