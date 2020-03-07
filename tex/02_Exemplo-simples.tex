@@ -355,36 +355,34 @@
 
         Em um problema \emph{estacionário} os valores reais das ações se mantêm os mesmos ao longo de todas as iterações. Já em um problema \emph{não-estacionário} os valores das ações mudam ao longo do tempo, seja por uma mudança nas probabilidades, seja por uma mudança nas recompensas, ou por ambos.
         
-        Por exemplo, um simples problema não-estacionário pode ser visto no diagrama \ref{diag:non-stationary} abaixo. Note que $p_1 \neq p_2$ e $q_1 \neq q_2$, caso contrário seria um problema estacionário. 
+        Por exemplo, um simples problema não-estacionário pode ser visto no diagrama \ref{diag:non-stationary} abaixo. Note que $p_1 \neq q_1$ e $p_2 \neq q_2$, caso contrário seria um problema estacionário. 
         \begin{figure}[h]
             \centering
             \begin{subfigure}{.3\linewidth}
                 \centering
                 \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
-                    \node[state-node]  (S1) {$s$};
-                    \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r_1$};
-                    \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r_2$};
+                    \node[state-node]  (S1) {$s_1$};
+                    \node[action-node] (A1) [below of=S1, yshift=0.5cm] {$a_1$};
+                    \node[reward-node] (R1) [below of=A1, xshift=-0.75cm, yshift=0.60cm] {$r_1$};
+                    \node[reward-node] (R2) [below of=A1, xshift=0.75cm, yshift=0.60cm]  {$r_2$};
                     
-                    \draw[bend right] (S1) to node[left, pos=0.8] {$p_1$} (R1);
-                    \draw[bend left]  (S1) to node[right, pos=0.8] {$q_1$} (R2);
-                    
-                    \draw[hidden-edge, bend right] (S1) to node[action-label] {$a_1$} (R1);
-                    \draw[hidden-edge, bend left]  (S1) to node[action-label] {$a_2$} (R2);
+                    \draw[] (S1) to node {} (A1);
+                    \draw[bend right] (A1) to node[left] {$p_1$} (R1);
+                    \draw[bend left]  (A1) to node[right] {$p_2$} (R2);
                 \end{tikzpicture}
                 \caption{Tempo $t = n$}
             \end{subfigure}
             \begin{subfigure}{.3\linewidth}
                 \centering
                 \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
-                    \node[state-node]  (S1) {$s$};
-                    \node[reward-node] (R1) [below of=S1, xshift=-1.0cm] {$r_1$};
-                    \node[reward-node] (R2) [below of=S1, xshift=1.0cm]  {$r_2$};
+                    \node[state-node]  (S1) {$s_1$};
+                    \node[action-node] (A1) [below of=S1, yshift=0.5cm] {$a_1$};
+                    \node[reward-node] (R1) [below of=A1, xshift=-0.75cm, yshift=0.60cm] {$r_1$};
+                    \node[reward-node] (R2) [below of=A1, xshift=0.75cm, yshift=0.60cm]  {$r_2$};
                     
-                    \draw[bend right] (S1) to node[left, pos=0.8] {$p_2$} (R1);
-                    \draw[bend left]  (S1) to node[right, pos=0.8] {$q_2$} (R2);
-                    
-                    \draw[hidden-edge, bend right] (S1) to node[action-label] {$a_1$} (R1);
-                    \draw[hidden-edge, bend left]  (S1) to node[action-label] {$a_2$} (R2);
+                    \draw[] (S1) to node {} (A1);
+                    \draw[bend right] (A1) to node[left] {$q_1$} (R1);
+                    \draw[bend left]  (A1) to node[right] {$q_2$} (R2);
                 \end{tikzpicture}
                 \caption{Tempo $t = n+1$}
             \end{subfigure}
