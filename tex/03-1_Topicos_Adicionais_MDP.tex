@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{subcaption}
+
+\usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\input{pb_rlstyle_tikzgraph.tex}
+
+% text spacing
+\linespread{1.3}
+\setlength{\parindent}{4em}
+\setlength{\parskip}{0.75em}
+
+
+\newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
+%\newcommand{\todo}[1]{}
+
+
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        %\vskip 0.5em
+        {\large \textbf{\@author} \par}
+        %\vskip 0.5em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+
+\title{Notas de estudo - Aprendizado por Reforço}
+\author{Parte 03.1 - Tópicos Adicionais em Processos de Decisão de Markov}
+\date{Paulo Bruno Serafim - Mar/20}
+
+
+
+\begin{document}
+
+\maketitle
+
+    \section{Cadeia de Markov}
+    
+    
+\end{document}
