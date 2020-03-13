@@ -52,5 +52,33 @@
 
     \section{Cadeia de Markov}
     
+        \begin{center}
+        \begin{tikzpicture}[->, >=stealth', auto, node distance=4.0cm, thick]
+            \node[state-node] (S1) {$s_1$};
+            \node[state-node] (S2) [right of=S1] {$s_2$};
+            
+            \draw[loop left, min distance=15mm] (S1) to node[reward-label, left, pos=0.1] {$0$} (S1);
+            \draw[bend left] (S1) to node[reward-label, pos=0.3] {$1$} (S2);
+            \draw[loop right, min distance=15mm] (S2) to node[reward-label, right, pos=0.1] {$1$} (S2);
+            \draw[bend left] (S2) to node[reward-label, pos=0.3] {$0$} (S1);
+        \end{tikzpicture}
+        \end{center}
+        
+        \begin{center}
+        \begin{tikzpicture}[->, >=stealth', auto, node distance=4.0cm, thick]
+            \node[state-node] (S1) {$s_1$};
+            \node[state-node] (S2) [right of=S1] {$s_2$};
+            
+            \draw[loop left, min distance=15mm] (S1) to node[above, pos=0.8] {$0.5$} (S1);
+            \draw[bend left] (S1) to node[above, pos=0.7] {$0.5$} (S2);
+            \draw[loop right, min distance=15mm] (S2) to node[below, pos=0.8] {$0.75$} (S2);
+            \draw[bend left] (S2) to node[below, pos=0.7] {$0.25$} (S1);
+            
+            \draw[hidden-edge, loop left, min distance=15mm] (S1) to node[reward-label, left, pos=0.1] {$0$} (S1);
+            \draw[hidden-edge, bend left] (S1) to node[reward-label, pos=0.3] {$1$} (S2);
+            \draw[hidden-edge, loop right, min distance=15mm] (S2) to node[reward-label, right, pos=0.1] {$1$} (S2);
+            \draw[hidden-edge, bend left] (S2) to node[reward-label, pos=0.3] {$0$} (S1);
+        \end{tikzpicture}
+        \end{center}
     
 \end{document}
