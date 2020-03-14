@@ -265,11 +265,20 @@
         
             \subsubsection{Valor estado}
             
+                \begin{equation}
+                \begin{split}
+                    v_*(s) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
+                    & \ = \ \max_{a} \sum_{s', r} p(s, a, r, s') [r + \gamma v_*(s')]
+                \end{split}
+                \end{equation}
+            
             \subsubsection{Valor ação}
             
-            \subsubsection{Equações de Bellman}
-        
-    \section{Processo de Decisão de Markov Parcialmente Observável}
-
+                \begin{equation}
+                \begin{split}
+                    q_*(s, a) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
+                    & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma \max_{a'} q_*(s', a')]
+                \end{split}
+                \end{equation}
 
 \end{document}
