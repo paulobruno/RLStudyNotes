@@ -292,6 +292,17 @@
         
         \subsection{Função ação-valor}
         
+            \todo{retirar o v da equação abaixo}
+
+            \begin{equation}            
+            \begin{split}
+                q_{\pi}(s, a) & \ = \ \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
+                & \ = \ \mathbb{E}[R_{t+1} + \gamma G_{t+1} \mid S_t = s, A_t = a] \\
+                & \ = \ \mathbb{E}[R_{t+1} + \gamma v_{\pi}(s') \mid S_t = s, A_t = a] \\
+                & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma v_{\pi}(s')]
+            \end{split}
+            \end{equation}
+        
         \subsection{Otimalidade das funções de valor}
         
             \subsubsection{Valor estado}
