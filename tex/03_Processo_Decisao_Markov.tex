@@ -240,7 +240,29 @@
     
         \subsection{Hipótese da recompensa}
     
-        \subsection{Retorno esperado}
+        \subsection{Retorno}
+
+            \begin{equation}
+                G_t \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots
+            \end{equation}
+
+            \subsubsection{Tarefas episódicas}
+
+                \begin{equation}
+                \begin{split}
+                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots + R_T \\
+                    & \ = \ \sum_{k=t+1}^{T} R_k
+                \end{split}
+                \end{equation}
+
+            \subsubsection{Tarefas contínuas}
+        
+                \begin{equation}
+                \begin{split}
+                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots \\
+                    & \ = \ \sum_{k=0}^{\infty} \gamma^k R_{t + k + 1}
+                \end{split}
+                \end{equation}
         
         \subsection{Desconto}
         
