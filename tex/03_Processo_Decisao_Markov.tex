@@ -281,6 +281,15 @@
         
         \subsection{Função estado-valor}
         
+            \begin{equation}
+            \begin{split}
+                v_{\pi}(s) & \ = \ \mathbb{E}[G_t \mid S_t = s] \\
+                & \ = \ \mathbb{E}[R_{t+1} + \gamma G_{t+1} \mid S_t = s] \\
+                & \ = \ \mathbb{E}[R_{t+1} + \gamma v_{\pi}(s') \mid S_t = s] \\
+                & \ = \ \sum_{a} \pi(s,a) \sum_{s', r} p(s, a, r, s') [r + \gamma v_{\pi}(s')]
+            \end{split}
+            \end{equation}
+        
         \subsection{Função ação-valor}
         
         \subsection{Otimalidade das funções de valor}
