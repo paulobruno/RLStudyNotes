@@ -80,5 +80,27 @@
             \draw[hidden-edge, bend left] (S2) to node[reward-label, pos=0.3] {$0$} (S1);
         \end{tikzpicture}
         \end{center}
+        
+    \section{Processos de Decisão de Markov Parcialmente Observáveis}
     
+        \subsection{Nota sobre \emph{observabilidade parcial}}
+
+            Normalmente, assumimos que as entradas recebidas do ambiente contêm no estado todas as informações necessárias. Nem sempre isso é verdade, alguns aspectos importantes do estado podem não ser observáveis. Por exemplo, em um jogo cuja visão da tela é considerada como o ``estado'', inimigos atrás da câmera não são observados e portanto não fazem parte do ``estado'' de entrada. Nesses casos, a \emph{Propriedade de Markov} não é completamente satisfeita. 
+            
+            Esse tipo de problema caracteriza-se como um \emph{Processo de Decisão de Markov Parcialmente Observável (POMDP)}. De fato um estado contém todas as informações sobre o sistema, por isso nesse tipo de problema consideramos uma variação do estado chamada de \emph{observação}. Uma observação é uma função do estado que podem ou não se sobrepor.
+            
+            Tarefas próximas ao mundo real são quase exclusivamente \emph{POMDPs} e portanto têm grande importância. A abordagem utilizada para resolver ou mitigar os problemas relacionados aos \emph{POMDPs} será tratada mais adiante.
+
+        \subsection{Origem da recompensa}
+        
+            Embora o agente interaja primariamente com o ambiente, a recompensa recebida não necessariamente vem dele. Por exemplo, um outro personagem/entidade presente na tarefa pode dar recompensas ao agente. Dessa forma, é importante notar que embora a recompensa seja na maioria das vezes dadas pelo ambiente, isso não é necessariamente verdade.
+
+        \subsection{Diagrama}
+
+            \begin{figure}[ht]
+                \centering
+                \rlinteractionpomdp
+                \caption{Diagrama de interação de aprendizado por reforço considerando observabilidade parcial}
+                \label{diag:po-rl}
+            \end{figure}
 \end{document}
