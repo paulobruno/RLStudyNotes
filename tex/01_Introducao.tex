@@ -130,6 +130,18 @@
             \item Problema de decisão sequencial
         \end{itemize}
         
+        \subsection{Tempo de resposta}
+        
+            Outra característica do Aprendizado por Reforço é a possível demora para receber uma resposta significativa. Por exemplo, em problemas de aprendizado por reforço a resposta é conhecida a cada iteração; já em problemas de otimização sabemos a distância para a função objetivo em todos os instantes. No caso do aprendizado por reforço temos tarefa de recompensas imediatas e tadias.
+        
+            \subsubsection{Recompensas imediatas}
+        
+                Em algumas tarefas, recompensas significativas são recebidas após cada iteração. Chamamos esse caso de \emph{recompensas imediatas}. Nesse caso, o agente poderá encontrar estratégias de curto prazo e ainda assim ser bem sucedido.
+        
+            \subsubsection{Recompensas tardia}
+        
+                Na maioria dos problemas o agente interage várias vezes com o ambiente antes de receber uma recompensa significativa. Por exemplo, em um jogo de xadrez cada jogador realizará dezenas de ações antes de saber a resposta final, vitória, derrota ou empate. Essa característica é chamada de \emph{recompensas tardias} (do inglês \emph{delayed rewards}). Para resolver esse tipo de problema é necessária a descoberta de estratégias de longo prazo.
+        
     \section{Elementos}
     
         \begin{itemize}
