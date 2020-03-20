@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+\usepackage{hyperref}
 
 \usepackage{indentfirst}
 
@@ -243,8 +244,22 @@
     
         \subsection{Hipótese da recompensa}
     
-            ``Tudo o que queremos dizer com objetivos e propósitos pode ser bem entendido como a maximização do valor esperado da soma cumulativa de um sinal escalar recebido (chamado de recompensa)''.
-    
+            Informalmente, o propósito de um agente é receber o máximo de recompensa possível em tarefa, como afirmada na \emph{hipótese da recompensa}, em tradução livre:
+            \begin{center}
+            \noindent\fbox{%
+                \parbox{45em}{%
+                    \vskip 0.25em
+                    \parindent=2em\indent
+                    \emph{Tudo o que queremos dizer com objetivos e propósitos pode ser bem entendido como a maximização do valor esperado da soma cumulativa de um sinal escalar recebido (chamado de recompensa)}
+                    \vskip 0.25em
+                }%
+            }%
+            \end{center}
+            
+            Observação: a hipótese acima foi sugerida por Michael Littman para os autores Sutton e Barto em comunicação pessoal, como eles explicam nas notas do capítulo 3 do livro. Uma discussão inicial promovida por Sutton é encontrada no endereço:
+            
+            \url{http://incompleteideas.net/rlai.cs.ualberta.ca/RLAI/rewardhypothesis.html}
+        
         \subsection{Retorno}
 
             \begin{equation}
