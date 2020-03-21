@@ -3,6 +3,7 @@
 *.fls
 *.log
 *.pdf
+*.out
 *_latexmk
 *.synctex*
 
