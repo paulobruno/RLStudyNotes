@@ -84,21 +84,21 @@
 \newcommand{\mdpthreestate}{
     \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
         \node[state-node]  (S1) {$s_1$};
-        \node[state-node]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
-        \node[state-node]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
-        \node[action-node] (A1) [below of=S1, yshift=2.5cm, xshift=-3.0cm] {$a_1$};
-        \node[action-node] (A2) [below of=S1, yshift=2.5cm]  {$a_2$};
-        \node[action-node] (A3) [below of=S1, yshift=2.5cm, xshift=2.6cm] {$a_3$};
+        \node[state-node]  (S2) [below of=S1, yshift=0.75cm, xshift=-2.0cm] {$s_2$};
+        \node[state-node]  (S3) [below of=S1, yshift=0.75cm, xshift= 2.0cm] {$s_3$};
+        \node[action-node] (A1) [below of=S1, yshift=3.0cm, xshift=-2.0cm] {$a_1$};
+        \node[action-node] (A2) [below of=S1, yshift=3.0cm]  {$a_2$};
+        \node[action-node] (A3) [below of=S1, yshift=3.0cm, xshift=2.0cm] {$a_3$};
         
         \draw[bend right=20,-] (S1) to node[]  {} (A1);
         \draw[-]               (S1) to node[]  {} (A2);
         \draw[bend left=20,-] (S1) to node[]  {} (A3);
         
-        \draw[bend right=30]   (A1) to node[left, pos=0.2]  {$p_1$} (S2);
-        \draw[bend left=30]    (A1) to node[right, pos=0.2] {$p_2$} (S2);
-        \draw[bend left=40]    (A2) to node[left, pos=0.3]  {$p_3$} (S2);
-        \draw[bend right=40]   (A2) to node[right, pos=0.3] {$p_4$} (S3);
-        \draw[bend left=20]    (A3) to node[right, pos=0.2] {$1$} (S3);
+        \draw[bend right=30]   (A1) to node[left, pos=0.15]  {$p_1$} (S2);
+        \draw[bend left=30]    (A1) to node[right, pos=0.15] {$p_2$} (S2);
+        \draw[bend left=40]    (A2) to node[left, pos=0.15]  {$p_3$} (S2);
+        \draw[bend right=40]   (A2) to node[right, pos=0.15] {$p_4$} (S3);
+        \draw[bend left=20]    (A3) to node[right, pos=0.1] {$1.0$} (S3);
         
         \draw[hidden-edge, bend right=30] (A1) to node[reward-label] {$r_1$} (S2);
         \draw[hidden-edge, bend left=30]  (A1) to node[reward-label] {$r_2$} (S2);
@@ -111,21 +111,27 @@
 \newcommand{\mdpthreestatenoprobs}{
     \begin{tikzpicture}[->,>=stealth', auto, node distance=4.0cm, thick]
         \node[state-node]  (S1) {$s_1$};
-        \node[state-node]  (S2) [below of=S1, xshift=-3.0cm] {$s_2$};
-        \node[state-node]  (S3) [below of=S1, xshift= 3.0cm] {$s_3$};
-        \node[action-node] (A1) [below of=S1, yshift=2.5cm, xshift=-3.0cm] {$a_1$};
-        \node[action-node] (A2) [below of=S1, yshift=2.5cm]  {$a_2$};
-        \node[action-node] (A3) [below of=S1, yshift=2.5cm, xshift=2.6cm] {$a_3$};
+        \node[state-node]  (S2) [below of=S1, yshift=1.0cm, xshift=-2.0cm] {$s_2$};
+        \node[state-node]  (S3) [below of=S1, yshift=1.0cm, xshift= 2.0cm] {$s_3$};
+        \node[action-node] (A1) [below of=S1, yshift=3.0cm, xshift=-2.0cm] {$a_1$};
+        \node[action-node] (A2) [below of=S1, yshift=3.0cm]  {$a_2$};
+        \node[action-node] (A3) [below of=S1, yshift=3.0cm, xshift=2.0cm] {$a_3$};
         
         \draw[bend right=20,-] (S1) to node[]  {} (A1);
         \draw[-]               (S1) to node[]  {} (A2);
         \draw[bend left=20,-] (S1) to node[]  {} (A3);
         
-        \draw[bend right=30] (A1) to node[reward-label] {$r_1$} (S2);
-        \draw[bend left=30]  (A1) to node[reward-label] {$r_2$} (S2);
-        \draw[bend left=40]  (A2) to node[reward-label] {$r_3$} (S2);
-        \draw[bend right=40] (A2) to node[reward-label] {$r_4$} (S3);
-        \draw[bend left=20]  (A3) to node[reward-label] {$r_5$} (S3);
+        \draw[bend right=30]   (A1) to node[left, pos=0.15]  {$?$} (S2);
+        \draw[bend left=30]    (A1) to node[right, pos=0.15] {$?$} (S2);
+        \draw[bend left=40]    (A2) to node[left, pos=0.15]  {$?$} (S2);
+        \draw[bend right=40]   (A2) to node[right, pos=0.15] {$?$} (S3);
+        \draw[bend left=20]    (A3) to node[right, pos=0.1] {$?$} (S3);
+        
+        \draw[hidden-edge, bend right=30] (A1) to node[reward-label] {$r_1$} (S2);
+        \draw[hidden-edge, bend left=30]  (A1) to node[reward-label] {$r_2$} (S2);
+        \draw[hidden-edge, bend left=40]  (A2) to node[reward-label] {$r_3$} (S2);
+        \draw[hidden-edge, bend right=40] (A2) to node[reward-label] {$r_4$} (S3);
+        \draw[hidden-edge, bend left=20]  (A3) to node[reward-label] {$r_5$} (S3);
     \end{tikzpicture}
 }
 
