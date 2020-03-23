@@ -66,13 +66,16 @@
             \subsubsection{Estado}
             \subsubsection{Ação}
             \subsubsection{Recompensa}
+            
+                A recompensa é um sinal escalar possivelmente dada ao agente após a realização de uma ação. Tradicionalmente, a recompensa é passada pelo ambiente, mas em representações mais complexas podem haver entidades dentro do ambiente responsáveis por dar a recompensa. 
+            
             \subsubsection{Trajetória}
             
                 A interação básica do agente com o ambiente acontece da seguinte forma: o agente encontra-se no estado $S_t$, executa uma ação $A_t$, recebe uma recompensa $R_{t+1}$, vai para um estado $S_{t+1}$, executa uma ação $A_{t+1}$ e assim por diante:
 
                 $S_t,\ A_t,\ R_{t+1},\ S_{t+1},\ A_{t+1},\ R_{t+2},\ S_{t+2},\ A_{t+2},\ R_{t+3},\ S_{t+3},\ A_{t+3},\ \dots$
                 
-                Essa sequência que representa a interação de um agente é chamada de \emph{trajetória}. Um exemplo é ilustrado na Figura \ref{fig:trajectory}.
+                Essa sequência que representa a interação de um agente é chamada de \emph{trajetória}, como ilustrada na Figura~\ref{fig:trajectory}.
 
                 \begin{figure}[ht]
                     \centering
