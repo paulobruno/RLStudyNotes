@@ -180,7 +180,6 @@
             
             Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.
 
-            
     \section{Definição de MDP}
     
         Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
@@ -189,9 +188,14 @@
     
             \subsubsection{Estado}
             
-                \begin{tikzpicture}
-                    \node[state-node] (R) {$s_1$};
-                \end{tikzpicture}
+                \begin{figure}[ht]
+                    \centering
+                    \begin{tikzpicture}
+                        \node[state-node] (R) {$s_1$};
+                    \end{tikzpicture}
+                    \caption{Nos nossos diagramas, o estado é representado por um círculo branco com borda preta}
+                    \label{diag:state-node}
+                \end{figure}
                 
             \subsubsection{Ação}
             
