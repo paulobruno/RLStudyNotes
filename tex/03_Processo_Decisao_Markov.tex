@@ -52,6 +52,17 @@
     \section{Caracterização da interação agente-ambiente}
     
         Inicialmente, vamos recapitular o problema de Aprendizado por Reforço. Um agente interage com o ambiente. No começo ele encontra-se em um estado, então executa uma ação no ambiente, que lhe dá uma recompensa e o leva para outro estado. 
+                
+        \subsection{Diagrama de interação}
+        
+            \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
+        
+            \begin{figure}[ht]
+                \centering
+                \rlinteraction
+                \caption{Diagrama de interação clássico de aprendizado por reforço}
+                \label{diag:classical-rl}
+            \end{figure}
     
         \subsection{Definções}
             
@@ -99,18 +110,137 @@
                     \label{fig:trajectory}
                 \end{figure}
                 
-        \subsection{Diagrama de interação}
-        
-            \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
-        
-            \begin{figure}[ht]
-                \centering
-                \rlinteraction
-                \caption{Diagrama de interação clássico de aprendizado por reforço}
-                \label{diag:classical-rl}
-            \end{figure}
+    \section{Definição de MDP}
+    
+        Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
+    
+        \subsection{Elementos de um MDP}
+    
+            \subsubsection{Estado}
             
-                \section{Recompensas imediatas e tardias}
+                \begin{figure}[ht]
+                    \centering
+                    \begin{tikzpicture}
+                        \node[state-node] (R) {$s_1$};
+                    \end{tikzpicture}
+                    \caption{Nos nossos diagramas, um estado é representado por um círculo branco com borda preta}
+                    \label{diag:state-node}
+                \end{figure}
+                
+            \subsubsection{Ação}
+            
+                \begin{figure}[ht]
+                    \centering
+                    \begin{tikzpicture}
+                        \node[action-node] (R) {$a_1$};
+                    \end{tikzpicture}
+                    \caption{Nos nossos diagramas, uma ação é representada por um círculo preto com texto branco}
+                    \label{diag:action-node}
+                \end{figure}
+                
+            \subsubsection{\textcolor{red}{Probabilidade de Transição de Estado}}
+            
+                \begin{figure}[ht]
+                    \centering
+                    $p_1$\\
+                    \caption{Nos nossos diagramas, uma probabilidade é representada por um texto preto sem borda}
+                    \label{diag:prob-label}
+                \end{figure}
+            
+                Dessa forma, a distribuição de probabilidade $p$ caracteriza a \emph{dinâmica} de um MDP.
+            
+                Nota: duas notações são comuns ao para se referir à probabilidade:
+                
+                \begin{enumerate}
+                    \item $p(s', r \mid s, a)$, que pode ser lida como ``chegar no estado $s'$ recebendo uma recompensa $r$ dado que está no estado $s$ e executa a ação $a$'';
+                    \item $p(s, a, r, s')$, que pode ser lida como ``está no estado $s$, executa a ação $a$, recebe a recompensa $r$ e chega no estado $s'$.
+                \end{enumerate}
+                
+            \subsubsection{Recompensa}
+        
+                \begin{figure}[ht]
+                    \centering
+                    \begin{tikzpicture}
+                        \node[reward-node] (R) {$r_1$};
+                    \end{tikzpicture}
+                    \caption{Nos nossos diagramas, uma recompensa é representada por um retângulo branco com borda preta}
+                    \label{diag:reward-label}
+                \end{figure}
+        
+        \subsection{Características de um MDP}
+        
+            \subsubsection{MDP's finitos e infinitos}
+            
+            \subsubsection{Propriedade de Markov}
+            
+            \subsubsection{Cadeia de Markov}
+            
+    \section{Visão gráfica de um MDP}
+    
+        Graficamente, um MDP é representado como um grafo direcionado em que os nós são pares estados e ações, e as arestas indicam o estado a ser alcançado:
+    
+        \begin{figure}[ht]
+            \centering
+            \mdpbig
+            \caption{Exemplo de um MDP com diversas interações}
+            \label{diag:mdp-big}
+        \end{figure}
+        
+    \section{Exemplo de como representar um problema via MDP}
+    
+        \textcolor{red}{Escadas de Hogwarts}
+    
+    \section{Objetivos}
+    
+        \subsection{Hipótese da recompensa}
+    
+            Informalmente, o propósito de um agente é receber o máximo de recompensa possível em tarefa, como afirmada na \emph{hipótese da recompensa}, em tradução livre:
+            \begin{center}
+            \noindent\fbox{%
+                \parbox{45em}{%
+                    \vskip 0.25em
+                    \parindent=2em\indent
+                    \emph{Tudo o que queremos dizer com objetivos e propósitos pode ser bem entendido como a maximização do valor esperado da soma cumulativa de um sinal escalar recebido (chamado de recompensa)}
+                    \vskip 0.25em
+                }%
+            }%
+            \end{center}
+            
+            Observação: a hipótese acima foi sugerida por Michael Littman para os autores Sutton e Barto em comunicação pessoal, como eles explicam nas notas do capítulo 3 do livro. Uma discussão inicial promovida por Sutton é encontrada no endereço:
+            
+            \url{http://incompleteideas.net/rlai.cs.ualberta.ca/RLAI/rewardhypothesis.html}
+        
+        \subsection{Retorno}
+
+            \begin{equation}
+                G_t \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots
+            \end{equation}
+
+            \subsubsection{Tarefas episódicas}
+
+                \begin{equation}
+                \begin{split}
+                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots + R_T \\
+                    & \ = \ \sum_{k=t+1}^{T} R_k
+                \end{split}
+                \end{equation}
+
+            \subsubsection{Tarefas contínuas}
+        
+                \begin{equation}
+                \begin{split}
+                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots \\
+                    & \ = \ \sum_{k=0}^{\infty} \gamma^k R_{t + k + 1}
+                \end{split}
+                \end{equation}
+        
+        \subsection{Desconto}
+        
+            Propósito intuitivo: recompensa imediatas são mais importantes do que as futuras.
+            
+            Propósito formal: transformar retornos infinitos em finitos.
+    
+    \section{Recompensas imediatas e tardias}
     
         ... é chamado de \emph{distribuição de recompensas}
     
@@ -178,138 +308,7 @@
                 \label{diag:delayed-rewards}
             \end{figure}
             
-            Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.
-
-    \section{Definição de MDP}
-    
-        Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
-    
-        \subsection{Elementos de um MDP}
-    
-            \subsubsection{Estado}
-            
-                \begin{figure}[ht]
-                    \centering
-                    \begin{tikzpicture}
-                        \node[state-node] (R) {$s_1$};
-                    \end{tikzpicture}
-                    \caption{Nos nossos diagramas, um estado é representado por um círculo branco com borda preta}
-                    \label{diag:state-node}
-                \end{figure}
-                
-            \subsubsection{Ação}
-            
-                \begin{figure}[ht]
-                    \centering
-                    \begin{tikzpicture}
-                        \node[action-node] (R) {$a_1$};
-                    \end{tikzpicture}
-                    \caption{Nos nossos diagramas, uma ação é representada por um círculo preto com texto branco}
-                    \label{diag:action-node}
-                \end{figure}
-                
-            \subsubsection{\textcolor{red}{Probabilidade de Transição de Estado}}
-            
-                \begin{figure}[ht]
-                    \centering
-                    $p_1$\\
-                    \caption{Nos nossos diagramas, uma probabilidade é representada por um texto preto sem borda}
-                    \label{diag:prob-label}
-                \end{figure}
-            
-                Dessa forma, a distribuição de probabilidade $p$ caracteriza a \emph{dinâmica} de um MDP.
-            
-                Nota: duas notações são comuns ao para se referir à probabilidade:
-                
-                \begin{enumerate}
-                    \item $p(s', r \mid s, a)$, que pode ser lida como ``chegar no estado $s'$ recebendo uma recompensa $r$ dado que está no estado $s$ e executa a ação $a$'';
-                    \item $p(s, a, r, s')$, que pode ser lida como ``está no estado $s$, executa a ação $a$, recebe a recompensa $r$ e chega no estado $s'$.
-                \end{enumerate}
-                
-            \subsubsection{Recompensa}
-        
-                \begin{figure}[ht]
-                    \centering
-                    \begin{tikzpicture}
-                        \node[reward-node] (R) {$r_1$};
-                    \end{tikzpicture}
-                    \caption{Nos nossos diagramas, uma recompensa é representada por um retângulo branco com borda preta}
-                    \label{diag:reward-label}
-                \end{figure}
-        
-        \subsection{Características de um MDP}
-        
-            \subsubsection{MDP's finitos e infinitos}
-            
-            \subsubsection{Propriedade de Markov}
-            
-            \subsubsection{Cadeia de Markov}
-        
-    \section{Visão gráfica de um MDP}
-    
-        Graficamente, um MDP é representado como um grafo direcionado em que os nós são pares estados e ações, e as arestas indicam o estado a ser alcançado:
-    
-        \begin{figure}[ht]
-            \centering
-            \mdpbig
-            \caption{Exemplo de um MDP com diversas interações}
-            \label{diag:mdp-big}
-        \end{figure}
-        
-    \section{Exemplo de como representar um problema via MDP}
-    
-        \textcolor{red}{Escadas de Hogwarts}
-    
-    \section{Objetivos}
-    
-        \subsection{Hipótese da recompensa}
-    
-            Informalmente, o propósito de um agente é receber o máximo de recompensa possível em tarefa, como afirmada na \emph{hipótese da recompensa}, em tradução livre:
-            \begin{center}
-            \noindent\fbox{%
-                \parbox{45em}{%
-                    \vskip 0.25em
-                    \parindent=2em\indent
-                    \emph{Tudo o que queremos dizer com objetivos e propósitos pode ser bem entendido como a maximização do valor esperado da soma cumulativa de um sinal escalar recebido (chamado de recompensa)}
-                    \vskip 0.25em
-                }%
-            }%
-            \end{center}
-            
-            Observação: a hipótese acima foi sugerida por Michael Littman para os autores Sutton e Barto em comunicação pessoal, como eles explicam nas notas do capítulo 3 do livro. Uma discussão inicial promovida por Sutton é encontrada no endereço:
-            
-            \url{http://incompleteideas.net/rlai.cs.ualberta.ca/RLAI/rewardhypothesis.html}
-        
-        \subsection{Retorno}
-
-            \begin{equation}
-                G_t \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots
-            \end{equation}
-
-            \subsubsection{Tarefas episódicas}
-
-                \begin{equation}
-                \begin{split}
-                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots + R_T \\
-                    & \ = \ \sum_{k=t+1}^{T} R_k
-                \end{split}
-                \end{equation}
-
-            \subsubsection{Tarefas contínuas}
-        
-                \begin{equation}
-                \begin{split}
-                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots \\
-                    & \ = \ \sum_{k=0}^{\infty} \gamma^k R_{t + k + 1}
-                \end{split}
-                \end{equation}
-        
-        \subsection{Desconto}
-        
-            Propósito intuitivo: recompensa imediatas são mais importantes do que as futuras.
-            
-            Propósito formal: transformar retornos infinitos em finitos.
-        
+            Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.    
     \section{Política}
     
         Dentro desse contexto, precisamos encontrar uma relação entre um estados e as suas ação possíveis. Em especial, devemos definir a probabilidade de executar cada ação em cada estado. A função que faz o mapeamento entre os pares estao e ação, $(s, a)$, é chamada de \emph{política}. 
