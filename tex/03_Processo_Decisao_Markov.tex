@@ -129,12 +129,16 @@
                 
             \subsubsection{Ação}
             
+                A ação é a decisão tomada pelo agente em uma iteração. Nos casos tradicionais, ela é a única via na qual o agente pode interferir no ambiente. Para um conjunto de ações $A$ em um dado estado, com $\vert A \vert$ ações possíveis, o agente executará somente uma ação a cada iteração.
+
+                A notação usada aqui para uma ação é $a_n$, em que $n$ varia de $1$ a $\vert A \vert$. Outra notação, menos utilizada, é $A(s)$, que indica as ações possíveis em um estado $s$. Nos diagramas de MDPs nesses estudos, simbolizaremos uma ação da forma mostrada na Figura~\ref{diag:action-node}.
+
                 \begin{figure}[ht]
                     \centering
                     \begin{tikzpicture}
                         \node[action-node] (R) {$a_1$};
                     \end{tikzpicture}
-                    \caption{Nos nossos diagramas, uma ação é representada por um círculo preto com texto branco}
+                    \caption{Nos nossos diagramas, uma ação é simbolizada por um círculo preto com texto branco}
                     \label{diag:action-node}
                 \end{figure}
                 
