@@ -74,7 +74,6 @@
             
                 O ambiente é a entidade a qual o agente interage. Em uma representação tradicional, ele é o responsável por apresentar o estado atual, dar as recompensas e realizar a transição de estados após o agente executar uma ação. Em representações mais complexas, o ambiente pode conter outras entidades em si, ou não ser o responsável por todas as tarefas mencionadas. Entretanto, nesse estudo vamos nos ater à representação tradicional.
             
-            \subsubsection{Estado}
             \subsubsection{Ação} 
             
             \subsubsection{Trajetória}
@@ -114,13 +113,17 @@
         \subsection{Elementos de um MDP}
     
             \subsubsection{Estado}
-            
+
+                O estado apresenta a condição em que o agente se encontra. Ele contém todas as informações conhecidas sobre o ambiente, de forma que o agente possa avaliá-las e executar as suas ações. Um MDP contém um conjunto de estados $S$, que pode ser finito ou inifinito. Entretanto, só veremos exemplos de MDPs finitos. 
+                
+                Em questão de notação, representamos um único estado como $s_n$, em que $n$ varia de $1$ ao número de estados no conjunto, ou seja, a cardinalidade de $S$, $\vert S \vert$. A Figura~\ref{diag:state-node} ilustra a maneira como um estado é simbolizado graficamente nos MDPs ao longo dessas notas.
+
                 \begin{figure}[ht]
                     \centering
                     \begin{tikzpicture}
                         \node[state-node] (R) {$s_1$};
                     \end{tikzpicture}
-                    \caption{Nos nossos diagramas, um estado é representado por um círculo branco com borda preta}
+                    \caption{Nos nossos diagramas, um estado é simbolizado por um círculo branco com borda preta}
                     \label{diag:state-node}
                 \end{figure}
                 
