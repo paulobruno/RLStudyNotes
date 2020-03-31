@@ -144,23 +144,18 @@
                     \label{diag:action-node}
                 \end{figure}
                 
-            \subsubsection{\textcolor{red}{Probabilidade de Transição de Estado}}
-            
+            \subsubsection{Probabilidade de Transição de Estado}
+
+                Uma vez que uma ação tenha sido executada pelo agente, ela poderá acarretar em diferentes resultados, i.e., levar a diferentes estados e dar diferentes recompensas. Cada um desses possíveis resultados possui uma probabilidade diferente de acontecer. A distribuição de probabilidade dos resultados de uma ação $a$ a partir de um estado $s$ indica as chances do agente receber uma recompensa $r$ e chegar em um novo estado $s'$. Dessa forma, as distribuições de probabilidade caracterizam a dinâmica de um MDP.
+
+                Utilizamos $p_n$, para representar a probabilidade de um certo resultado. Nas equações, a probabilidade é vista como uma função $p(s, a, r, s')$, que pode ser lida como: o agente encontra-se no estado $s$, executa a ação $a$, recebe a recompensa $r$ e chega no estado $s'$. Nos diagramas, ela é simbolizada como na Figura~\ref{diag:prob-label}.
+
                 \begin{figure}[ht]
                     \centering
                     $p_1$\\
-                    \caption{Nos nossos diagramas, uma probabilidade é representada por um texto preto sem borda}
+                    \caption{Nos nossos diagramas, uma probabilidade é simbolizada por um texto preto sem borda}
                     \label{diag:prob-label}
                 \end{figure}
-            
-                Dessa forma, a distribuição de probabilidade $p$ caracteriza a \emph{dinâmica} de um MDP.
-            
-                Nota: duas notações são comuns ao para se referir à probabilidade:
-                
-                \begin{enumerate}
-                    \item $p(s', r \mid s, a)$, que pode ser lida como ``chegar no estado $s'$ recebendo uma recompensa $r$ dado que está no estado $s$ e executa a ação $a$'';
-                    \item $p(s, a, r, s')$, que pode ser lida como ``está no estado $s$, executa a ação $a$, recebe a recompensa $r$ e chega no estado $s'$.
-                \end{enumerate}
                 
             \subsubsection{Recompensa}
             
