@@ -77,6 +77,26 @@
         
     \section{Avaliação de política}
     
+        Para o caso em que queremos melhorar a estimativa do valor esperado de um estado iterativamente a estratégia é começar com um valor inicial, $v_{\pi_{0}}$ e melhorar a estimativa do valor atual $v_{\pi_{k+1}}$ a cada iteração $k$.
+        A equação que vamos utilizar é muito parecida com a Equação de Bellman para $v_{\pi}(s)$. 
+        Entretanto substituiremos o valor estado do estado seguinte $s'$, que não conhecemos, por uma estimativa.
+        Especificamente, vamos usar a estimativa calculada no passo anterior, $v_{\pi_{k}(s')}$.
+        Observação: para simplificar a notação, removeremos o índice $\pi$, mas ele ainda está lá implicitamente.
+        
+        \begin{equation}
+        \begin{split}
+            v_0(s) & \ = \ estimativa inicial\\
+            \downarrow\\
+            v_1(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_0(s') \Big]\\
+            \downarrow\\
+            v_2(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_1(s') \Big]\\
+            \downarrow\\
+            v_3(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_2(s') \Big]\\
+            \vdots\\
+            v_{k+1}(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_k(s') \Big]
+        \end{split}
+        \end{equation}
+
         Também conhecido como o \textit{problema da predição}, a avaliação da política consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Embora esse valor possa ser definido a partir da resolução de um sistema linear nos estados, isso pode ser muito custoso, dessa forma, aqui estamos interessados em computá-lo iterativamente.
         
         O valor de um estado $s$ seguindo uma política $\pi$ é dado por:
