@@ -3,6 +3,8 @@
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
 
+\usepackage{amsmath,amssymb}
+
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage{subcaption}
@@ -95,6 +97,20 @@
         Explicar o que é \textit{exploring starts}
     
     \section{Controle Monte-Carlo}
+    
+    \section{Iteração de Política Generalizada}
+    
+        \begin{center}
+            \begin{math}
+                \pi_0 \xrightarrow{\ \textrm{E} \ } 
+                q_{\pi_0} \xrightarrow{\ \textrm{I} \ } 
+                \pi_1 \xrightarrow{\ \textrm{E} \ } 
+                q_{\pi_1} \xrightarrow{\ \textrm{I} \ } 
+                \pi_2 \xrightarrow{\ \textrm{E} \ } 
+                \cdots \xrightarrow{\ \textrm{I} \ }
+                \pi_* \xrightarrow{\ \textrm{E} \ } q_{*}
+            \end{math}
+        \end{center}
     
     \section{Métodos \textit{On-policy} vs. \textit{Off-policy}}
     
