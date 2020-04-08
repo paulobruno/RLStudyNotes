@@ -88,5 +88,71 @@
         \end{split}
         \end{equation}
     
+    \section{Exemplo}
+    
+        \begin{center}
+        \begin{tikzpicture}[node distance=2.0cm]
+            \tikzstyle{tile-node}=[fill=none, shape=circle, draw=black, thick, text=black, minimum size=0.8cm, inner sep=1]
+            \tikzstyle{terminal-node}=[fill=gray, shape=circle, draw=black, thick, text=white, minimum size=0.8cm, inner sep=1]
+        
+            \node[tile-node] (A1) {};
+            \node[tile-node] (A2) [above of=A1] {};
+            \node[tile-node] (A3) [above of=A2] {};
+            \node[tile-node] (B1) [right of=A1] {};
+            \node[hidden-node] (B2) [above of=B1] {};
+            \node[tile-node] (B3) [above of=B2] {};
+            \node[tile-node] (C1) [right of=B1] {};
+            \node[tile-node] (C2) [above of=C1] {};
+            \node[tile-node] (C3) [above of=C2] {};
+            \node[tile-node] (D1) [right of=C1] {};
+            \node[terminal-node, fill=gray, text=white] (D2) [above of=D1] {$-5$};
+            \node[terminal-node, fill=gray, text=white] (D3) [above of=D2] {$5$};
+            
+            \draw[->, loop left, min distance=1.0cm] (A1) to node {$0.0$} (A1);
+            \draw[->, loop below, min distance=1.0cm] (A1) to node {$0.0$} (A1);
+            \draw[->, transform canvas={xshift=-0.1cm}] (A1) to node[left] {$0.0$} (A2);
+            \draw[->, transform canvas={yshift=0.1cm}] (A1) to node[above] {$0.0$} (B1);
+            
+            \draw[->, loop left, min distance=1.0cm] (A2) to node {$0.0$} (A2);
+            \draw[->, transform canvas={xshift=0.1cm}] (A2) to node[right] {$0.0$} (A1);
+            \draw[->, transform canvas={xshift=-0.1cm}] (A2) to node[left] {$0.0$} (A3);
+            \draw[->, loop right, min distance=1.0cm] (A2) to node {$0.0$} (A2);
+            
+            \draw[->, loop left, min distance=1.0cm] (A3) to node {$0.0$} (A3);
+            \draw[->, transform canvas={xshift=0.1cm}] (A3) to node[right] {$0.0$} (A2);
+            \draw[->, transform canvas={yshift=0.1cm}] (A3) to node[above] {$0.0$} (B3);
+            \draw[->, loop above, min distance=1.0cm] (A3) to node {$0.0$} (A3);
+            
+            \draw[->, transform canvas={yshift=-0.1cm}] (B1) to node[below] {$0.0$} (A1);
+            \draw[->, transform canvas={yshift=0.1cm}] (B1) to node[above] {$0.0$} (C1);
+            \draw[->, loop below, min distance=1.0cm] (B1) to node {$0.0$} (B1);
+            \draw[->, loop above, min distance=1.0cm] (B1) to node {$0.0$} (B1);
+            
+            \draw[->, transform canvas={yshift=-0.1cm}] (B3) to node[below] {$0.0$} (A3);
+            \draw[->, transform canvas={yshift=0.1cm}] (B3) to node[above] {$0.0$} (C3);
+            \draw[->, loop below, min distance=1.0cm] (B3) to node {$0.0$} (B3);
+            \draw[->, loop above, min distance=1.0cm] (B3) to node {$0.0$} (B3);
+            
+            \draw[->, transform canvas={yshift=-0.1cm}] (C1) to node[below] {$0.0$} (B1);
+            \draw[->, transform canvas={yshift=0.1cm}] (C1) to node[above] {$0.0$} (D1);
+            \draw[->, loop below, min distance=1.0cm] (C1) to node {$0.0$} (C1);
+            \draw[->, transform canvas={xshift=-0.1cm}] (C1) to node[left] {$0.0$} (C2);
+            
+            \draw[->, loop left, min distance=1.0cm] (C2) to node {$0.0$} (C2);
+            \draw[->, transform canvas={xshift=0.1cm}] (C2) to node[right] {$0.0$} (C1);
+            \draw[->, transform canvas={xshift=-0.1cm}] (C2) to node[left] {$0.0$} (C3);
+            \draw[->, transform canvas={yshift=0.1cm}] (C2) to node[above] {$0.0$} (D2);
+            
+            \draw[->, transform canvas={yshift=-0.1cm}] (C3) to node[below] {$0.0$} (B3);
+            \draw[->, transform canvas={xshift=0.1cm}] (C3) to node[right] {$0.0$} (C2);
+            \draw[->, transform canvas={yshift=0.1cm}] (C3) to node[above] {$0.0$} (D3);
+            \draw[->, loop above, min distance=1.0cm] (C3) to node {$0.0$} (C3);
+            
+            \draw[->, transform canvas={yshift=-0.1cm}] (D1) to node[below] {$0.0$} (C1);
+            \draw[->, transform canvas={xshift=-0.1cm}] (D1) to node[left] {$0.0$} (D2);
+            \draw[->, loop below, min distance=1.0cm] (D1) to node {$0.0$} (D1);
+            \draw[->, loop right, min distance=1.0cm] (D1) to node {$0.0$} (D1);
+        \end{tikzpicture}
+        \end{center}
     
 \end{document}
