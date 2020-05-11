@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+
+\usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\input{pb_rlstyle_tikzgraph.tex}
+
+
+% PB: redefinir maketitle
+\makeatletter
+\def\@maketitle
+{
+    \begin{flushleft}
+        \let \footnote \thanks
+        {\Large \textbf{\@title} \par}
+        \vskip 1em
+        {\large \textbf{\@author} \par}
+        \vskip 1em
+        {\large \textit{\@date}}
+    \end{flushleft}
+    \par
+    \vskip 1.5em
+}
+\makeatother
+
+
+\title{Notas de estudo - Aprendizado por Reforço}
+\author{Parte 07 - Atualização com Passo Variável}
+\date{Paulo Bruno de Sousa Serafim - Maio/19}
+
+
+\begin{document}
+
+\maketitle
+
+    \section{Introdução}
+    
+    \section{Atualizações em N passos}
+    
+    \section{Traços de Eligibilidade}
+    
+    Seria melhor "vestígios"?
+    
+\end{document}
