@@ -94,6 +94,14 @@
     
     \section{Estimativas dos valores das ações}
     
+        Relembrando dos estudos de \emph{Multi-Armed Bandits}, considere o caso de uma máquina com uma única alavanca (uma ação). Como poderíamos estimar o valor esperado dessa única ação sem conhecer a distribuição de probabilidades? 
+        
+        Uma maneira de fazer isso é executar a ação várias vezes e a partir daí fazer estimativas. Quando o número de ações tende ao infinito, o valor da estimativa tende ao valor esperado. Em algum ponto intermediário teremos uma boa estimativa do valor esperado. Dessa forma, teremos uma boa estimativa do valor esperado em um aprendizado livre de modelo.
+
+        Agora considere um problema modelado por um MDP, como o da Figura~\ref{}. Em cada estado múltiplas ações podem ser possíveis, de modo que começar de um estado não seria suficiente para explorarmos o modelo de maneira satisfatória. Para isso, devemos levar em consideração também as executadas a partir de um estado. Assim, contamos como partida os pares de estado e ação $(s, a)$.
+        
+        Observe que um jogo como xadrez tem sempre o mesmo estado inicial. Dessa forma, começando pelo único estado inicial teríamos uma tendência (\emph{bias}) para alguns pares $(s, a)$. Uma maneira de contornar esse problema é usar como partida qualquer par de $(s, a)$ e não somente o estado estado inicial.
+    
         Explicar o que é \textit{exploring starts}
     
     \section{Controle Monte-Carlo}
