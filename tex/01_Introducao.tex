@@ -6,6 +6,10 @@
 
 \usepackage{hyperref}
 
+\usepackage{amsmath,amssymb}
+\newcommand*{\RandomVariable}[1]{\mathbf{#1}}
+\newcommand*{\ExpectedValue}{\mathbb{E}}
+
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \usepackage{subcaption}
@@ -233,5 +237,17 @@
                 \item \textbf{2019}: AlphaStar vence MaNa, jogador profissional de StarCraft II. \textcolor{red}{referenciar alphastar}
             \end{itemize}
 
+    \section{Esperança}
+            
+        Considere uma variável aleatória $\RandomVariable{X}$ que pode assumir $k$ valores $x_1$, $x_2$, \dots, $x_k$.
+        De acordo com uma distribuição de probabilidade $p$, cada um desses valores ocorre com uma probabilidade $p(x_1)$, $p(x_2)$, \dots, $p(x_k)$, respectivamente.
+        A \emph{esperança} (ou \emph{valor esperado}) de $\RandomVariable{X}$ sob a distribuição $p$ é definida como:
+        \begin{equation}
+        \begin{aligned}
+            \label{eq:state-value}
+            \ExpectedValue_p[\RandomVariable{X}] & = \sum_i p(x_i) \cdot x_i \\
+            & = p(x_1) \cdot x_1 + p(x_2) \cdot x_2 + \dots + p(x_k) \cdot x_k
+        \end{aligned}
+        \end{equation}
     
 \end{document}
