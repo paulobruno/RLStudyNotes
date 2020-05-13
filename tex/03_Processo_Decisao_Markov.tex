@@ -51,19 +51,17 @@
 
     \section{Caracterização da interação agente-ambiente}
     
-        Inicialmente, vamos recapitular o problema de Aprendizado por Reforço. Um agente interage com o ambiente. No começo ele encontra-se em um estado, então executa uma ação no ambiente, que lhe dá uma recompensa e o leva para outro estado. 
+        Inicialmente, vamos recapitular o problema de Aprendizado por Reforço, como visto nos estudos introdutórios. O processo de interação do agente com o ambiente ocorre, simplificadamente, da seguinte forma: no começo o agente encontra-se em um estado $S_t$, então executa uma ação $A_t$ no ambiente, que lhe dá uma recompensa $R_{t+1}$ e o leva para outro estado $S_{t+1}$. Esse processo simplificado é ilustrado na Figura~\ref{diag:classical-rl}.
                 
-        \subsection{Diagrama de interação}
+        \begin{figure}[ht]
+            \centering
+            \vspace*{5mm}
+            \rlinteraction
+            \vspace*{-5mm}
+            \caption{Diagrama de interação clássico de aprendizado por reforço. Fonte: Sutton and Barto, 2018}
+            \label{diag:classical-rl}
+        \end{figure}
         
-            \textcolor{red}{a recompensa $R_t+1$ deve ser recebida antes de $S_t$}
-        
-            \begin{figure}[ht]
-                \centering
-                \rlinteraction
-                \caption{Diagrama de interação clássico de aprendizado por reforço}
-                \label{diag:classical-rl}
-            \end{figure}
-    
         \subsection{Entidades}
             
             \subsubsection{Agente}
