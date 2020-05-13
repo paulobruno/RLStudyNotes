@@ -64,7 +64,7 @@
                 \label{diag:classical-rl}
             \end{figure}
     
-        \subsection{Definções}
+        \subsection{Entidades}
             
             \subsubsection{Agente}
             
@@ -72,39 +72,37 @@
             
             \subsubsection{Ambiente}
             
-                O ambiente é a entidade a qual o agente interage. Em uma representação tradicional, ele é o responsável por apresentar o estado atual, dar as recompensas e realizar a transição de estados após o agente executar uma ação. Em representações mais complexas, o ambiente pode conter outras entidades em si, ou não ser o responsável por todas as tarefas mencionadas. Entretanto, nesse estudo vamos nos ater à representação tradicional.
+                O ambiente é a entidade com a qual o agente interage. Em uma representação tradicional, ele é o responsável por apresentar o estado atual, dar as recompensas e realizar a transição de estados após o agente executar uma ação. Em representações mais complexas, o ambiente pode conter outras entidades em si, ou não ser o responsável por todas as tarefas mencionadas. Entretanto, nesse estudo vamos nos ater à representação tradicional.
             
-            \subsubsection{Ação} 
-            
-            \subsubsection{Trajetória}
-            
-                A interação básica do agente com o ambiente acontece da seguinte forma: o agente encontra-se no estado $S_t$, executa uma ação $A_t$, recebe uma recompensa $R_{t+1}$, vai para um estado $S_{t+1}$, executa uma ação $A_{t+1}$ e assim por diante:
+        \subsection{Trajetória}
+        
+            A interação básica do agente com o ambiente acontece da seguinte forma: o agente encontra-se no estado $S_t$, executa uma ação $A_t$, recebe uma recompensa $R_{t+1}$, vai para um estado $S_{t+1}$, executa uma ação $A_{t+1}$ e assim por diante:
 
-                $S_t,\ A_t,\ R_{t+1},\ S_{t+1},\ A_{t+1},\ R_{t+2},\ S_{t+2},\ A_{t+2},\ R_{t+3},\ S_{t+3},\ A_{t+3},\ \dots$
-                
-                Essa sequência que representa a interação de um agente é chamada de \emph{trajetória}, como ilustrada na Figura~\ref{fig:trajectory}.
+            $S_t,\ A_t,\ R_{t+1},\ S_{t+1},\ A_{t+1},\ R_{t+2},\ S_{t+2},\ A_{t+2},\ R_{t+3},\ S_{t+3},\ A_{t+3},\ \dots$
+            
+            Essa sequência que representa a interação de um agente é chamada de \emph{trajetória}, como ilustrada na Figura~\ref{fig:trajectory}.
 
-                \begin{figure}[ht]
-                    \centering
-                    \begin{tikzpicture}[-,>=stealth', auto, node distance=2.0cm, thick]
-                        \node[state-node]  (S1) {$s_1$};
-                        \node[hidden-node] (H1) [above right of=S1] {};
-                        \node[state-node]  (S2) [below right of=H1] {$s_2$};
-                        \node[hidden-node] (H2) [above right of=S2] {};
-                        \node[state-node]  (S3) [below right of=H2] {$s_3$};
-                        \node[hidden-node] (H3) [above right of=S3] {};
-                        \node[state-node]  (S4) [below right of=H3] {$s_4$};
-                        
-                        \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=0.6] {$a_1$} (H1);
-                        \draw[->, bend left, out=40, in=150] (H1) to node[reward-label, pos=0.4] {$r_2$} (S2);
-                        \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=0.6] {$a_2$} (H2);
-                        \draw[->, bend left, out=40, in=150] (H2) to node[reward-label, pos=0.4] {$r_3$} (S3);
-                        \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=0.6] {$a_3$} (H3);
-                        \draw[->, bend left, out=40, in=150] (H3) to node[reward-label, pos=0.4] {$r_4$} (S4);
-                    \end{tikzpicture}
-                    \caption{Trajetória da interação do agente com o ambiente ao longo de quatro estados}
-                    \label{fig:trajectory}
-                \end{figure}
+            \begin{figure}[ht]
+                \centering
+                \begin{tikzpicture}[-,>=stealth', auto, node distance=2.0cm, thick]
+                    \node[state-node]  (S1) {$s_1$};
+                    \node[hidden-node] (H1) [above right of=S1] {};
+                    \node[state-node]  (S2) [below right of=H1] {$s_2$};
+                    \node[hidden-node] (H2) [above right of=S2] {};
+                    \node[state-node]  (S3) [below right of=H2] {$s_3$};
+                    \node[hidden-node] (H3) [above right of=S3] {};
+                    \node[state-node]  (S4) [below right of=H3] {$s_4$};
+                    
+                    \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=0.6] {$a_1$} (H1);
+                    \draw[->, bend left, out=40, in=150] (H1) to node[reward-label, pos=0.4] {$r_2$} (S2);
+                    \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=0.6] {$a_2$} (H2);
+                    \draw[->, bend left, out=40, in=150] (H2) to node[reward-label, pos=0.4] {$r_3$} (S3);
+                    \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=0.6] {$a_3$} (H3);
+                    \draw[->, bend left, out=40, in=150] (H3) to node[reward-label, pos=0.4] {$r_4$} (S4);
+                \end{tikzpicture}
+                \caption{Trajetória da interação do agente com o ambiente ao longo de quatro estados}
+                \label{fig:trajectory}
+            \end{figure}
                 
     \section{Definição de MDP}
     
