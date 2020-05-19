@@ -39,93 +39,53 @@
 
 \maketitle
 
-    \section{Model-based vs. Model-free}
+    \section{Introdução}
 
-        \begin{center}
-        \mdpthreestatenoprobs
-        \end{center}
-
-    \section{Recapitulação de MDP}
+        \subsection{Exemplo de modelo completo}
     
-        Considere o MDP abaixo:
-        
-        \begin{center}
-        \mdpthreestate
-        \end{center}
-        
-        Perceba que sabemos todas as informações necessárias sobre o modelo, i.e., todos os estados existentes, todas as ações possíveis e, principalmente as probabilidades de transição. Com isso, podemos estimar um valor para o estado $s_1$ de acordo com as equações de Bellman.
-    
-    \section{Equações de otimalidade de Bellman}
-    
-        Recaptulando dos estudos de MDP, conhecemos duas funções de valor ótimo, valor-estado e valor-ação.
-    
-        \subsection{Função de valor-estado}
-        
-            \begin{equation}
-                \begin{split}
-                    v_*(s) & = \max_a \mathbb{E} \left[ R_{t+1} + \gamma v_*(S_{t+1}) \mid S_t = s, A_t = a \right] \\
-                    & = \max_a \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma v_*(s') \right]
-                \end{split}
-            \end{equation}
-        
-        \subsection{Função de valor-ação}
-    
-            \begin{equation}
-                \begin{split}
-                    q_*(s,a) & = \mathbb{E} \left[ R_{t+1} + \gamma \max_{a'} q_*(S_{t+1}, a') \bigm\vert S_t = s, A_t = a \right] \\
-                    & = \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma \max_{a'}q_*(s', a') \right]
-                \end{split}
-            \end{equation}
+            Considere o MDP abaixo:
             
-        Com essas equações, podemos avaliar um estado e um par estado-ação, desde que tenhamos todas as informações necessárias do modelo. Note que nos casos ótimos consideramos a ação escolhida como sendo a que retorna o maior valor. Caso não tenhamos a política ótima ou estejamos seguindo outra política $\pi$ qualquer, poderíamos usar as funções de valor para avaliar essa política. É o que faremos a seguir.
+            \begin{center}
+            \mdpthreestate
+            \end{center}
+            
+            Perceba que sabemos todas as informações necessárias sobre o modelo, i.e., todos os estados existentes, todas as ações possíveis e, principalmente as probabilidades de transição. Com isso, podemos estimar um valor para o estado $s_1$ de acordo com as equações de Bellman.
+            
+        \subsection{Exemplo de modelo incompleto}
+    
+            \begin{center}
+            \mdpthreestatenoprobs
+            \end{center}
+    
+    \section{Programação Dinâmica}
+    
+        \subsection{Equações de Bellman}
         
+            Recaptulando dos estudos de MDP, conhecemos duas funções de valor ótimo, valor-estado e valor-ação.
+        
+            \subsubsection{Função de valor-estado}
+            
+                \begin{equation}
+                    \begin{split}
+                        v_*(s) & = \max_a \mathbb{E} \left[ R_{t+1} + \gamma v_*(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+                        & = \max_a \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma v_*(s') \right]
+                    \end{split}
+                \end{equation}
+            
+            \subsubsection{Função de valor-ação}
+        
+                \begin{equation}
+                    \begin{split}
+                        q_*(s,a) & = \mathbb{E} \left[ R_{t+1} + \gamma \max_{a'} q_*(S_{t+1}, a') \bigm\vert S_t = s, A_t = a \right] \\
+                        & = \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma \max_{a'}q_*(s', a') \right]
+                    \end{split}
+                \end{equation}
+                
+            Com essas equações, podemos avaliar um estado e um par estado-ação, desde que tenhamos todas as informações necessárias do modelo. Note que nos casos ótimos consideramos a ação escolhida como sendo a que retorna o maior valor. Caso não tenhamos a política ótima ou estejamos seguindo outra política $\pi$ qualquer, poderíamos usar as funções de valor para avaliar essa política. É o que faremos a seguir.
+            
     \section{Avaliação de política}
     
-        Para o caso em que queremos melhorar a estimativa do valor esperado de um estado iterativamente a estratégia é começar com um valor inicial, $v_{\pi_{0}}$ e melhorar a estimativa do valor atual $v_{\pi_{k+1}}$ a cada iteração $k$.
-        A equação que vamos utilizar é muito parecida com a Equação de Bellman para $v_{\pi}(s)$. 
-        Entretanto substituiremos o valor estado do estado seguinte $s'$, que não conhecemos, por uma estimativa.
-        Especificamente, vamos usar a estimativa calculada no passo anterior, $v_{\pi_{k}(s')}$.
-        Observação: para simplificar a notação, removeremos o índice $\pi$, mas ele ainda está lá implicitamente.
-        
-        \begin{equation}
-        \begin{split}
-            v_0(s) & \ = \ estimativa inicial\\
-            \downarrow\\
-            v_1(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_0(s') \Big]\\
-            \downarrow\\
-            v_2(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_1(s') \Big]\\
-            \downarrow\\
-            v_3(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_2(s') \Big]\\
-            \vdots\\
-            v_{k+1}(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_k(s') \Big]
-        \end{split}
-        \end{equation}
-
-        Também conhecido como o \textit{problema da predição}, a avaliação da política consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Embora esse valor possa ser definido a partir da resolução de um sistema linear nos estados, isso pode ser muito custoso, dessa forma, aqui estamos interessados em computá-lo iterativamente.
-        
-        O valor de um estado $s$ seguindo uma política $\pi$ é dado por:
-        
-        \begin{equation}
-            \begin{split}
-                v_{\pi}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ G_t \mid S_t = s \right] \\
-                & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
-                & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s \right] \\
-                & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_{\pi}(s') \Big]
-            \end{split}
-        \end{equation}
-                
-        A sua versão iterativa é dada por:
-        
-        \begin{equation}
-            \begin{split}
-                v_{k+1}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s \right] \\
-                & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_k(s') \Big]
-            \end{split}
-        \end{equation}
-        
-        Em que a aproximação inicial $v_0(s)$ pode ser escolhida arbitrariamente e o valor de um estado terminal é $0$.
-        
-        \subsection{Exemplo aplicado ao MDP inicial}
+        \subsection{Exemplo de cálculo por sistemas de equações}
         
             \begin{equation}
                 \begin{split}
@@ -136,6 +96,52 @@
                                &+ \pi(a_3 \mid s_1) \cdot p(s_3, r_5 \mid s_1, a_3) \cdot \Big[ r_5 + \gamma \cdot v_\pi(s_3) \Big]
                 \end{split}
             \end{equation}
+        
+        \subsection{Avaliação iterativa da política}
+        
+            Para o caso em que queremos melhorar a estimativa do valor esperado de um estado iterativamente a estratégia é começar com um valor inicial, $v_{\pi_{0}}$ e melhorar a estimativa do valor atual $v_{\pi_{k+1}}$ a cada iteração $k$.
+            A equação que vamos utilizar é muito parecida com a Equação de Bellman para $v_{\pi}(s)$. 
+            Entretanto substituiremos o valor estado do estado seguinte $s'$, que não conhecemos, por uma estimativa.
+            Especificamente, vamos usar a estimativa calculada no passo anterior, $v_{\pi_{k}(s')}$.
+            Observação: para simplificar a notação, removeremos o índice $\pi$, mas ele ainda está lá implicitamente.
+            
+            \begin{equation}
+            \begin{split}
+                v_0(s) & \ = \ estimativa inicial\\
+                \downarrow\\
+                v_1(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_0(s') \Big]\\
+                \downarrow\\
+                v_2(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_1(s') \Big]\\
+                \downarrow\\
+                v_3(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_2(s') \Big]\\
+                \vdots\\
+                v_{k+1}(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_k(s') \Big]
+            \end{split}
+            \end{equation}
+    
+            Também conhecido como o \textit{problema da predição}, a avaliação da política consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Embora esse valor possa ser definido a partir da resolução de um sistema linear nos estados, isso pode ser muito custoso, dessa forma, aqui estamos interessados em computá-lo iterativamente.
+            
+            O valor de um estado $s$ seguindo uma política $\pi$ é dado por:
+            
+            \begin{equation}
+                \begin{split}
+                    v_{\pi}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ G_t \mid S_t = s \right] \\
+                    & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
+                    & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s \right] \\
+                    & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_{\pi}(s') \Big]
+                \end{split}
+            \end{equation}
+                    
+            A sua versão iterativa é dada por:
+            
+            \begin{equation}
+                \begin{split}
+                    v_{k+1}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s \right] \\
+                    & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_k(s') \Big]
+                \end{split}
+            \end{equation}
+            
+            Em que a aproximação inicial $v_0(s)$ pode ser escolhida arbitrariamente e o valor de um estado terminal é $0$.
         
     \section{Melhora da política}
     
