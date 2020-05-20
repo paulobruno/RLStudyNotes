@@ -235,15 +235,25 @@
 
     \section{Esperança}
             
-        Considere uma variável aleatória $\RandomVariable{X}$ que pode assumir $k$ valores $x_1$, $x_2$, \dots, $x_k$.
-        De acordo com uma distribuição de probabilidade $p$, cada um desses valores ocorre com uma probabilidade $p(x_1)$, $p(x_2)$, \dots, $p(x_k)$, respectivamente.
-        A \emph{esperança} (ou \emph{valor esperado}) de $\RandomVariable{X}$ sob a distribuição $p$ é definida como:
+        Ao longo dos estudos, um conhecimento básico em estatística seria muito útil. Mas certamente é essencial conhecer desde o início o conceito o de \emph{valor esperado} ou \emph{esperança}. Por sua importância e simplicidade, ele será apresentado agora.
+        
+        Considere uma variável aleatória $\RandomVariable{X}$ que pode assumir $k$ valores $x_1$, $x_2$, \dots, $x_k$. De acordo com uma distribuição de probabilidade $p$, cada um desses valores ocorre com uma probabilidade $p(x_1)$, $p(x_2)$, \dots, $p(x_k)$, respectivamente. A \emph{esperança} (ou \emph{valor esperado}) de $\RandomVariable{X}$ sob a distribuição $p$ é definida como:
         \begin{equation}
         \begin{aligned}
             \label{eq:state-value}
             \ExpectedValue_p[\RandomVariable{X}] & = \sum_i p(x_i) \cdot x_i \\
-            & = p(x_1) \cdot x_1 + p(x_2) \cdot x_2 + \dots + p(x_k) \cdot x_k
+            & = p(x_1) \cdot x_1 + p(x_2) \cdot x_2 + \dots + p(x_k) \cdot x_k\ .
         \end{aligned}
         \end{equation}
+        Na maioria dos casos, a distribuição de probabilidade $p$ é omitida, de modo que usamos a notação $\ExpectedValue[\RandomVariable{X}]$.
+
+        Por exemplo, considere um dado de seis faces não viciado, $\RandomVariable{D}$. Ele pode assumir um dos valores $\{1, 2, 3, 4, 5, 6\}$, cada um deles com probabilidade $\frac{1}{6}$. Assim, o valor esperado de $\RandomVariable{D}$ é:
+        \begin{equation*}
+        \begin{aligned}
+            \ExpectedValue[\RandomVariable{D}] & = \frac{1}{6} \cdot 1 + \frac{1}{6} \cdot 2 + \frac{1}{6} \cdot 3 + \frac{1}{6} \cdot 4 + \frac{1}{6} \cdot 5 + \frac{1}{6} \cdot 6 \\
+            & = 3.5\ .
+        \end{aligned}
+        \end{equation*}        
+        Note que o valor esperado é a média ponderada dos valores possíveis, em que a ponderação é dada de pela distribuição de probabilidade.
     
 \end{document}
