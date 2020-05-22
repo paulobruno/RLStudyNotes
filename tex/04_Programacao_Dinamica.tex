@@ -32,7 +32,7 @@
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 04 - Programação Dinâmica}
-\date{Paulo Bruno de Sousa Serafim - Out/19 - Jan/20}
+\date{Paulo Bruno de Sousa Serafim - Out/19 - Abr/20}
 
 
 \begin{document}
@@ -40,6 +40,12 @@
 \maketitle
 
     \section{Introdução}
+
+        Anteriormente vimos que problemas de aprendizado por reforço podem ser modelados como um Processo de Decisão Markoviano (MDP). A essa representação damos o nome de \emph{modelo}. Quando temos informação sobre todos os aspectos do modelo, dizemos que conhecemos/sabemos/temos o \emph{modelo completo}.
+
+        Embora os os problemas de aprendizado por reforço possam ser representados como MDPs, na maioria das vezes não teremos todas as informações necessárias para construir essa representação. Entre outras formas, o aprendizado pode ser caracterizado, pelo nível de conhecimento do modelo. Dessa forma, podemos utilizar técnicas específicas para os casos de termos ou não o modelo completo.
+
+        Em um modelo completo conhecemos de antemão todos os estados, ações, recompensas e distribuições de probabilidade. Nesses casos, utilizamos técnicas de aprendizado \emph{baseadas no modelo}. Por outro lado, se não temos todas essas informações, utilizamos técnicas de aprendizado \emph{livres de modelo}.
 
         \subsection{Exemplo de modelo completo}
     
