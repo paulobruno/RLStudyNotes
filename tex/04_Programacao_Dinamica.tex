@@ -63,9 +63,16 @@
             
         \subsection{Exemplo de modelo incompleto}
     
-            \begin{center}
-            \mdpthreestatenoprobs
-            \end{center}
+            Apesar de ser muito semelhante ao diagrama da Figura~\ref{diag:model-based}, a Figura~\ref{diag:model-free} nos indica que não conhecemos as probabilidades de transição. Dessa forma, por não sabermos todas as informações, esse é um exemplo de modelo incompleto. 
+
+            \begin{figure}[ht]
+                \centering
+                \mdpthreestatenoprobs
+                \caption{Apesar de conhecermos todos os etados, ações e recompensas, não sabemos as distribuições de probabilidade, o que é suficiente para caracterizar um problema livre de modelo.}
+                \label{diag:model-free}
+            \end{figure}
+
+            Nos estudos seguintes veremos maneiras de resolver problemas livres de modelo. Nesse momento nos concentraremos no estudo de uma maneira de resolver problemas em que temos o modelo completo, \emph{Programação Dinâmica}.
     
     \section{Programação Dinâmica}
     
