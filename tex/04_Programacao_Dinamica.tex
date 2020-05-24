@@ -12,6 +12,7 @@
 \setlength{\parindent}{4em}
 \setlength{\parskip}{0.75em}
 
+
 % PB: redefinir maketitle
 \makeatletter
 \def\@maketitle
@@ -49,13 +50,16 @@
 
         \subsection{Exemplo de modelo completo}
     
-            Considere o MDP abaixo:
+            Considere o MDP abaixo representado pelo diagrama da Figura~\ref{diag:model-based}. Considere que todas os rótulos ($s_i$, $a_i$, $p_i$, $r_i$) presentes são informações conhecidas. Nesse caso, sabemos todas as informações necessárias sobre o modelo: todos os estados existentes, todas as ações possíveis, todas as recompensas e, principalmente, as probabilidades de transição.
             
-            \begin{center}
-            \mdpthreestate
-            \end{center}
+            \begin{figure}[ht]
+                \centering
+                \mdpthreestate
+                \caption{Uma vez que conhecemos todos os estados, ações, recompensas e distribuições de probabilidade, temos um modelo completo.}
+                \label{diag:model-based}
+            \end{figure}
             
-            Perceba que sabemos todas as informações necessárias sobre o modelo, i.e., todos os estados existentes, todas as ações possíveis e, principalmente as probabilidades de transição. Com isso, podemos estimar um valor para o estado $s_1$ de acordo com as equações de Bellman.
+            Assim, o diagrama da Figura~\ref{diag:model-based} é um exemplo de um modelo completo. Sabendo todas as informações sobre o modelo, nós podemos estimar um valor para o estado $s_1$ de acordo com as equações de Bellman, como veremos adiante.
             
         \subsection{Exemplo de modelo incompleto}
     
