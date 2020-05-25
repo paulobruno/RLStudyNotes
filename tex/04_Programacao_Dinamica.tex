@@ -80,18 +80,17 @@
 
         Recaptulando dos nossos estudos anteriores, o objetivo final em problemas de aprendizado por reforço é encontrar uma política ótima, $\pi_*$, para o agente. Utilizando essa política, temos a garantia de que a valor esperado da recompensa total recebida será o maior possível. E são as \emph{equações de otimalidade de Bellman} que nos dão essa solução.
     
-        \subsection{Equações de Bellman}
-        
-            Recaptulando dos estudos de MDP, conhecemos duas funções de valor ótimo, valor-estado e valor-ação.
-        
-            \subsubsection{Função de valor-estado}
-            
-                \begin{equation}
-                    \begin{split}
-                        v_*(s) & = \max_a \mathbb{E} \left[ R_{t+1} + \gamma v_*(S_{t+1}) \mid S_t = s, A_t = a \right] \\
-                        & = \max_a \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma v_*(s') \right]
-                    \end{split}
-                \end{equation}
+        \subsection{Equações de otimalidade de Bellman}
+
+            A primeira equação que vamos avaliar é a \emph{equação de otimalidade de Bellman para o valor do estado}, dada de acordo com~\eqref{eq:optimal-state-value}. Ela nos dá o valor esperado das recompensas que receberemos a partir de um estado $s$ e seguindo a política ótima $\pi_*$ a partir dele. Observe que em~\eqref{eq:optimal-state-value} consideramos que o agente sempre vai escolher a ação maximal, pois ele visa obter o maior valor esperado.
+            \begin{equation}
+                \begin{aligned}
+                    v_{\pi_*}(s) 
+                    & \ = \ \max_a \mathbb{E} \left[ R_{t+1} + \gamma v_{\pi_*}(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+                    & \ = \ \max_a \sum_{r, s'} p(s, a, r, s') \left[ r + \gamma v_{\pi_*}(s') \right]
+                \end{aligned}
+                \label{eq:optimal-state-value}
+            \end{equation}
             
             \subsubsection{Função de valor-ação}
         
