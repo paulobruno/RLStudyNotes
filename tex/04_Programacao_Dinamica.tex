@@ -108,6 +108,17 @@
             
     \section{Avaliação de política}
     
+        \begin{equation}
+            \label{eq:state-value}
+            \begin{aligned}
+                v_{\pi}(s) 
+                & \ = \ \mathbb{E}_{\pi} \left[ G_t \mid S_t = s \right] \\
+                & \ = \ \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
+                & \ = \ \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s \right] \\
+                & \ = \ \sum_a \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma v_{\pi}(s') \Big] .
+            \end{aligned}
+        \end{equation}
+    
         \subsection{Exemplo de cálculo por sistemas de equações}
         
             \begin{equation}
@@ -143,17 +154,6 @@
             \end{equation}
     
             Também conhecido como o \textit{problema da predição}, a avaliação da política consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Embora esse valor possa ser definido a partir da resolução de um sistema linear nos estados, isso pode ser muito custoso, dessa forma, aqui estamos interessados em computá-lo iterativamente.
-            
-            O valor de um estado $s$ seguindo uma política $\pi$ é dado por:
-            
-            \begin{equation}
-                \begin{split}
-                    v_{\pi}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ G_t \mid S_t = s \right] \\
-                    & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\
-                    & = \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s \right] \\
-                    & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_{\pi}(s') \Big]
-                \end{split}
-            \end{equation}
                     
             A sua versão iterativa é dada por:
             
