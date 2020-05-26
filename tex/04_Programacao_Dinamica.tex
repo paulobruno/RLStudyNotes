@@ -92,16 +92,19 @@
                 \label{eq:optimal-state-value}
             \end{equation}
             
-            \subsubsection{Função de valor-ação}
-        
-                \begin{equation}
-                    \begin{split}
-                        q_*(s,a) & = \mathbb{E} \left[ R_{t+1} + \gamma \max_{a'} q_*(S_{t+1}, a') \bigm\vert S_t = s, A_t = a \right] \\
-                        & = \sum_{s', r} p(s',r \mid s,a) \left[ r + \gamma \max_{a'}q_*(s', a') \right]
-                    \end{split}
-                \end{equation}
-                
-            Com essas equações, podemos avaliar um estado e um par estado-ação, desde que tenhamos todas as informações necessárias do modelo. Note que nos casos ótimos consideramos a ação escolhida como sendo a que retorna o maior valor. Caso não tenhamos a política ótima ou estejamos seguindo outra política $\pi$ qualquer, poderíamos usar as funções de valor para avaliar essa política. É o que faremos a seguir.
+            A segunda equação é a \emph{equação de otimalidade de Bellman para o valor da ação} e é dada de acordo com~\eqref{eq:optimal-action-value}. Ela nos dá o valor esperado das recompensas que vamos receber a partir de um estado $s$, executando uma ação $a$ e a partir daí executar a ação de maior valor esperado seguindo a política ótima $\pi_*$.
+            \begin{equation}
+                \begin{aligned}
+                    q_{\pi_*}(s,a) 
+                    & \ = \ \mathbb{E} \left[ R_{t+1} + \gamma \max_{a'} q_{\pi_*}(S_{t+1}, a') \bigm\vert S_t = s, A_t = a \right] \\
+                    & \ = \ \sum_{r, s'} p(s, a, r, s') \left[ r + \gamma \max_{a'}q_{\pi_*}(s', a') \right]
+                \end{aligned}
+                \label{eq:optimal-action-value}
+            \end{equation}
+
+            Com essas equações, podemos avaliar um estado e um par estado-ação, desde que tenhamos todas as informações necessárias do modelo. Note que nos casos ótimos consideramos a ação escolhida como sendo a que retorna o maior valor. 
+            
+            Caso não tenhamos a política ótima ou estejamos seguindo outra política $\pi$ qualquer, poderíamos usar as funções de valor para avaliar essa política. É o que faremos a seguir. No caso da Programação Dinâmica, utilizamos uma abordagem em duas etapas: o primeiro será a avaliar a política e depois iremos melhorá-la.
             
     \section{Avaliação de política}
     
