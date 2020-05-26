@@ -108,6 +108,8 @@
             
     \section{Avaliação de política}
     
+        Também conhecido como o \emph{problema da predição}, a \emph{avaliação de uma política} consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Como vimos anteriormente, o valor de um estado $s$ seguindo uma política $\pi$ é dada pela \emph{equação de Bellman} do valor do estado:
+    
         \begin{equation}
             \label{eq:state-value}
             \begin{aligned}
@@ -118,6 +120,8 @@
                 & \ = \ \sum_a \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma v_{\pi}(s') \Big] .
             \end{aligned}
         \end{equation}
+    
+        Dessa forma, conhecendo todas as informações presentes em~\eqref{eq:state-value}, podemos resolver essa equação e encontrar o valor de $v_{\pi}(s)$. Uma maneira de fazer isso é utilizar um sistema de equações.
     
         \subsection{Exemplo de cálculo por sistemas de equações}
         
