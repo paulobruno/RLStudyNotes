@@ -106,10 +106,9 @@
             
             Caso não tenhamos a política ótima ou estejamos seguindo outra política $\pi$ qualquer, poderíamos usar as funções de valor para avaliar essa política. É o que faremos a seguir. No caso da Programação Dinâmica, utilizamos uma abordagem em duas etapas: o primeiro será a avaliar a política e depois iremos melhorá-la.
             
-    \section{Avaliação de política}
+    \section{Avaliação da política}
     
         Também conhecido como o \emph{problema da predição}, a \emph{avaliação de uma política} consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Como vimos anteriormente, o valor de um estado $s$ seguindo uma política $\pi$ é dada pela \emph{equação de Bellman} do valor do estado:
-    
         \begin{equation}
             \label{eq:state-value}
             \begin{aligned}
@@ -125,15 +124,20 @@
     
         \subsection{Exemplo de cálculo por sistemas de equações}
         
+            Considere para nosso exemplo o MDP representado pelo diagrama da Figura~\ref{diag:model-based}. De início, vamos avaliar cada estado de acordo com a equação de Bellman para o valor do estado. Por exemplo, para o estado $s_1$ temos:
             \begin{equation}
-                \begin{split}
-                    v_\pi(s_1) &= \pi(a_1 \mid s_1) \cdot p(s_2, r_1 \mid s_1, a_1) \cdot \Big[ r_1 + \gamma \cdot v_\pi(s_2) \Big] \\
-                               &+ \pi(a_1 \mid s_1) \cdot p(s_2, r_2 \mid s_1, a_1) \cdot \Big[ r_2 + \gamma \cdot v_\pi(s_2) \Big] \\
-                               &+ \pi(a_2 \mid s_1) \cdot p(s_2, r_3 \mid s_1, a_2) \cdot \Big[ r_3 + \gamma \cdot v_\pi(s_2) \Big] \\
-                               &+ \pi(a_2 \mid s_1) \cdot p(s_3, r_4 \mid s_1, a_2) \cdot \Big[ r_4 + \gamma \cdot v_\pi(s_3) \Big] \\
-                               &+ \pi(a_3 \mid s_1) \cdot p(s_3, r_5 \mid s_1, a_3) \cdot \Big[ r_5 + \gamma \cdot v_\pi(s_3) \Big]
-                \end{split}
+                \label{eq:equation-system}
+                \begin{aligned}
+                    v_\pi(s_1) 
+                        &= \pi(s_1, a_1) \cdot p(s_1, a_1, r_1, s_2) \cdot \Big[ r_1 + \gamma \cdot v_\pi(s_2) \Big] \\
+                        &+ \pi(s_1, a_1) \cdot p(s_1, a_1, r_2, s_2) \cdot \Big[ r_2 + \gamma \cdot v_\pi(s_2) \Big] \\
+                        &+ \pi(s_1, a_2) \cdot p(s_1, a_2, r_3, s_2) \cdot \Big[ r_3 + \gamma \cdot v_\pi(s_2) \Big] \\
+                        &+ \pi(s_1, a_2) \cdot p(s_1, a_2, r_4, s_3) \cdot \Big[ r_4 + \gamma \cdot v_\pi(s_3) \Big] \\
+                        &+ \pi(s_1, a_3) \cdot p(s_1, a_3, r_5, s_3) \cdot \Big[ r_5 + \gamma \cdot v_\pi(s_3) \Big] .
+                \end{aligned}
             \end{equation}
+        
+            \emph{Observação: poderíamos considerar todos os estados, ações e transições em~\eqref{eq:equation-system}. Por exemplo, poderíamos pôr um termo para uma transição de $s_1$ a $s_3$. Entretanto, essa transição teria probabilidade 0 de ocorrer. Por isso omitimos esses termos e só pusemos as transições que podem de fato acontecer.}
         
         \subsection{Avaliação iterativa da política}
         
