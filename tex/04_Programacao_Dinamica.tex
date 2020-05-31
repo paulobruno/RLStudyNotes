@@ -139,6 +139,8 @@
         
             \emph{Observação: poderíamos considerar todos os estados, ações e transições em~\eqref{eq:equation-system}. Por exemplo, poderíamos pôr um termo para uma transição de $s_1$ a $s_3$. Entretanto, essa transição teria probabilidade 0 de ocorrer. Por isso omitimos esses termos e só pusemos as transições que podem de fato acontecer.}
         
+            De maneira análoga, podemos facilmente encontrar as equações de avaliação para os outros estados. Note que as únicas icógnitas em~\eqref{eq:state-value} são os valores dos outros estados. Assim, ao final, teremos $n$ equações com $n$ icógnitas. Uma vez que resolvermos esse sistemas, teremos todos os valores dos estados. Embora, como vimos, esse valor possa ser encontrado partir da resolução de um sistema linear nos estados, essa abordagem pode ser muito custosa. Dessa forma, aqui estamos interessados em computá-lo iterativamente. 
+        
         \subsection{Avaliação iterativa da política}
         
             Para o caso em que queremos melhorar a estimativa do valor esperado de um estado iterativamente a estratégia é começar com um valor inicial, $v_{\pi_{0}}$ e melhorar a estimativa do valor atual $v_{\pi_{k+1}}$ a cada iteração $k$.
