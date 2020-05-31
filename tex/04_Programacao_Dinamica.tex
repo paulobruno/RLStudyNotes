@@ -212,9 +212,13 @@
             \end{split}
         \end{equation}
     
-    \section{Iteração de Política Generalizada (GPI)}
+    \section{Iteração de Política Generalizada}
     
-        \begin{center}
+        \emph{Iteração de Política Generalizada} (GPI) é o termo que abrange todas as maneiras de encontrar uma política ótima de maneira iterativa através de sucessivas avaliações e melhoras, em que a cada passo estaremos cada vez mais próximos dos valores ótimos. Esse processo é ilustrado na Figura~\ref{diag:generalized-policy-iteration}. 
+        
+        \vspace{5mm}
+        \begin{figure}[ht]
+            \centering
             \begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=2.8cm, thick]
                 \tikzstyle{state}=[fill=none,draw=none,text=black]
                 
@@ -232,7 +236,8 @@
                 \draw[transform canvas={yshift=0.15cm}] (A2) to node[] {} (B2);
                 \draw[transform canvas={yshift=-0.15cm}] (B2) to node[] {} (A2);
             \end{tikzpicture}
-        \end{center}
-        
+            \caption{Representação da dinâmica de atualização da política na abordagem de GPI. A convergência ocorre quando encontrarmos uma política ótima $\pi_*$.}
+            \label{diag:generalized-policy-iteration}
+        \end{figure}
         
 \end{document}
