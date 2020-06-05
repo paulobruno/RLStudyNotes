@@ -189,7 +189,9 @@
     
     \section{Iteração da política}
     
-        União da avaliação e da melhora.
+        Uma vez que temos maneiras de realizar tanto a avaliação quanto a melhora de uma política, i.e., encontrar o valor dos estados e escolher a melhor ação em cada um deles, podemos unir essas duas abordagens e utilizá-las para chegar à política ótima. Essa junção é chamada de \emph{iteração da política}.
+        
+        A intuição por trás da iteração da política é bem simples. Se conseguimos melhorar a estimativa do valor dos estados (utilizando avaliação da política), podemos usar essas informações para melhor escolher as ações a serem executadas nesses estados (utilizando melhora da política). Repetindo esse processo, teremos estimativas cada vez melhores e melhores escolhas de ação até chegarmos na política ótima. Essa dinâmica é ilustrada na Figura~\ref{fig:policy-iteration}.
         
         \begin{figure}[ht]
             \centering
@@ -205,6 +207,8 @@
             \caption{Representação da iteração da política inicial $\pi_0$ até chegar uma política ótima $\pi_*$}
             \label{fig:policy-iteration}
         \end{figure}
+        
+        Essa abordagem produz uma sequência de políticas em que cada uma delas é certamente melhor que anterior caso ainda não tenhamos uma política ótima, ou igual a anterior se já chegamos em uma política ótima. Como o MDP é finito, temos um número finito de políticas, de modo que essa estratégia chegará eventualmente a uma política ótima.
         
     \section{Iteração do valor}
     
