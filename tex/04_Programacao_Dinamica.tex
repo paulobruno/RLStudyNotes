@@ -210,8 +210,15 @@
         
         Essa abordagem produz uma sequência de políticas em que cada uma delas é certamente melhor que anterior caso ainda não tenhamos uma política ótima, ou igual a anterior se já chegamos em uma política ótima. Como o MDP é finito, temos um número finito de políticas, de modo que essa estratégia chegará eventualmente a uma política ótima.
         
+        Observe que a cada iteração temos uma rodada de avaliação e uma de melhora. A etapa de avaliação, por sua vez, consiste em uma série de iterações até a convergência. Dessa forma, o processo todo pode demorar muito e acabar por não ser factível na prática. Uma maneira de simplificar o processo é truncar a fase de avaliação antes da convergência. É o que veremos a seguir.
+
     \section{Iteração do valor}
-    
+
+        Normalmente, na prática, paramos a atualização do valor dos estados (avaliação da política) quando a diferença entre as estimativas $v_{k+1}$ e $v_k$ é muito pequena. Entretanto, podemos parar a atualização antes disso e ainda ter a garantia de que convergiremos a uma política ótima.
+
+        Uma opção é parar a atualização o mais cedo possível, de modo a gastar o mínimo de tempo com cada etapa. Dessa forma, poderíamos rodar um único passo de atualização da estimativa do valor do estado e em seguida realizar a melhora da política de acordo com o valor da ação. Na prática, realizar a melhora da política após somente uma iteração da avaliação significa combiná-las em uma regra de atualização com um único passo.
+
+        Primeiro, partiremos da regra de atualização iterativa do valor do estado~\eqref{eq:iterative-evaluation}. Como estamos realizando a melhora da política, em vez de considerar todas as ações possíveis consideramos somente a ação que maximiza o valor esperado das recompensas recebidas. Assim, substituimos o termo de soma das probabilidades de cada ação pela escolha da ação que nos dá o maior valor, como visto em~\eqref{eq:value-iteration}.
         \begin{equation}
             \begin{split}
                 v_{k+1}(s) & \  \dot{=} \ \max_a \mathbb{E}[R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s, A_t = a] \\
