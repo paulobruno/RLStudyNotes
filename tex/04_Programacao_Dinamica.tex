@@ -220,10 +220,11 @@
 
         Primeiro, partiremos da regra de atualização iterativa do valor do estado~\eqref{eq:iterative-evaluation}. Como estamos realizando a melhora da política, em vez de considerar todas as ações possíveis consideramos somente a ação que maximiza o valor esperado das recompensas recebidas. Assim, substituimos o termo de soma das probabilidades de cada ação pela escolha da ação que nos dá o maior valor, como visto em~\eqref{eq:value-iteration}.
         \begin{equation}
-            \begin{split}
-                v_{k+1}(s) & \  \dot{=} \ \max_a \mathbb{E}[R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s, A_t = a] \\
-                & = \ \max_a \sum_{s',r} p(s', r \mid s, a) \Big[ r + \gamma v_k(s') \Big]
-            \end{split}
+            \begin{aligned}
+                v_{k+1}(s) & \ = \ \max_a \mathbb{E}[R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s, A_t = a] \\
+                & = \ \max_a \sum_{r, s'} p(r, s' \mid s, a) \Big[ r + \gamma v_k(s') \Big]
+            \end{aligned}
+            \label{eq:value-iteration}
         \end{equation}
     
     \section{Iteração de Política Generalizada}
