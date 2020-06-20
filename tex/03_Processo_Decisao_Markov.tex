@@ -330,18 +330,20 @@
 
             A equação \eqref{eq:state-value} é a \emph{equação de Bellman} para $v_{\pi}$, que tem esse nome por causa de Richard Bellman, que as definiu em seus trabalhos de \emph{programação dinâmica}. Ela considera a relação entre o valor do estado atual $s$ e o valor dos estados subsequentes $s'$. Observe que para chegarmos ao valor de $s$ precisamos conhecer o valor de $s'$. Esse tipo de equação em que o valor atual depende de valores ``futuros'' é bastante característica de problemas de programação dinâmica e das equações de Bellman.
         
-        \subsection{Função ação-valor}
+        \subsection{Função de valor da ação}
         
-            \todo{retirar o v da equação abaixo}
-
-            \begin{equation}            
+            De maneira similar, a \emph{função de valor da ação}, $q_{\pi}(s, a)$, é o retorno esperado ao sair de um estado $s$, executando uma ação $a$ e a partir daí seguir uma política $\pi$:
+            \begin{equation}
+            \label{eq:action-value}
             \begin{split}
                 q_{\pi}(s, a) & \ = \ \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
                 & \ = \ \mathbb{E}[R_{t+1} + \gamma G_{t+1} \mid S_t = s, A_t = a] \\
-                & \ = \ \mathbb{E}[R_{t+1} + \gamma v_{\pi}(s') \mid S_t = s, A_t = a] \\
-                & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma v_{\pi}(s')]
+                & \ = \ \sum_{s',r} p(s, a, r, s') \Big[r + \gamma \mathbb{E}_{\pi}[ G_{t+1} \mid S_{t+1} = s', A_{t+1} = a'] \Big]\\
+                & \ = \ \sum_{s',r} p(s, a, r, s') [r + \gamma q_{\pi}(s', a')]\ .
             \end{split}
             \end{equation}
+
+            Da mesma forma, \eqref{eq:action-value} é a \emph{equação de Bellman} para $q_{\pi}$.
         
         \subsection{Otimalidade das funções de valor}
         
