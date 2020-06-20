@@ -311,16 +311,24 @@
     
     \section{Funções de valor}
         
-        \subsection{Função estado-valor}
+        Para avaliar os diferentes estados e ações, precisamos mensurá-los de alguma maneira. Para isso, definimos \emph{funções de valor} para eles.
+
+        \subsection{Função de valor do estado}
         
+            A \emph{função de valor do estado}, $v_{\pi}(s)$ é o retorno esperado a partir de um estado $s$ seguindo uma política $\pi$:
             \begin{equation}
+            \label{eq:state-value}
             \begin{split}
-                v_{\pi}(s) & \ = \ \mathbb{E}[G_t \mid S_t = s] \\
-                & \ = \ \mathbb{E}[R_{t+1} + \gamma G_{t+1} \mid S_t = s] \\
-                & \ = \ \mathbb{E}[R_{t+1} + \gamma v_{\pi}(s') \mid S_t = s] \\
-                & \ = \ \sum_{a} \pi(s,a) \sum_{s', r} p(s, a, r, s') [r + \gamma v_{\pi}(s')]
+                v_{\pi}(s) & \ = \ \mathbb{E}_{\pi}[G_t \mid S_t = s] \\
+                & \ = \ \mathbb{E}_{\pi}[R_{t+1} + \gamma G_{t+1} \mid S_t = s] \\
+                & \ = \ \sum_{a} \pi(s,a) \sum_{s'} \sum_{r} p(s, a, r, s') \Big[r + \gamma \mathbb{E}_{\pi}[ G_{t+1} \mid S_{t+1} = s'] \Big]\\
+                & \ = \ \sum_{a} \pi(s,a) \sum_{s',r} p(s, a, r, s') \Big[r + \gamma \mathbb{E}_{\pi}[ G_{t+1} \mid S_{t+1} = s'] \Big]\\
+                & \ = \ \sum_{a} \pi(s,a) \sum_{s', r} p(s, a, r, s') [r + \gamma v_{\pi}(s')]\ .
             \end{split}
             \end{equation}
+            Consideramos $t$ como um tempo qualquer e que o valor de um estado terminal é sempre $0$.
+
+            A equação \eqref{eq:state-value} é a \emph{equação de Bellman} para $v_{\pi}$, que tem esse nome por causa de Richard Bellman, que as definiu em seus trabalhos de \emph{programação dinâmica}. Ela considera a relação entre o valor do estado atual $s$ e o valor dos estados subsequentes $s'$. Observe que para chegarmos ao valor de $s$ precisamos conhecer o valor de $s'$. Esse tipo de equação em que o valor atual depende de valores ``futuros'' é bastante característica de problemas de programação dinâmica e das equações de Bellman.
         
         \subsection{Função ação-valor}
         
