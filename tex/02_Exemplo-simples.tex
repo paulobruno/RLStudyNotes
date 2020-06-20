@@ -18,8 +18,8 @@
 \setlength{\parskip}{0.75em}
 
 
-\newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
-%\newcommand{\todo}[1]{}
+%\newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
+\newcommand{\todo}[1]{}
 
 
 % PB: redefinir maketitle
@@ -76,7 +76,7 @@
             \begin{equation}
             \begin{split}
                 q_*(a) & \ = \ \mathbb{E}[R \mid A = a] \\
-                & \ = \ \sum_{r}{} p(r) \cdot r
+                & \ = \ \sum_{r}{} p(r) \cdot r .
             \end{split}
             \end{equation}        
             Para o exemplo anterior, temos:            
@@ -84,7 +84,7 @@
             \begin{split}
                 q_*(a) & \ = \ \sum_{r}{} p(r) \cdot r \\
                 & \ = \ 0.8 \cdot 0 + 0.19 \cdot 2 + 0.01 \cdot 50 \\
-                & \ = \ 0.88
+                & \ = \ 0.88 .
             \end{split}
             \end{equation*}
             
@@ -144,7 +144,7 @@
             \begin{split}
                 q_*(a_1) \ = \ 0.88 \\
                 q_*(a_2) \ = \ 0.50 \\
-                q_*(a_3) \ = \ 0.95
+                q_*(a_3) \ = \ 0.95 .
             \end{split}
             \end{equation*}
             Portanto, a ação gulosa é $a_3$.
@@ -156,7 +156,7 @@
             Inicialmente, não temos nenhuma informação sobre o valor, então qualquer ação é igualmente boa. Para descobrir informações de cada ação teríamos que executá-las algumas vezes e, a partir daí, ter alguma informação para definir uma estratégia de escolha adequada. Vamos definir a estimativa $Q$ como a média das recompensas recebidas até o tempo $t$ após executar uma ação $a$, dada por:
             \begin{equation}
             \label{eq:estimativa-acao}
-                Q_t(a) \ = \ \frac{\sum\limits_{i=1}^{t-1} R_i(a)}{N_{t-1}(a)}
+                Q_t(a) \ = \ \frac{\sum\limits_{i=1}^{t-1} R_i(a)}{N_{t-1}(a)} ,
             \end{equation}
             onde $r_i(a)$ é a recompensa recebida por executar $a$ no tempo $i$, ou $0$ se $a$ não foi executada em $i$, e $N_{t-1}(a)$ é o número de vezes que $a$ foi executada até o tempo $t-1$. Assim, à medida que as interações forem ocorrendo, teremos uma estimativa melhor do valor real de uma ação. Com $t$ tendendo ao infinito, $Q_t$ tende ao valor real $q_*$.
 
@@ -168,7 +168,7 @@
                 \> $k = 3$   \> $a = 1$   \> $r = 1$   \> $Q_3(a_1) = \frac{5}{3}$ \> $Q_3(a_2) = 0$\\
                 \> $k = 4$   \> $a = 2$   \> $r = 0$   \> $Q_4(a_1) = \frac{5}{3}$ \> $Q_4(a_2) = 0$\\
                 \> $k = 5$   \> $a = 2$   \> $r = 0$   \> $Q_5(a_1) = \frac{5}{3}$ \> $Q_5(a_2) = 0$\\
-                \> $k = 6$   \> $a = 2$   \> $r = 0$   \> $Q_6(a_1) = \frac{5}{3}$ \> $Q_6(a_2) = 0$
+                \> $k = 6$   \> $a = 2$   \> $r = 0$   \> $Q_6(a_1) = \frac{5}{3}$ \> $Q_6(a_2) = 0$ .
             \end{tabbing}
             O que podemos inferir desses dados é que em $a_1$ duas recompensas são possíveis, $1$ com $\frac{2}{3}$ de probabilidade e $3$ com $\frac{1}{3}$ de probabilidade, de modo que $Q_6(a_1) = \frac{5}{3}$. Já para $a_2$ temos recompensa $0$ com $100\%$ de probabilidade, de modo que $Q_6(a_2) = 0$. Portanto, a ação gulosa nesse caso seria $a_1$.
             
@@ -178,13 +178,13 @@
                 \> $k = 7$   \> $a = 1$   \> $r = 1$   \> $Q_7(a_1) = 1.5$  \> $Q_7(a_2) = 0$\\
                 \> $k = 8$   \> $a = 1$   \> $r = 3$   \> $Q_8(a_1) = 1.8$  \> $Q_8(a_2) = 0$\\
                 \> $k = 9$   \> $a = 2$   \> $r = 1000$\> $Q_9(a_1) = 1.8$  \> $Q_9(a_2) = 250$\\
-                \> $k = 10$  \> $a = 2$   \> $r = 0$   \> $Q_{10}(a_1) = 1.8$ \> $Q_{10}(a_2) = 200$
+                \> $k = 10$  \> $a = 2$   \> $r = 0$   \> $Q_{10}(a_1) = 1.8$ \> $Q_{10}(a_2) = 200$ .
             \end{tabbing}
             Os novos valores das estimativas são:
             \begin{equation*}
             \begin{split}
                 Q_{10}(a_1) & \ = \ 1.8\\
-                Q_{10}(a_2) & \ = \ 200
+                Q_{10}(a_2) & \ = \ 200 .
             \end{split}
             \end{equation*}
             Portanto, a ação gulosa nesse caso seria $a_2$. 
@@ -214,7 +214,7 @@
             \begin{equation*}
             \begin{split}
                 q_*(a_1) & \ = \ 0.25 \cdot 3 + 0.75 \cdot 1 = 1.5 \\
-                q_*(a_2) & \ = \ 0.99 \cdot 0 + 0.01 \cdot 1000 = 10
+                q_*(a_2) & \ = \ 0.99 \cdot 0 + 0.01 \cdot 1000 = 10 .
             \end{split}                
             \end{equation*}
 
@@ -291,19 +291,19 @@
             
             Dois fatores influenciam a estimativa de uma ação. O primeiro, naturalmente, é o valor estimado e o segundo é a certeza que temos de que o primeiro é uma boa estimativa. Por exemplo, estimativas com uma grande incerteza associada podem ser bem maiores ou bem menores do que o estimado.
             
-            Assim, podemos adicionar um termo que considere também a incerteza do valor estimado, de modo que a escolha de uma ação no tempo $t$, $A_t$, passe a ser baseada em:            
+            Assim, podemos adicionar um termo maior ou igual a zero que considere também a incerteza do valor estimado, de modo que a escolha de uma ação no tempo $t$, $A_t$, passe a ser baseada em:            
             \begin{equation}
-                A_t \ = \ \argmax_a \Big[ Q_t(a) + Incerteza(Q_a) \Big]
+                A_t \ = \ \argmax_a \Big[ Q_t(a) + Incerteza(Q_a) \Big] .
             \end{equation}           
             
             Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$ (perceba que uma incerteza menor que zero não faz muito sentido prático). Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$. No caso do Limite de Confiança Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:            
             \begin{equation}
-                Incerteza(Q_a) \ = \ c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}}
+                Incerteza(Q_a) \ = \ c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} .
             \end{equation}
             
             E, portanto, a escolha de uma ação é dada por:            
             \begin{equation}
-                A_t \ \dot{=} \ \argmax_a \left[ Q_t(a) + c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} \ \right]
+                A_t \ \dot{=} \ \argmax_a \left[ Q_t(a) + c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} \ \right] .
             \end{equation}            
             \noindent
             onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ aumenta mais do que $\ln{t}$, e se $a$ não for escolhida o valor da incerteza aumenta, pois $N_t(a)$ se mantém e $\ln{t}$ aumenta.
@@ -317,7 +317,7 @@
         \label{eq:estimativa-soma}
         \begin{split}
             Soma_{t+1}(a) & \ = \ Soma_t(a) + Q_t(a) \\
-            Q_{t+1}(a) & \ = \ \frac{Soma_{t+1}(a)}{N_{t+1}(a)}  \\
+            Q_{t+1}(a) & \ = \ \frac{Soma_{t+1}(a)}{N_{t+1}(a)} . \\
         \end{split}
         \end{equation}
 
@@ -325,7 +325,7 @@
         \begin{equation}
         \begin{split}
             Q_n & \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}\\
-            & = \ \frac{1}{n-1} \sum_{i=1}^{n-1} R_i
+            & = \ \frac{1}{n-1} \sum_{i=1}^{n-1} R_i .
         \end{split}
         \end{equation}
         
@@ -342,7 +342,7 @@
             & = \ \frac{1}{n} R_n + \Bigg( \frac{n}{n} - \frac{1}{n} \Bigg) Q_n \nonumber\\
             & = \ \frac{1}{n} R_n + Q_n - \frac{1}{n} Q_n \nonumber\\
             \label{eq:estimativa-qn}
-            & = \ Q_n + \frac{1}{n} \Big[ R_n - Q_n \Big]
+            & = \ Q_n + \frac{1}{n} \Big[ R_n - Q_n \Big] .
         \end{align}
         \end{subequations}
         
@@ -354,6 +354,8 @@
     \section{Problemas não-estacionários}
 
         Em um problema \emph{estacionário} os valores reais das ações se mantêm os mesmos ao longo de todas as iterações. Já em um problema \emph{não-estacionário} os valores das ações mudam ao longo do tempo, seja por uma mudança nas probabilidades, seja por uma mudança nas recompensas, ou por ambos.
+
+        \todo{estacionaria vs nao estacionaria (exemplo das barras do 10-armed testbed)}
         
         Por exemplo, um simples problema não-estacionário pode ser visto no diagrama \ref{diag:non-stationary} abaixo. Note que $p_1 \neq q_1$ e $p_2 \neq q_2$, caso contrário seria um problema estacionário. 
         \begin{figure}[h]
@@ -392,7 +394,7 @@
 
         No caso dos problemas não-estacionários, o cálculo da estimativa em \eqref{eq:estimativa-qn} não é adequada, pois ela parte do fato que os valores das ações serão sempre os mesmos. Em um problema que muda com o tempo, faz sentido dar mais importância às informações mais recentes. Para tanto, em vez de usar um passo baseado no número de vezes que a ação foi executada e que diminui cada vez que isso acontece, $\frac{1}{n}$, podemos utilizar um passo constante, $\alpha$. O novo cálculo da estimativa será:
         \begin{equation}
-            Q_{n+1} \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big]
+            Q_{n+1} \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big] .
         \end{equation}
 
         Observe que esse novo cálculo implica em uma média ponderada das recompensas recebidas e da estimativa inicial, em que as recompensas mais recentes terão mais peso, como mostrado em \eqref{eq:recency-weighted-average}.
@@ -407,7 +409,7 @@
             & = \ \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \alpha (1 - \alpha)^2 R_{n-2} + (1 - \alpha)^3 Q_{n-3} \nonumber\\
             & = \ (1 - \alpha)^3 Q_{n-3} + \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \alpha (1 - \alpha)^2 R_{n-2} \nonumber\\
             & = \ (1 - \alpha)^n Q_1 + \alpha R_n + \alpha (1 - \alpha) R_{n-1} + \cdots + \alpha (1 - \alpha)^{n-1} R_1 \nonumber\\
-            & = \ (1 - \alpha)^n Q_1 + \sum_{i=1}^{n} \alpha (1 - \alpha)^{n - i} R_i
+            & = \ (1 - \alpha)^n Q_1 + \sum_{i=1}^{n} \alpha (1 - \alpha)^{n - i} R_i .
         \end{align}
         \label{eq:recency-weighted-average}
         \end{subequations}
@@ -419,7 +421,7 @@
             
     \section{Tarefas Não-Associativas, Associativas e o Problema Completo do Aprendizado por Reforço}
 
-        \subsection{Nonassociative}
+        \subsection{Não-associativa}
             
             Todos os exemplos vistos nessa nota foram de tarefas \emph{não-associativas}. Uma tarefa \emph{não-associativa} é uma tarefa em que não há mudança de configuração no ambiente. Assim, após uma ação ser escolhida, o agente recebe a recompensa adequada e volta para o início do problema. Por exemplo:            
             
@@ -432,14 +434,14 @@
             
             Para resolver um problema não-associativo utilizamos as avaliação das ações vistas anteriormente.
     
-        \subsection{Associative}
+        \subsection{Associativa}
         
             Em um problema \emph{associativo} o ambiente pode mudar após uma ação ser escolhida. Nesse caso, existem diversas configurações de ambientes diferentes e uma delas será aquela a ser avaliada no momento. Observe que a escolha de uma ação não influencia na configuração encontrada na iteração seguinte.
     
             \begin{figure}
                 \centering
                 \associativebandits
-                \caption{Exemplo de problema addociativo: qualquer configuração é possível no início de cada iteração, sem que a escolha influencie no estado inicial da iteração seguinte}
+                \caption{Exemplo de problema associativo: qualquer configuração é possível no início de cada iteração, sem que a escolha influencie no estado inicial da iteração seguinte}
                 \label{fig:my_label}
             \end{figure}
             
@@ -453,7 +455,7 @@
                 q_{*,2}(a_1) & = 2\\
                 q_{*,2}(a_2) & = 10\\
                 q_{*,3}(a_1) & = 0.5\\
-                q_{*,3}(a_2) & = 0.5
+                q_{*,3}(a_2) & = 0.5 .
             \end{split}
             \end{equation*}
             No $MAB_1$ deveríamos executar a ação $a_1$. No $MAB_2$ deveríamos executar a ação $a_2$. No $MAB_3$ poderíamos executar qualquer ação.
