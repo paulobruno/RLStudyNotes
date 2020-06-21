@@ -345,24 +345,35 @@
 
             Da mesma forma, \eqref{eq:action-value} é a \emph{equação de Bellman} para $q_{\pi}$.
         
-        \subsection{Otimalidade das funções de valor}
+    \section{Otimalidade}
+    
+        \subsection{Política ótima}
         
-            \subsubsection{Valor estado}
+            Apesar de existirem infinitas políticas para uma tarefa, somente um conjunto delas nos levará a trajetória de maior retorno possível. Por definição, uma política que nos leva uma trajetória de maior retorno possível em uma tarefa é chamada de \emph{política ótima}.
+
+            Consideramos que uma política $\pi$ é melhor ou igual do que outra política $\pi'$ se o seu valor esperado é maior ou igual do que o valor esperado da outra para todos os estados. Ou seja:
+            \begin{equation*}
+                \pi \geq \pi'\ \text{se e somente se}\ v_{\pi}(s) \geq v_{\pi'}(s)\ \text{para todo}\ s \in S.
+            \end{equation*}
             
-                \begin{equation}
-                \begin{split}
-                    v_*(s) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
-                    & \ = \ \max_{a} \sum_{s', r} p(s, a, r, s') [r + \gamma v_*(s')]
-                \end{split}
-                \end{equation}
-            
-            \subsubsection{Valor ação}
-            
-                \begin{equation}
-                \begin{split}
-                    q_*(s, a) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
-                    & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma \max_{a'} q_*(s', a')]
-                \end{split}
-                \end{equation}
+            É importante notar que sempre existe ao menos uma política que é melhor ou igual do que todas as outras políticas, a qual chamamos de \emph{política ótima}, $\pi_*$. Se houver mais de uma política com valores máximos, todas elas são chamadas de políticas ótimas.
+        
+        \subsection{Valor estado}
+        
+            \begin{equation}
+            \begin{split}
+                v_*(s) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
+                & \ = \ \max_{a} \sum_{s', r} p(s, a, r, s') [r + \gamma v_*(s')]
+            \end{split}
+            \end{equation}
+        
+        \subsection{Valor ação}
+        
+            \begin{equation}
+            \begin{split}
+                q_*(s, a) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
+                & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma \max_{a'} q_*(s', a')]
+            \end{split}
+            \end{equation}
 
 \end{document}
