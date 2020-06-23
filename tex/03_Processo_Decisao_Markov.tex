@@ -380,13 +380,22 @@
 
             A equação \eqref{eq:optimal-state-value} é chamada de \emph{equação de otimalidade de Bellman} para $v_*$. 
         
-        \subsection{Valor ação}
+        \subsection{Função ótima de valor da ação}
         
+            De maneira similar a \emph{função ótima de valor da ação} também pode ser definida através da política que dá o maior valor da ação:
             \begin{equation}
+                q_*(s, a) = \max_{\pi} q_{\pi}(s, a)\ \forall s \in S\ \text{e}\ \forall a \in A(s).
+            \end{equation}
+
+            Além disso, a \emph{equação de otimalidade de Bellman} para $q_*$ é dada por:
+            \begin{equation}
+            \label{eq:optimal-action-value}
             \begin{split}
-                q_*(s, a) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
-                & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma \max_{a'} q_*(s', a')]
+                q_*(s, a) & \ = \ \mathbb{E} [R_{t+1} + \gamma \max_{a'} q_*(S_{t+1}, A_{t+1}) \mid S_t = s, A_t = a] \\
+                & \ = \ \sum_{s', r} p(s, a, r, s') [r + \gamma \max_{a'} q_*(s', a')]\ .
             \end{split}
             \end{equation}
+
+            Esses conjuntos de equações são maneiras ótimas de resolver problemas de aprendizado por reforço em que temos o modelo completo do problema. Para esses casos, podemos utilizar diretamente \emph{programação dinâmica}, como veremos a seguir.
 
 \end{document}
