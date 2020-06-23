@@ -360,14 +360,25 @@
             
             É importante notar que sempre existe ao menos uma política que é melhor ou igual do que todas as outras políticas, a qual chamamos de \emph{política ótima}, $\pi_*$. Se houver mais de uma política com valores máximos, todas elas são chamadas de políticas ótimas.
         
-        \subsection{Valor estado}
+        \subsection{Função ótima de valor do estado}
         
+            Conhecendo a definição de política ótima, podemos definir funções de valor ótimas de maneira semelhante. No caso da função de valor do estado, podemos definir uma \emph{função ótima de valor do estado}, $v_*$, através da política que dá o maior valor de estado possível:
             \begin{equation}
+                v_*(s) = \max_{\pi} v_{\pi}(s)\ \forall s \in S.
+            \end{equation}
+
+            Uma vez que a política ótima nos dirá qual ação executar, podemos ainda definir a \emph{função ótima de valor do estado} através da escolha da ação que nos dá o maior retorno esperado:
+            \begin{equation}
+            \label{eq:optimal-state-value}
             \begin{split}
-                v_*(s) & \ = \ \max_{a} \mathbb{E}[G_t \mid S_t = s, A_t = a] \\
-                & \ = \ \max_{a} \sum_{s', r} p(s, a, r, s') [r + \gamma v_*(s')]
+                v_*(s) & \ = \ \max_{a} \mathbb{E}_{\pi_*} [G_t \mid S_t = s, A_t = a] \\
+                & \ = \ \max_{a} \mathbb{E}_{\pi_*} [R_{t+1} + \gamma G_{t+1} \mid S_t = s, A_t = a] \\
+                & \ = \ \max_{a} \mathbb{E} [R_{t+1} + \gamma v_*(S_{t+1}) \mid S_t = s, A_t = a] \\
+                & \ = \ \max_{a} \sum_{s', r} p(s, a, r, s') [r + \gamma v_*(s')]\ .
             \end{split}
             \end{equation}
+
+            A equação \eqref{eq:optimal-state-value} é chamada de \emph{equação de otimalidade de Bellman} para $v_*$. 
         
         \subsection{Valor ação}
         
