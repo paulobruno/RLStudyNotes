@@ -302,12 +302,19 @@
             Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.    
     \section{Política}
     
-        Dentro desse contexto, precisamos encontrar uma relação entre um estados e as suas ação possíveis. Em especial, devemos definir a probabilidade de executar cada ação em cada estado. A função que faz o mapeamento entre os pares estao e ação, $(s, a)$, é chamada de \emph{política}. 
+        Relembrando os estudos de multi-armed bandits, vimos a diferença entre tarefas não-associativas, cujos valores se mantêm constantes a cada iteração, associativas, cujos valores das ações mudam com o tempo, e o problema completo do aprendizado por reforço. Para o último, que agora representamos como um MDP, mencionamos a necessidade de mapear as informações atuais com as ações possíveis.
+
+        Nesse contexto, precisamos encontrar uma relação entre um estado e as ações possíveis a partir dele. Em especial, devemos definir uma probabilidade de executar cada ação possível para cada estado. A função que faz o mapeamento entre os pares estao e ação, $(s, a)$, é chamada de \emph{política}. 
         
-        Formalmente, a política é definida como uma distribuição de probabilidade entre as ações possíveis em um estado. Na prática, a política nos diz qual ação será executada a seguir, considerando o estado atual.
-    
-        \section{Política ótima}
-        
+        Formalmente, a política é definida como uma distribuição de probabilidade entre as ações possíveis em um estado. Ela pode ser vista como uma função $\pi(s, a)$ cujo valor é a probabilidade do agente executar a ação $a$ uma que vez qle encontra-se no estado $s$. Na prática, a política nos diz qual ação executar a seguir considerando o conjunto de informações que temos no momento, o estado. Por exemplo, uma política ``execute a primeira ação'' seria definida por:
+        \begin{equation}
+            \pi(s, a) =
+            \begin{cases}
+                1, & \text{se}\ a = a_1 \mid A(s) = \{a_1, a_2, \dots, a_n\}\\
+                0, & \text{c.c.}
+            \end{cases}
+            .
+        \end{equation}
     
     \section{Funções de valor}
         
