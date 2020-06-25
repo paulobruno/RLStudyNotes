@@ -200,7 +200,78 @@
             Observação: a hipótese acima foi sugerida por Michael Littman para os autores Sutton e Barto em comunicação pessoal, como eles explicam nas notas do capítulo 3 do livro. Uma discussão inicial promovida por Sutton é encontrada no endereço:
             
             \url{http://incompleteideas.net/rlai.cs.ualberta.ca/RLAI/rewardhypothesis.html}
+            
+        \subsection{Distribuição de Recompensas}
+
+            Em um problema, o agente pode receber uma recompensa após cada ação realizada. Em outro, o agente pode receber recompensa somente após certas ações. Essa diferença pode existir independentemente do número de estados e ações. Embora do ponto de vista do aprendizado por reforço os dois problemas sejam modelados por um MDP, eles diferem na \emph{distribuição de recompensas}, que é dividida em duas categorias: \emph{densas} e \emph{esparsas}.
         
+            \emph{Observação: não confundir distribuição de recompensas com o tempo de resposta visto nos estudos introdutórios. Enquanto a distribuição de recompensa considera a presença ou ausência de recompensa após ações, o tempo de resposta é relativo ao momento em que o agente recebe uma resposta significativa.}
+
+            \subsubsection{Recompensas densas}
+                
+                Em problemas que dão recompensas frequentemente, por exemplo com uma recompensa após cada ação, temos uma distribuição caracterizada como de recompensas \emph{densas}, ilustrada na Figura~\ref{diag:dense-rewards}.
+
+                \begin{figure}[ht]
+                    \centering
+                    \begin{tikzpicture}[-,>=stealth', auto, node distance=2.0cm, thick]
+                        \node[state-node]  (S1) {$s_1$};
+                        \node[hidden-node] (H1) [above right of=S1] {};
+                        \node[state-node]  (S2) [below right of=H1] {$s_2$};
+                        \node[hidden-node] (H2) [above right of=S2] {};
+                        \node[state-node]  (S3) [below right of=H2] {$s_3$};
+                        \node[hidden-node] (H3) [above right of=S3] {};
+                        \node[state-node]  (S4) [below right of=H3] {$s_4$};
+                        \node[]            (HN) [above right of=S4] {$\cdots$};
+                        \node[state-node]  (SN) [below right of=HN] {$s_n$};
+                        \node[]            (SH) [below of=HN, yshift=0.5cm] {$\cdots$};
+                        
+                        \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=0.6] {$a_1$} (H1);
+                        \draw[->, bend left, out=40, in=150] (H1) to node[reward-label, pos=0.4] {$r_2$} (S2);
+                        \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=0.6] {$a_2$} (H2);
+                        \draw[->, bend left, out=40, in=150] (H2) to node[reward-label, pos=0.4] {$r_3$} (S3);
+                        \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=0.6] {$a_3$} (H3);
+                        \draw[->, bend left, out=40, in=150] (H3) to node[reward-label, pos=0.4] {$r_4$} (S4);
+                        \draw[-, bend left, out=30, in=135]  (S4) to node[action-label] {$a_4$} (HN);
+                        \draw[->, bend left, out=45, in=150] (HN) to node[reward-label] {$r_n$} (SN);
+                    \end{tikzpicture}
+                    $s_1,\ a_1,\ \boxed{\mathbf{r_2}},\ s_2,\ a_2,\ \boxed{\mathbf{r_3}},\ s_3,\ a_3,\ \boxed{\mathbf{r_4}},\ s_4,\ a_4,\ \dots\,\ \boxed{\mathbf{r_n}},\ s_n$
+                    \caption{Nesse problema, as recompensas são recebidas imediatamente após as ações serem realizadas}
+                    \label{diag:dense-rewards}
+                \end{figure}
+                    
+            \subsubsection{Recompensas esparsas}
+                            
+                Já os problemas que dão recompensas esporadicamente, por exemplo com uma recompensa somente ao fim do episódio, são caracterizados como de recompensas \emph{esparsas}, ilustrado na Figura~\ref{diag:sparse-rewards}.
+
+                \begin{figure}[ht]
+                    \centering
+                    \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
+                        \node[state-node]  (S1) {$s_1$};
+                        \node[hidden-node] (H1) [above right of=S1] {};
+                        \node[state-node]  (S2) [below right of=H1] {$s_2$};
+                        \node[hidden-node] (H2) [above right of=S2] {};
+                        \node[state-node]  (S3) [below right of=H2] {$s_3$};
+                        \node[hidden-node] (H3) [above right of=S3] {};
+                        \node[state-node]  (S4) [below right of=H3] {$s_4$};
+                        \node[]            (HN) [above right of=S4, xshift=0.5cm, yshift=0.3cm] {$\cdots$};
+                        \node[state-node]  (SN) [below right of=HN, xshift=0.5cm, yshift=-0.3cm] {$s_n$};
+                        \node[]            (SH) [below of=HN] {$\cdots$};
+                        
+                        \draw[->, bend left, out=40, in=150] (H1) to node {} (S2);
+                        \draw[->, bend left, out=40, in=150] (H2) to node {} (S3);
+                        \draw[->, bend left, out=40, in=150] (H3) to node {} (S4);
+                        \draw[->, bend left, out=45, in=150] (HN) to node[reward-label] {$r_n$} (SN);
+                        
+                        \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=1.0] {$a_1$} (H1);
+                        \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=1.0] {$a_2$} (H2);
+                        \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=1.0] {$a_3$} (H3);
+                        \draw[-, bend left, out=30, in=135]  (S4) to node[action-label] {$a_4$} (HN);
+                    \end{tikzpicture}
+                    $s_1,\ a_1,\ s_2,\ a_2,\ s_3,\ a_3,\ s_4,\ a_4,\ \dots\,\ \boxed{\mathbf{r_n}},\ s_n$
+                    \caption{Nesse problema, as recompensas são recebidas após várias ações serem realizadas}
+                    \label{diag:sparse-rewards}
+                \end{figure}
+                
         \subsection{Retorno}
 
             Como dito na \emph{hipótese da recompensa} anteriormente, o que desejamos é receber a maior recompensa possível. Considerando o objetivo como um valor numérico, definimos a soma das recompensas recebidas a partir de um tempo $t$ como o \emph{retorno} $G_t$:
@@ -255,82 +326,7 @@
                     G_t \ = \ \sum_{k=t+1}^{T} \gamma^{k-t-1} R_k\ ,
                 \end{equation}
                 em que $T$ é finito e $\gamma \leq 1$ para tarefas episódicas, e $T = \infty$ e $\gamma < 1$ para tarefas contínuas.
-        
-        \subsection{Desconto}
-        
-            Propósito intuitivo: recompensa imediatas são mais importantes do que as futuras.
-            
-            Propósito formal: transformar retornos infinitos em finitos.
-    
-    \section{Recompensas imediatas e tardias}
-    
-        ... é chamado de \emph{distribuição de recompensas}
-    
-        \subsection{Recompensas densas}
-        
-            \begin{figure}[ht]
-                \centering
-                \begin{tikzpicture}[-,>=stealth', auto, node distance=2.0cm, thick]
-                    \node[state-node]  (S1) {$s_1$};
-                    \node[hidden-node] (H1) [above right of=S1] {};
-                    \node[state-node]  (S2) [below right of=H1] {$s_2$};
-                    \node[hidden-node] (H2) [above right of=S2] {};
-                    \node[state-node]  (S3) [below right of=H2] {$s_3$};
-                    \node[hidden-node] (H3) [above right of=S3] {};
-                    \node[state-node]  (S4) [below right of=H3] {$s_4$};
-                    \node[]            (HN) [above right of=S4] {$\cdots$};
-                    \node[state-node]  (SN) [below right of=HN] {$s_n$};
-                    \node[]            (SH) [below of=HN, yshift=0.5cm] {$\cdots$};
-                    
-                    \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=0.6] {$a_1$} (H1);
-                    \draw[->, bend left, out=40, in=150] (H1) to node[reward-label, pos=0.4] {$r_2$} (S2);
-                    \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=0.6] {$a_2$} (H2);
-                    \draw[->, bend left, out=40, in=150] (H2) to node[reward-label, pos=0.4] {$r_3$} (S3);
-                    \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=0.6] {$a_3$} (H3);
-                    \draw[->, bend left, out=40, in=150] (H3) to node[reward-label, pos=0.4] {$r_4$} (S4);
-                    \draw[-, bend left, out=30, in=135]  (S4) to node[action-label] {$a_4$} (HN);
-                    \draw[->, bend left, out=45, in=150] (HN) to node[reward-label] {$r_n$} (SN);
-                \end{tikzpicture}
-                $s_1,\ a_1,\ \boxed{\mathbf{r_2}},\ s_2,\ a_2,\ \boxed{\mathbf{r_3}},\ s_3,\ a_3,\ \boxed{\mathbf{r_4}},\ s_4,\ a_4,\ \dots\,\ \boxed{\mathbf{r_n}},\ s_n$
-                \caption{As recompensas são recebidas imediatamente após as ações serem realizadas}
-                \label{diag:immediate-rewards}
-            \end{figure}
-            
-            temos um total de n recompensas, o que caracteriza um \todo{alguma coisa} de recompensas \emph{densas}.
-        
-        
-        \subsection{Recompensas esparsas}
-        
-            \begin{figure}[ht]
-                \centering
-                \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
-                    \node[state-node]  (S1) {$s_1$};
-                    \node[hidden-node] (H1) [above right of=S1] {};
-                    \node[state-node]  (S2) [below right of=H1] {$s_2$};
-                    \node[hidden-node] (H2) [above right of=S2] {};
-                    \node[state-node]  (S3) [below right of=H2] {$s_3$};
-                    \node[hidden-node] (H3) [above right of=S3] {};
-                    \node[state-node]  (S4) [below right of=H3] {$s_4$};
-                    \node[]            (HN) [above right of=S4, xshift=0.5cm, yshift=0.3cm] {$\cdots$};
-                    \node[state-node]  (SN) [below right of=HN, xshift=0.5cm, yshift=-0.3cm] {$s_n$};
-                    \node[]            (SH) [below of=HN] {$\cdots$};
-                    
-                    \draw[->, bend left, out=40, in=150] (H1) to node {} (S2);
-                    \draw[->, bend left, out=40, in=150] (H2) to node {} (S3);
-                    \draw[->, bend left, out=40, in=150] (H3) to node {} (S4);
-                    \draw[->, bend left, out=45, in=150] (HN) to node[reward-label] {$r_n$} (SN);
-                    
-                    \draw[-, bend left, out=30, in=140]  (S1) to node[action-label, pos=1.0] {$a_1$} (H1);
-                    \draw[-, bend left, out=30, in=140]  (S2) to node[action-label, pos=1.0] {$a_2$} (H2);
-                    \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=1.0] {$a_3$} (H3);
-                    \draw[-, bend left, out=30, in=135]  (S4) to node[action-label] {$a_4$} (HN);
-                \end{tikzpicture}
-                $s_1,\ a_1,\ s_2,\ a_2,\ s_3,\ a_3,\ s_4,\ a_4,\ \dots\,\ \boxed{\mathbf{r_n}},\ s_n$
-                \caption{As recompensas são recebidas após várias ações serem realizadas}
-                \label{diag:delayed-rewards}
-            \end{figure}
-            
-            Temos somente uma única recompensa ao fim do episódio, o que caracteriza um \todo{alguma coisa, olhar no sutton} de recompensas \emph{esparsas}.    
+           
     \section{Política}
     
         Relembrando os estudos de multi-armed bandits, vimos a diferença entre tarefas não-associativas, cujos valores se mantêm constantes a cada iteração, associativas, cujos valores das ações mudam com o tempo, e o problema completo do aprendizado por reforço. Para o último, que agora representamos como um MDP, mencionamos a necessidade de mapear as informações atuais com as ações possíveis.
