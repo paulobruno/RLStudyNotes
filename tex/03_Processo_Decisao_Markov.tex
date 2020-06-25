@@ -177,9 +177,9 @@
             \label{diag:mdp-big}
         \end{figure}
         
-    \section{Exemplo de como representar um problema via MDP}
+    %\section{Exemplo de como representar um problema via MDP}
     
-        \textcolor{red}{Escadas de Hogwarts}
+    %    \textcolor{red}{Escadas de Hogwarts}
     
     \section{Objetivos}
     
@@ -203,27 +203,58 @@
         
         \subsection{Retorno}
 
+            Como dito na \emph{hipótese da recompensa} anteriormente, o que desejamos é receber a maior recompensa possível. Considerando o objetivo como um valor numérico, definimos a soma das recompensas recebidas a partir de um tempo $t$ como o \emph{retorno} $G_t$:
             \begin{equation}
-                G_t \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots
+                G_t \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots\ .
             \end{equation}
 
             \subsubsection{Tarefas episódicas}
 
+                Algumas tarefas são finitas e, portanto, terminam em um certo tempo. Consideramos o tempo final, ou \emph{terminal}, como $T$. Assim, um \emph{estado terminal} é representado por $S_T$ e a recompensa recebida ao chegar nesse estado é $R_T$.
+                
+                Para esses casos, dizemos as tarefas são \emph{episódicas}. Um \emph{episódio} é uma interação do agente com o ambiente que inicia em $t = 1$ e termina em $T$, onde $T$ pode ser diferente em episódios diferentes. Dessa forma, sabemos que nesses casos o retorno recebido a partir de $t$ é finito:
                 \begin{equation}
                 \begin{split}
                     G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots + R_T \\
-                    & \ = \ \sum_{k=t+1}^{T} R_k
+                    & \ = \ \sum_{k=t+1}^{T} R_k\ .
                 \end{split}
                 \end{equation}
 
             \subsubsection{Tarefas contínuas}
         
+                Também existem tarefas que a interação nunca acaba, que são chamadas de tarefas \emph{contínuas}. Nesses casos, o tempo final seria infinito, i.e., $T = \infty$. 
+
+                Nesse casos, o retorno pode ser infinito:
                 \begin{equation}
-                \begin{split}
-                    G_t & \ = \ R_{t+1} + R_{t+2} + R_{t+3} + \cdots \\
-                    & \ = \ \sum_{k=0}^{\infty} \gamma^k R_{t + k + 1}
-                \end{split}
+                    G_t = R_{t+1} + R_{t+2} + R_{t+3} + \cdots\ ,
                 \end{equation}
+                de modo que não conseguiremos maximizá-lo em um dado momento, pois ele sempre crescerá, independentemente da trajetória seguida pelo agente. Para resolver essa questão, utilizamos um conceito adicional chamado de \emph{desconto}.
+        
+                \paragraph{Desconto} \hspace{0pt}
+
+                    O desconto, $\gamma$, com $0 \leq \gamma \leq 1$, é um valor que pode diminuir o valor da recompensa esperada ao longo do tempo. Essa redução do valor das recompensas tem dois propósitos.
+
+                    \begin{itemize}
+                        \item \textbf{Propósito intuitivo}: considerar que recompensas imediatas são mais importantes do que as futuras. Se pensarmos que a recompensa imediata $R_t$ será recebida com certeza, e quais ações serão possíveis no estado seguinte, temos uma boa ideia de qual será a recompensa seguinte $R_{t+1}$. Mas teremos uma noção menor de quais podem ser as recompensas para $R_{t+2}$. Da mesma forma, a recompensa $R_{t+3}$ é ainda mais nebulosa. Assim, quanto mais no futuro pensamos, menor é a nossa certeza a respeito da recompensa recebida. O desconto seria, nesse sentido, uma medida de incerteza, pois diminui o valor das recompensas futuras quanto mais a distância aumenta.
+                        \item \textbf{Propósito formal}: transformar retornos infinitos em finitos. Se multiplicarmos as recompensas por valores cada vez menores, eventualmente a soma convergirá para um valor finito.
+                    \end{itemize}
+
+                    Dessa forma, podemos utilizar o desconto para termos o \emph{retorno descontado} de uma tarefa e, com $\gamma < 1$, o retorno finito de uma tarefa contínua. Para isso, fazemos as seguintes mudanças: a recompensa imediata não é descontada, a recompensa seguinte será descontada, a recompensa seguinte será descontada ao quadrado e assim por diante, como mostrado em \eqref{eq:discounted-rewards}.
+                    \begin{equation}
+                    \label{eq:discounted-rewards}
+                    \begin{split}                    
+                        G_t & \ = \ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots \\
+                        & \ = \ \sum_{k=0}^{\infty} \gamma^k R_{t + k + 1}\
+                    \end{split}
+                \end{equation}
+
+            \subsubsection{Notação unificada}
+
+                Uma alternativa para unificar a notação de retorno de tarefas episódicas e contínuas através do desconto é escrevê-lo como:
+                \begin{equation}
+                    G_t \ = \ \sum_{k=t+1}^{T} \gamma^{k-t-1} R_k\ ,
+                \end{equation}
+                em que $T$ é finito e $\gamma \leq 1$ para tarefas episódicas, e $T = \infty$ e $\gamma < 1$ para tarefas contínuas.
         
         \subsection{Desconto}
         
