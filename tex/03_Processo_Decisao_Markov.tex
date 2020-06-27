@@ -53,7 +53,7 @@
 
     \section{Caracterização da interação agente-ambiente}
     
-        Inicialmente, vamos recapitular o problema de Aprendizado por Reforço, como visto nos estudos introdutórios. O processo de interação do agente com o ambiente ocorre, simplificadamente, da seguinte forma: no começo o agente encontra-se em um estado $S_t$, então executa uma ação $A_t$ no ambiente, que lhe dá uma recompensa $R_{t+1}$ e o leva para outro estado $S_{t+1}$. Esse processo simplificado é ilustrado na Figura~\ref{diag:classical-rl}.
+        Inicialmente, vamos recapitular o problema de Aprendizado por Reforço, visto nos estudos introdutórios. O processo de interação do agente com o ambiente ocorre, simplificadamente, da seguinte forma: no começo o agente encontra-se em um estado $S_t$, então executa uma ação $A_t$ no ambiente, que lhe dá uma recompensa $R_{t+1}$ e o leva para outro estado $S_{t+1}$. Esse processo simplificado é ilustrado na Figura~\ref{diag:classical-rl}.
                 
         \begin{figure}[ht]
             \centering
@@ -68,18 +68,19 @@
             
             \subsubsection{Agente}
             
-                O agente é o tomador de decisões. Ele é o responsável por avaliar as informações presente no estado e as recompensas esperadas, e então decidir qual ação executar. Ainda que considerado como uma única entidade, o agente pode ser composto por módulos distintos, cada um responsável por uma tarefa do procesos de tomada de decisão. Nos nossos estudos, nos referenciamos sempre ao ``agente'', sem considerar possíveis divisões internas dele.
+                O \emph{agente} é o tomador de decisões. Ele é o responsável por avaliar as informações presentes no estado e as recompensas esperadas, e então decidir qual ação executar. Ainda que considerado como uma única entidade, o agente pode ser composto por módulos distintos, cada um responsável por uma tarefa do procesos de tomada de decisão. Apesar disso, nos nossos estudos nos referenciamos sempre ao ``agente'', sem considerar possíveis divisões internas.
             
             \subsubsection{Ambiente}
             
-                O ambiente é a entidade com a qual o agente interage. Em uma representação tradicional, ele é o responsável por apresentar o estado atual, dar as recompensas e realizar a transição de estados após o agente executar uma ação. Em representações mais complexas, o ambiente pode conter outras entidades em si, ou não ser o responsável por todas as tarefas mencionadas. Entretanto, nesse estudo vamos nos ater à representação tradicional.
+                O \emph{ambiente} é a entidade com a qual o agente interage. Na representação tradicional, ele é o responsável por apresentar o estado atual, dar as recompensas e realizar a transição de estados após o agente executar uma ação. Em representações mais complexas, o ambiente pode conter outras entidades em si, ou não ser o responsável por todas as tarefas mencionadas. Entretanto, nesse estudo vamos nos ater à representação tradicional.
             
         \subsection{Trajetória}
         
-            A interação básica do agente com o ambiente acontece da seguinte forma: o agente encontra-se no estado $S_t$, executa uma ação $A_t$, recebe uma recompensa $R_{t+1}$, vai para um estado $S_{t+1}$, executa uma ação $A_{t+1}$ e assim por diante:
+            A interação básica do agente com o ambiente acontece da seguinte forma: o agente encontra-se no estado $S_t$, executa uma ação $A_t$, recebe uma recompensa $R_{t+1}$, vai para um estado $S_{t+1}$, executa uma ação $A_{t+1}$ e assim por diante.
 
             $S_t,\ A_t,\ R_{t+1},\ S_{t+1},\ A_{t+1},\ R_{t+2},\ S_{t+2},\ A_{t+2},\ R_{t+3},\ S_{t+3},\ A_{t+3},\ \dots$
             
+            \noindent
             Essa sequência que representa a interação de um agente é chamada de \emph{trajetória}, como ilustrada na Figura~\ref{fig:trajectory}.
 
             \begin{figure}[ht]
@@ -100,23 +101,23 @@
                     \draw[-, bend left, out=30, in=140]  (S3) to node[action-label, pos=0.6] {$a_3$} (H3);
                     \draw[->, bend left, out=40, in=150] (H3) to node[reward-label, pos=0.4] {$r_4$} (S4);
                 \end{tikzpicture}
-                \caption{Trajetória da interação do agente com o ambiente ao longo de quatro estados}
+                \caption{Trajetória da interação do agente com o ambiente ao longo de quatro estados.}
                 \label{fig:trajectory}
             \end{figure}
                 
     \section{Definição de MDP}
     
-        Esse tipo de interação apresentado acima é formalizado matematicamente como um \emph{Processo de decisão de Markov} (MDP). \textcolor{red}{Os papéis do agente e ambiente são diferentes}.
+        A interação apresentada acima é formalizada matematicamente como um \emph{Processo de decisão de Markov} (MDP). Um MDP é um processo estocástico de tomada de decisão.
     
         \subsection{Elementos de um MDP}
     
-            Um MDP consiste de quatro elementos: um conjunto de estados $S$, um conjunto de ações $A$, probabilidades de transição de estados e recompensas recebidas após as transições. Veremos brevemente cada um deles.
+            Um MDP consiste de quatro elementos: um conjunto de estados $S$; um conjunto de ações $A$; as probabilidades de transição de cada estado para os outros; e as recompensas recebidas após essas transições. Veremos brevemente cada um deles.
     
             \subsubsection{Estado}
 
-                O estado apresenta a condição em que o agente se encontra. Ele contém todas as informações conhecidas sobre o ambiente, de forma que o agente possa avaliá-las e executar as suas ações. Um MDP contém um conjunto de estados $S$, que pode ser finito ou inifinito. Entretanto, só veremos exemplos de MDPs finitos. 
+                O \emph{estado} representa a situação em que o agente se encontra e contém todas as informações conhecidas sobre o ambiente no dado momento. Assim, o agente pode avaliar as informações e decidir quais ações executar. Um MDP contém um conjunto de estados $S$, que pode ser finito ou inifinito. Entretanto, só veremos exemplos de MDPs finitos. 
                 
-                Em questão de notação, representamos um único estado como $s_n$, em que $n$ varia de $1$ ao número de estados no conjunto, ou seja, a cardinalidade de $S$, $\vert S \vert$. A Figura~\ref{diag:state-node} ilustra a maneira como um estado é simbolizado graficamente nos MDPs ao longo dessas notas.
+                Em questão de notação, representamos um único estado como $s_n$, em que $n$ varia de $1$ ao número de estados no conjunto, ou seja, a cardinalidade de $S$, que denotamos por $\vert S \vert$. A Figura~\ref{diag:state-node} ilustra como indicaremos estados em nossas representações gráficas de MDPs.
 
                 \begin{figure}[ht]
                     \centering
@@ -129,9 +130,9 @@
                 
             \subsubsection{Ação}
             
-                A ação é a decisão tomada pelo agente em uma iteração. Nos casos tradicionais, ela é a única via na qual o agente pode interferir no ambiente. Para um conjunto de ações $A$ em um dado estado, com $\vert A \vert$ ações possíveis, o agente executará somente uma ação a cada iteração.
+                Uma \emph{ação} é uma opção de comportamento a ser adotado por um agente no estado dado. Em modelos tradicionais, ela é a única via na qual o agente pode interferir no ambiente. Para um conjunto de ações $A$ em um dado estado, com $\vert A \vert$ ações possíveis, o agente executará somente uma ação a cada iteração.
 
-                A notação usada aqui para uma ação é $a_n$, em que $n$ varia de $1$ a $\vert A \vert$. Outra notação, menos utilizada, é $A(s)$, que indica as ações possíveis em um estado $s$. Nos diagramas de MDPs nesses estudos, simbolizaremos uma ação da forma mostrada na Figura~\ref{diag:action-node}.
+                A notação usada aqui para uma ação é $a_n$, em que $n$ varia de $1$ a $\vert A \vert$. Outra notação, menos utilizada, é $A(s)$, que indica as ações possíveis em um estado $s$. Nos nossos diagramas de MDPs, simbolizaremos uma ação da forma mostrada na Figura~\ref{diag:action-node}.
 
                 \begin{figure}[ht]
                     \centering
@@ -157,25 +158,27 @@
                 
             \subsubsection{Recompensa}
             
-                A recompensa é um sinal escalar possivelmente dada ao agente após a realização de uma ação. Tradicionalmente, a recompensa é passada pelo ambiente, mas em representações mais complexas podem haver entidades dentro do ambiente responsáveis por dar a recompensa.
+                A \emph{recompensa} é um sinal escalar dado ao agente após a realização de uma ação. Tradicionalmente, a recompensa é passada pelo ambiente, mas em representações mais complexas podem haver subentidades dentro do ambiente responsáveis por dar a recompensa. 
+
+                Uma recompensa é representada por $r_n$, de acordo com a transição $(s, a, r, s')$ da qual ela faz parte. A Figura~\ref{diag:reward-label} mostra o símbolo utilizado nos diagramas de MDPs.
         
                 \begin{figure}[ht]
                     \centering
                     \begin{tikzpicture}
                         \node[reward-node] (R) {$r_1$};
                     \end{tikzpicture}
-                    \caption{Nos nossos diagramas, uma recompensa é representada por um retângulo branco com borda preta}
+                    \caption{Nos nossos diagramas, uma recompensa é simbolizada por um retângulo branco com borda preta}
                     \label{diag:reward-label}
                 \end{figure}
         
     \section{Visão gráfica de um MDP}
     
-        Graficamente, um MDP é representado como um grafo direcionado em que os nós são pares estados e ações, e as arestas indicam o estado a ser alcançado:
+        Graficamente, um MDP é representado como um grafo direcionado em que os nós são pares estados e ações, e as arestas indicam transições de estado. Utilizaremos todos os símbolos apresentados anteriormente, como mostrado na Figura~\ref{diag:mdp-big}.
     
         \begin{figure}[ht]
             \centering
             \mdpbig
-            \caption{Exemplo de um MDP com diversas interações}
+            \caption{Exemplo de um MDP com múltiplos estados, ações e transições}
             \label{diag:mdp-big}
         \end{figure}
         
@@ -183,11 +186,11 @@
     
     %    \textcolor{red}{Escadas de Hogwarts}
     
-    \section{Objetivos}
+    \section{Objetivo do agente}
     
         \subsection{Hipótese da recompensa}
     
-            Informalmente, o propósito de um agente é receber o máximo de recompensa possível em tarefa, como afirmada na \emph{hipótese da recompensa}, em tradução livre:
+            Informalmente, o propósito de um agente é receber o máximo de recompensa possível em uma tarefa, como afirmada na \emph{hipótese da recompensa}, em tradução livre:
             \begin{center}
             \noindent\fbox{%
                 \parbox{45em}{%
@@ -199,7 +202,7 @@
             }%
             \end{center}
             
-            Observação: a hipótese acima foi sugerida por Michael Littman para os autores Sutton e Barto em comunicação pessoal, como eles explicam nas notas do capítulo 3 do livro. Uma discussão inicial promovida por Sutton é encontrada no endereço:
+            A hipótese acima foi sugerida por Michael Littman para os autores Sutton e Barto em comunicação pessoal, como eles explicam nas notas do capítulo 3 do livro. Uma discussão inicial promovida por Sutton é encontrada no endereço:
             
             \url{http://incompleteideas.net/rlai.cs.ualberta.ca/RLAI/rewardhypothesis.html}
             
