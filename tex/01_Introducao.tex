@@ -16,6 +16,8 @@
 
 \input{pb_rlstyle_tikzgraph.tex}
 
+\newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
+%\newcommand{\todo}[1]{}
 
 % PB: redefinir maketitle
 \makeatletter
@@ -88,10 +90,14 @@
         
             \subsubsection{Condicionamento Clássico}
             
+                \todo{Cão de Pavlov\\
+                Estímulo neutro pode ser transformado em estímulo condicionado}
                 Reação \textbf{involuntária} a um estímulo treinado.
             
             \subsubsection{Condicionamento Operante}
-            
+                
+                \todo{Skinner box \\
+                Envolve condicionamento voluntário, ou seja, o indivíduo controla através das consequencias}
                 Açao \textbf{voluntária} para obter uma resposta desejável.
             
         \subsection{Reforço vs. Punição}
@@ -164,6 +170,13 @@
             \item Problema de decisão sequencial
         \end{itemize}
         
+        \subsection{Diferença de outros paradigmas}
+        
+            \todo{Além disso, o aprendizado por reforço é um terceiro paradigma de aprendizado diferente dos aprendizados supervisionado e não-supervisionado.\\
+            No caso não-supervisionado, o objetivo é encontrar estruturas escondidas em coleções de dados.\\
+            No caso supervisionado, o processo de aprendizado ocorre através de respostas instrutivas (instructive feedback), que indicam qual a resposta esperada.\\
+            Já no RL, o aprendizado ocorre através de respostas avaliativas, que indicam um valor associado à ação.}
+            
         \subsection{Tempo de resposta}
         
             Outra característica do Aprendizado por Reforço é a possível demora para receber uma resposta significativa. Por exemplo, em problemas de aprendizado por reforço a resposta é conhecida a cada iteração; já em problemas de otimização sabemos a distância para a função objetivo em todos os instantes. No caso do aprendizado por reforço temos tarefa de recompensas imediatas e tadias.
@@ -257,5 +270,16 @@
         \end{aligned}
         \end{equation*}        
         Note que o valor esperado é a média ponderada dos valores possíveis, em que a ponderação é dada de pela distribuição de probabilidade.
+    
+        \todo{O objetivo maior em tarefas de aprendizado por reforço é executar as ações cujas recompensas são máximas. Mais ainda, como há um conjunto de probabilidades envolvidas, desejamos executar as ações que deem a maior recompensa esperada. Para isso, utilizaremos bastante, entre outras coisas, o \emph{princípio da utilidade máxima esperada}.}
+
+        O \emph{princípio da utilidade máxima esperada} diz que ... Ele foi desenvolvido por Von-Neumman e Morgenstern ...
+        
+        Formalmente, o teorema de Von-Neumman-Morgenstern nos diz que (equação) ... Podemos simplificar esse conceito da seguinte forma: considere que $x$ siga uma certa distribuição de probabilidade e para cada possibilidade $i$ teremos um valor $x_i$ associado, dizemos que o \emph{valor esperado} de $x$ é:
+        \begin{equation}
+            \mathbb{E} \left [ x \right ] = \sum_{i} p(i) \cdot x_i
+        \end{equation}
+        
+        Por exemplo: (olhar o exemplo do caderno azul)
     
 \end{document}
