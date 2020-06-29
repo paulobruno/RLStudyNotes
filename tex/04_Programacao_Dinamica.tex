@@ -255,4 +255,8 @@
             \label{diag:generalized-policy-iteration}
         \end{figure}
         
+        Iniciamos o processo com duas estimativas iniciais para a política $\pi$ e o valor de cada estado $V$. À medida que as atualizações vão ocorrendo (avaliação e melhora da política), os valores vão convergindo. No momento em que eles convergem, teremos a política ótima $\pi_*$ e os valores ótimos dos estados $v_*$. Se continuássemos com as rodadas de avaliação e melhora, nada mudaria.
+        
+        Utilizando GPI, encontraremos uma política ótima, que é o nosso objetivo final. Entretanto, todos os processos da abordagem utilizando Programação Dinâmica descritos até aqui só foram possíveis porque tínhamos o modelo completo. Caso não tenhamos o modelo completo, precisamos utilizar outras formas de aprendizado. Veremos a seguir uma abordagem que utiliza amostragem aleatória: \emph{Métodos de Monte Carlo}.
+        
 \end{document}
