@@ -143,23 +143,18 @@
         
         \subsection{Avaliação iterativa da política}
         
-            Para o caso em que queremos melhorar a estimativa do valor esperado de um estado iterativamente a estratégia é começar com um valor inicial, $v_{\pi_{0}}$ e melhorar a estimativa do valor atual $v_{\pi_{k+1}}$ a cada iteração $k$.
-            A equação que vamos utilizar é muito parecida com a Equação de Bellman para $v_{\pi}(s)$. 
-            Entretanto substituiremos o valor estado do estado seguinte $s'$, que não conhecemos, por uma estimativa.
-            Especificamente, vamos usar a estimativa calculada no passo anterior, $v_{\pi_{k}(s')}$.
-            Observação: para simplificar a notação, removeremos o índice $\pi$, mas ele ainda está lá implicitamente.
-            
+            Uma maneira computacionalmente mais adequada ao cálculo do valor dos estados é atualizar o valor da estimativa ao longo de iterações. A estratégia é começar com um valor inicial, $v_{\pi_{0}}$ e melhorar a estimativa do valor atual $v_{\pi_{k+1}}$ a cada iteração $k$. A equação que vamos utilizar é muito parecida com a Equação de Bellman para $v_{\pi}(s)$~\eqref{eq:state-value}. Entretanto, substituiremos o valor  do estado seguinte $s'$, que não conhecemos, por uma estimativa. Especificamente, vamos utilizar a estimativa calculada no passo anterior, $v_{\pi_{k}(s')}$:
             \begin{equation}
+            \label{eq:state-value-update}
             \begin{split}
-                v_0(s) & \ = \ estimativa inicial\\
+                v_0(s) & \ = \ \text{estimativa inicial} \\
                 \downarrow\\
                 v_1(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_0(s') \Big]\\
                 \downarrow\\
                 v_2(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_1(s') \Big]\\
                 \downarrow\\
                 v_3(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_2(s') \Big]\\
-                \vdots\\
-                v_{k+1}(s) & \ = \ \sum_{a} \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma \cdot v_k(s') \Big]
+                \vdots
             \end{split}
             \end{equation}
     
