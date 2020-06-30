@@ -158,18 +158,17 @@
             \end{split}
             \end{equation}
     
-            Também conhecido como o \textit{problema da predição}, a avaliação da política consiste em computar o valor de um estado seguindo uma determinada política $\pi$. Embora esse valor possa ser definido a partir da resolução de um sistema linear nos estados, isso pode ser muito custoso, dessa forma, aqui estamos interessados em computá-lo iterativamente.
-                    
-            A sua versão iterativa é dada por:
-            
+            Considerando a estimativa a cada iteração $k$, como em~\eqref{eq:state-value-update}, podemos facilmente definir uma versão iterativa para~\eqref{eq:state-value}. Ela é dada pela regra de atualização~\eqref{eq:iterative-evaluation}.
             \begin{equation}
-                \begin{split}
-                    v_{k+1}(s) & \ \dot{=} \, \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s \right] \\
-                    & = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a) \Big[ r + \gamma v_k(s') \Big]
-                \end{split}
-            \end{equation}
-            
+                \begin{aligned}
+                    v_{k+1}(s) & \ = \, \mathbb{E}_{\pi} \left[ R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s \right] \\
+                    & = \sum_a \pi(s, a) \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma v_k(s') \Big] .
+                \end{aligned}
+                \label{eq:iterative-evaluation}
+            \end{equation} 
             Em que a aproximação inicial $v_0(s)$ pode ser escolhida arbitrariamente e o valor de um estado terminal é $0$.
+
+            Observe que estamos atualizando a estimativa da iteração atual $k+1$ baseados na estimativa da iteração anterior $k$. Essa ``estimativa pela estimativa'' caracteriza o \emph{bootstrapping}, como mencionado na nota anterior.
         
     \section{Melhora da política}
     
