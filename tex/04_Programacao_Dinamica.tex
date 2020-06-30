@@ -213,6 +213,7 @@
         Uma opção é parar a atualização o mais cedo possível, de modo a gastar o mínimo de tempo com cada etapa. Dessa forma, poderíamos rodar um único passo de atualização da estimativa do valor do estado e em seguida realizar a melhora da política de acordo com o valor da ação. Na prática, realizar a melhora da política após somente uma iteração da avaliação significa combiná-las em uma regra de atualização com um único passo.
 
         Primeiro, partiremos da regra de atualização iterativa do valor do estado~\eqref{eq:iterative-evaluation}. Como estamos realizando a melhora da política, em vez de considerar todas as ações possíveis consideramos somente a ação que maximiza o valor esperado das recompensas recebidas. Assim, substituimos o termo de soma das probabilidades de cada ação pela escolha da ação que nos dá o maior valor, como visto em~\eqref{eq:value-iteration}.
+        
         \begin{equation}
             \begin{aligned}
                 v_{k+1}(s) & \ = \ \max_a \mathbb{E}[R_{t+1} + \gamma v_k(S_{t+1}) \mid S_t = s, A_t = a] \\
@@ -220,6 +221,8 @@
             \end{aligned}
             \label{eq:value-iteration}
         \end{equation}
+        
+        Outra forma de ver como chegamos em~\eqref{eq:value-iteration} é partir da equação de otimalidade de Bellman para o valor do estado~\eqref{eq:optimal-state-value}. Nesse caso, definimos uma regra de atualização para ela de maneira análoga ao que fizemos em~\eqref{eq:iterative-evaluation}. Na verdade, essas duas formas de enxergar a iteração do valor fazem parte de uma família de abordagens chamada de \emph{Iteração de Política Generalizada}.
     
     \section{Iteração de Política Generalizada}
     
