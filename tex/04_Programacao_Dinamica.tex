@@ -175,9 +175,19 @@
         Também conhecido como o \textit{problema do controle}.
         
         \begin{equation}
+            \label{eq:policy-improvement-theorem}
             \begin{split}
-                q_{\pi}(s,a) & \ \dot{=} \mathbb{E} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s, A_t = a \right] \\
-                & = \sum_{s',r} p(s', r \mid s, a) \Big[ r + \gamma v_{\pi}(s') \Big]
+                v_{\pi}(s) 
+                    & \ \le q_{\pi}(s, \pi'(s)) \\
+                    & \ = \mathbb{E} \big[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s, A_t = \pi'(s) \big] \\
+                    & \ = \mathbb{E}_{\pi'} \big[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s \big] \\
+                    & \ \le \mathbb{E}_{\pi'} \big[ R_{t+1} + \gamma q_{\pi}(S_{t+1}, \pi'(S_{t+1})) \mid S_t = s \big] \\
+                    & \ = \mathbb{E}_{\pi'} \Big[ R_{t+1} + \gamma \mathbb{E} \big[ R_{t+2} + \gamma v_{\pi} (S_{t+2}) \mid S_{t+1}, A_{t+1} = \pi'(S_{t+1}) \big] \mid S_t = s \Big] \\
+                    & \ = \mathbb{E}_{\pi'} \big[ R_{t+1} + \gamma R_{t+2} + \gamma^2 v_{\pi}(S_{t+2}) \mid S_t = s \big] \\
+                    & \ \le \mathbb{E}_{\pi'} \big[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 v_{\pi}(S_{t+3}) \mid S_t = s \big] \\
+                    & \ \vdots \\
+                    & \ \le \mathbb{E}_{\pi'} \big[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 R_{t+4} + \cdots \mid S_t = s \big] \\
+                    & \ = v_{\pi'}(s) .
             \end{split}
         \end{equation}
     
