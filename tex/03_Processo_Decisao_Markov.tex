@@ -68,7 +68,7 @@
             
             \subsubsection{Agente}
             
-                O \emph{agente} é o tomador de decisões. Ele é o responsável por avaliar as informações presentes no estado e as recompensas esperadas, e então decidir qual ação executar. Ainda que considerado como uma única entidade, o agente pode ser composto por módulos distintos, cada um responsável por uma tarefa do procesos de tomada de decisão. Apesar disso, nos nossos estudos nos referenciamos sempre ao ``agente'', sem considerar possíveis divisões internas.
+                O \emph{agente} é o tomador de decisões. Ele é o responsável por avaliar as informações presentes no estado e as recompensas esperadas, e então decidir qual ação executar. Ainda que considerado como uma única entidade, o agente pode ser composto por módulos distintos, cada um responsável por uma tarefa do processo de tomada de decisão. Apesar disso, nos nossos estudos nos referenciamos sempre ao ``agente'', sem considerar possíveis divisões internas.
             
             \subsubsection{Ambiente}
             
@@ -336,9 +336,9 @@
     
         Relembrando os estudos de multi-armed bandits, vimos a diferença entre tarefas não-associativas, cujos valores se mantêm constantes a cada iteração, associativas, cujos valores das ações mudam com o tempo, e o problema completo do aprendizado por reforço. Para o último, que agora representamos como um MDP, mencionamos a necessidade de mapear as informações atuais com as ações possíveis.
 
-        Nesse contexto, precisamos encontrar uma relação entre um estado e as ações possíveis a partir dele. Em especial, devemos definir uma probabilidade de executar cada ação possível para cada estado. A função que faz o mapeamento entre os pares estao e ação, $(s, a)$, é chamada de \emph{política}. 
+        Nesse contexto, precisamos encontrar uma relação entre um estado e as ações possíveis a partir dele. Em especial, devemos definir uma probabilidade de executar cada ação possível para cada estado. A função que faz o mapeamento entre os pares estado e ação, $(s, a)$, é chamada de \emph{política}. 
         
-        Formalmente, a política é definida como uma distribuição de probabilidade entre as ações possíveis em um estado. Ela pode ser vista como uma função $\pi(s, a)$ cujo valor é a probabilidade do agente executar a ação $a$ uma que vez qle encontra-se no estado $s$. Na prática, a política nos diz qual ação executar a seguir considerando o conjunto de informações que temos no momento, o estado. Por exemplo, uma política ``execute a primeira ação'' seria definida por:
+        Formalmente, a política é definida como uma distribuição de probabilidade entre as ações possíveis em um estado. Ela pode ser vista como uma função $\pi(s, a)$ cujo valor é a probabilidade do agente executar a ação $a$ uma vez que ele encontra-se no estado $s$. Na prática, a política nos diz qual ação executar a seguir considerando o conjunto de informações que temos no momento, o estado. Por exemplo, uma política ``execute a primeira ação'' seria definida por:
         \begin{equation}
             \pi(s, a) =
             \begin{cases}
