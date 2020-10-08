@@ -3,7 +3,15 @@
 \usepackage[brazil]{babel}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
 
+\usepackage{hyperref}
+\usepackage{indentfirst}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{subcaption}
+
 \usepackage{amsmath,amssymb}
+\DeclareMathOperator*{\argmax}{argmax}
 
 \input{pb_rlstyle_tikzgraph.tex}
 
@@ -20,9 +28,7 @@
     \begin{flushleft}
         \let \footnote \thanks
         {\Large \textbf{\@title} \par}
-        %\vskip 0.5em
         {\large \textbf{\@author} \par}
-        %\vskip 0.5em
         {\large \textit{\@date}}
     \end{flushleft}
     \par
@@ -172,7 +178,38 @@
         
     \section{Melhora da política}
     
-        Também conhecido como o \textit{problema do controle}.
+        A segunda parte da tarefa de encontrar a política ótima em um problema é a \emph{melhora de uma política}, também conhecida como o \textit{problema do controle}. Ela é se refere ao processo de utilizar o valor de um estado para determinar o valor das ações. Agora que nós já temos uma maneira de avaliar uma política, calculando o valor de um estado, podemos utilizá-la para analizar se a política que estamos seguindo é boa ou não. 
+       
+        Considere que estamos em um estado $s$. A política atual $\pi$ nos dirá a probabilidade de selecionar cada uma das ações possíveis em $s$. Suponha que em vez de seguir $\pi$ nós definimos que uma certa ação $a$ será executada com probabilidade $1$, indenpendentemente das probabilidades dadas por $\pi$. O que nós faremos é construir uma nova política $\pi'$ que é igual à $\pi$ exceto quando estamos no estado s:
+        \begin{equation*}
+            \pi'(S_t, A_t) =
+            \begin{cases}
+                \hfil 1 & \text{se}\ S_t = s, A_t = a \\
+                \hfil 0 & \text{se}\ S_t = s, A_t \neq a \\
+                \pi(S_t, A_t) & \text{c.c.}
+            \end{cases}
+            .
+        \end{equation*}
+
+        Lembre-se que o valor de uma ação é calculada como a recompensa esperada ao executar essa ação a partir de um estado $s$ e seguindo uma política $\pi$, ou seja, a \emph{equação de Bellman} para o valor de uma ação~\eqref{eq:action-value}. Uma vez que já sabemos a ação que deverá ser executada, $a$, não precisamos mais considerar a distribuição de probabilidade de cada uma delas. Assim, diferentemente da equação de valor do estado~\eqref{eq:state-value}, não temos um termo com o somatório de todas as probabilidades para cada ação, $\sum_a \pi(s, a)$.
+        \begin{equation}
+            \label{eq:action-value}
+            \begin{aligned}
+                q_{\pi}(s,a) & \ = \ \mathbb{E} \left[ R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+                & \ = \ \sum_{r, s'} p(s, a, r, s') \Big[ r + \gamma v_{\pi}(s') \Big]
+            \end{aligned}
+        \end{equation}
+
+        Em conjunto com~\eqref{eq:action-value}, podemos avaliar se a escolha de $a$ melhorou ou não a recompensa total esperada. Se $q_{\pi'}(s, a) > v_{\pi}(s)$ (note que usamos $\pi'$ em $q$ e $\pi$ em $v$), podemos afirmar que sim, foi melhor selecionar a ação $a$ do que seguir a política $\pi$. Nesse caso, dizemos que a política $\pi'$ é melhor do que $\pi$.
+
+        Mais ainda, se em vez de escolher \emph{uma} ação que será melhor do que seguir a política atual, podemos selecionar \emph{a} melhor ação entre todas as possibilidades. Ou seja, seguimos a política $\pi$ até chegarmos em $s$ e então selecionamos a ação de maneira gulosa:
+        \begin{equation*}
+            A_{greedy} \ = \ \argmax_a q_{\pi}(s, a) \ .
+        \end{equation*}
+
+        Observe que seguir a política $\pi'$ nunca será pior do que seguir a política $\pi$. Se a probabilidade de selecionar a ação gulosa $a$ de acordo com $\pi$ for menor do que $1$, ou seja, se $\pi(s, a) < 1$, então $\pi'$ será melhor do que $\pi$. Caso $\pi(s, a) = 1$, então $\pi' = \pi$ e $\pi$ já nos dará a melhor ação para o estado $s$.
+
+        Se generalizarmos esse procedimento para todos os estados, selecionaremos as melhores ações possíveis em cada um deles. E quando $\pi' = \pi$ em todos os estados, não há mais possibilidade de melhora, assim tanto $\pi'$ quanto $\pi$ serão políticas ótimas. Esses resultados são provados pelo \emph{teoreama da melhora de política}, cuja ideia é mostrada em~\eqref{eq:policy-improvement-theorem}.
         
         \emph{Observação: aqui abusaremos um pouco da notação de política. Se uma política $\pi$ retorna probabilidade $1$ para uma única ação $a$ e probabilidade $0$ para todas as outras ações possíveis em um estado $s$, ela é uma política \emph{determinística} e dizemos que $a = \pi(s)$.}
         \begin{equation}
