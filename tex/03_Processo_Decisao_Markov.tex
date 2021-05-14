@@ -60,7 +60,7 @@
             \vspace*{5mm}
             \rlinteraction
             \vspace*{-5mm}
-            \caption{Diagrama de interação clássico de aprendizado por reforço. Fonte: Sutton and Barto, 2018}
+            \caption{Diagrama de interação clássico de Aprendizado por Reforço. Fonte: Sutton and Barto, 2018}
             \label{diag:classical-rl}
         \end{figure}
         
@@ -208,7 +208,7 @@
             
         \subsection{Distribuição de Recompensas}
 
-            Em um problema, o agente pode receber uma recompensa após cada ação realizada. Em outro, o agente pode receber recompensa somente após certas ações. Essa diferença pode existir independentemente do número de estados e ações. Embora do ponto de vista do aprendizado por reforço os dois problemas sejam modelados por um MDP, eles diferem na \emph{distribuição de recompensas}, que é dividida em duas categorias: \emph{densas} e \emph{esparsas}.
+            Em um problema, o agente pode receber uma recompensa após cada ação realizada. Em outro, o agente pode receber recompensa somente após certas ações. Essa diferença pode existir independentemente do número de estados e ações. Embora do ponto de vista do Aprendizado por Reforço os dois problemas sejam modelados por um MDP, eles diferem na \emph{distribuição de recompensas}, que é dividida em duas categorias: \emph{densas} e \emph{esparsas}.
         
             \emph{Observação: não confundir distribuição de recompensas com o tempo de resposta visto nos estudos introdutórios. Enquanto a distribuição de recompensa considera a presença ou ausência de recompensa após ações, o tempo de resposta é relativo ao momento em que o agente recebe uma resposta significativa.}
 
@@ -334,7 +334,7 @@
            
     \section{Política}
     
-        Relembrando os estudos de multi-armed bandits, vimos a diferença entre tarefas não-associativas, cujos valores se mantêm constantes a cada iteração, associativas, cujos valores das ações mudam com o tempo, e o problema completo do aprendizado por reforço. Para o último, que agora representamos como um MDP, mencionamos a necessidade de mapear as informações atuais com as ações possíveis.
+        Relembrando os estudos de multi-armed bandits, vimos a diferença entre tarefas não-associativas, cujos valores se mantêm constantes a cada iteração, associativas, cujos valores das ações mudam com o tempo, e o problema completo do Aprendizado por Reforço. Para o último, que agora representamos como um MDP, mencionamos a necessidade de mapear as informações atuais com as ações possíveis.
 
         Nesse contexto, precisamos encontrar uma relação entre um estado e as ações possíveis a partir dele. Em especial, devemos definir uma probabilidade de executar cada ação possível para cada estado. A função que faz o mapeamento entre os pares estado e ação, $(s, a)$, é chamada de \emph{política}. 
         
@@ -435,6 +435,6 @@
             \end{split}
             \end{equation}
 
-            Esses conjuntos de equações são maneiras ótimas de resolver problemas de aprendizado por reforço em que temos o modelo completo do problema. Para esses casos, podemos utilizar diretamente \emph{programação dinâmica}, como veremos a seguir.
+            Esses conjuntos de equações são maneiras ótimas de resolver problemas de Aprendizado por Reforço em que temos o modelo completo do problema. Para esses casos, podemos utilizar diretamente \emph{programação dinâmica}, como veremos a seguir.
 
 \end{document}

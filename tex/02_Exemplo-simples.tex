@@ -348,7 +348,7 @@
         \end{align}
         \end{subequations}
         
-        A forma de \eqref{eq:estimativa-qn} segue um padrão muito comum a várias técnicas de aprendizado por reforço:
+        A forma de \eqref{eq:estimativa-qn} segue um padrão muito comum a várias técnicas de Aprendizado por Reforço:
         \begin{equation}
             NovaEstimativa \leftarrow AntigaEstimativa + TamanhoPasso \Big[ Objetivo - AntigaEstimativa \Big]\ .
         \end{equation}
@@ -466,15 +466,15 @@
             
         \subsection{Full RL Problem}
         
-            O \emph{problema completo de aprendizado por reforço} é um passo além de um não-associativo, pois cada ação levará a um determinado ``ambiente''. 
+            O \emph{problema completo de Aprendizado por Reforço} é um passo além de um não-associativo, pois cada ação levará a um determinado ``ambiente''. 
         
             \begin{figure}[ht]
                 \centering
                 \fullrldiagram
-                \caption{Diagrama ilustrando o problema completo do aprendizado por reforço}
+                \caption{Diagrama ilustrando o problema completo do Aprendizado por Reforço}
                 \label{fig:full-rl-problem}
             \end{figure}
             
-            Nesse caso, não precisamos de uma informação adicional sobre o ambiente/estado em que estamos, já que essa informação pode ser encontrada diretamente a partir dos pares \emph{(estado, ação)}. Contudo, ainda é necessário mapear as melhores ações a partir de cada estado, a \emph{política}. É justamente sobre o problema completo do aprendizado por reforço que trataremos a seguir. Mais especificamente, sobre sua formalização como um \emph{Processo de Decisão de Markov}.
+            Nesse caso, não precisamos de uma informação adicional sobre o ambiente/estado em que estamos, já que essa informação pode ser encontrada diretamente a partir dos pares \emph{(estado, ação)}. Contudo, ainda é necessário mapear as melhores ações a partir de cada estado, a \emph{política}. É justamente sobre o problema completo do Aprendizado por Reforço que trataremos a seguir. Mais especificamente, sobre sua formalização como um \emph{Processo de Decisão de Markov}.
 
 \end{document}
