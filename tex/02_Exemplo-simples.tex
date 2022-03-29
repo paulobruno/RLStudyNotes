@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm]{geometry}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2.5cm, footnotesep=1.0cm]{geometry}
 
 \usepackage{graphicx}
 \graphicspath{{figures/}}
@@ -42,7 +42,7 @@
 
 \title{Notas de estudo - Aprendizado por Reforço}
 \author{Parte 02 - Problemas \emph{Multi-Armed Bandits}}
-\date{Paulo Bruno Serafim - Mar/20}
+\date{Paulo Bruno de Sousa Serafim - Mar/20 - Maio/21}
 
 
 \begin{document}
@@ -55,33 +55,36 @@
     
         \subsection{\emph{One-armed bandit}}
         
-            Vamos considerar o caso mais simples, em que só temos um estado e uma ação. Apesar da ação ser única, ela pode dar recompensas diferentes com probabilidades diferentes. Na literatura, esse problema é conhecido como \emph{one-armed bandit}, cuja tradução para o português é "máquina caça-níquel". Assim, executar a ação seria equivalente a puxar a alavanca de uma caça-níquel e receber alguma recompensa de acordo com uma distribuição de probabilidade interna da máquina.
+            Inicialmente, vamos considerar o caso mais simples em que só temos um estado e uma ação. Apesar da ação ser única, ela pode dar recompensas diferentes com probabilidades diferentes. Na literatura, esse problema é conhecido como \emph{one-armed bandit}, cuja tradução para o português é ``máquina caça-níquel''. Assim, executar a ação seria equivalente a puxar a alavanca de um caça-níquel e receber alguma recompensa de acordo com uma distribuição de probabilidade interna da máquina.
 
-            Por exemplo, suponha que ao executar a ação temos $80\%$ de chance receber $0$, $19\%$ de receber $2$ e $1\%$ de receber $50$. Ao longo dessas notas, representaremos esses problemas através de diagramas que mostrem estados, ações, recompensas e probabilidades. Nesse exemplo, o diagrama é:
+            Por exemplo, suponha que ao executar a única ação possível temos $80\%$ de chance receber uma recompensa de valor $0$, $19\%$ de receber $2$ e $1\%$ de receber $50$. Ao longo dessas notas, representaremos esses problemas através de diagramas que mostrem os estados, as ações, as recompensas e as probabilidades. Nesse exemplo, há um único estado, $s$. Nele, o agente pode executar uma única ação, $a$. Essa ação pode gerar três recompensas diferentes com probabilidades diferentes. O diagrama é apresentado na Figura~\ref{diag:primeiro-exemplo}.
             
-            \begin{center}
-            \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
-                \node[state-node]  (SimpleBanditS1) {$s$};
-                \node[action-node] (SimpleBanditA1) [below of=SimpleBanditS1, yshift=0.5cm] {$a$};
-                \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditA1, xshift=-1.5cm] {$0$};
-                \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditA1, xshift=0.0cm]  {$2$};
-                \node[reward-node] (SimpleBanditR3) [below of=SimpleBanditA1, xshift=1.5cm]  {$50$};
-                
-                \draw[] (SimpleBanditS1) to node[] {} (SimpleBanditA1);
-                \draw[bend right] (SimpleBanditA1) to node[left] {$80\%$} (SimpleBanditR1);
-                \draw             (SimpleBanditA1) to node[left]     {$19\%$} (SimpleBanditR2);
-                \draw[bend left]  (SimpleBanditA1) to node[]      {$1\%$} (SimpleBanditR3);
-            \end{tikzpicture}
-            \end{center}
+            \begin{figure}[ht]
+                \centering
+                \begin{tikzpicture}[-,>=stealth', auto, node distance=1.5cm, thick]
+                    \node[state-node]  (SimpleBanditS1) {$s$};
+                    \node[action-node] (SimpleBanditA1) [below of=SimpleBanditS1, yshift=0.5cm] {$a$};
+                    \node[reward-node] (SimpleBanditR1) [below of=SimpleBanditA1, xshift=-1.5cm] {$0$};
+                    \node[reward-node] (SimpleBanditR2) [below of=SimpleBanditA1, xshift=0.0cm]  {$2$};
+                    \node[reward-node] (SimpleBanditR3) [below of=SimpleBanditA1, xshift=1.5cm]  {$50$};
+                    
+                    \draw[] (SimpleBanditS1) to node[] {} (SimpleBanditA1);
+                    \draw[bend right] (SimpleBanditA1) to node[left] {$80\%$} (SimpleBanditR1);
+                    \draw             (SimpleBanditA1) to node[left]     {$19\%$} (SimpleBanditR2);
+                    \draw[bend left]  (SimpleBanditA1) to node[]      {$1\%$} (SimpleBanditR3);
+                \end{tikzpicture}
+                \caption{Exemplo de diagrama que utilizaremos para representar os problemas ao longo das notas.}
+                \label{diag:primeiro-exemplo}
+            \end{figure}
 
-            Dentre todas as ações possíveis, $A$, o que queremos saber é: qual é o \emph{valor} de uma única ação $a$? Por definição, o valor de uma ação, $q_*(a)$, é o valor esperado das recompensas recebidas quando a ação escolhida é $a$:
+            Chamamos de $A$ o conjunto de todas as ações possíveis. Dentre elas, queremos saber qual é o \emph{valor} de uma única ação $a$? Por definição, o valor de uma ação, $q_*(a)$, é o valor esperado das recompensas recebidas quando a ação $a$ é executada, ou seja,
             \begin{equation}
             \begin{split}
                 q_*(a) & \ = \ \mathbb{E}[R \mid A = a] \\
                 & \ = \ \sum_{r}{} p(r) \cdot r\ .
             \end{split}
             \end{equation}        
-            Para o exemplo anterior, temos:            
+            Para o exemplo anterior,            
             \begin{equation*}
             \begin{split}
                 q_*(a) & \ = \ \sum_{r}{} p(r) \cdot r \\
@@ -92,7 +95,7 @@
             
         \subsection{\emph{Multi-armed bandit}}
     
-            Vamos agora considerar o caso em que estamos diante de múltiplas máquinas caça-níques. Nesse caso, escolher uma máquina significa ir até ela (estado) e puxar a sua alavanca (ação), de modo que estaremos em um único estado por vez. Esse problema é equivalente a ter um único estado, mas múltiplas ações possíveis. A dinâmica de interação agora envolve também escolher uma ação a ser executada. Portanto, precisamos nos atentar com qual ação executar imediatamente e quais as recompensas esperadas, ou seja, o seu valor. Se existirem $k$ ações possíveis, podemos executar qualquer uma delas e receberemos alguma recompensa de acordo com uma distribuição de probabilidade. O diagrama~\ref{diag:simple-bandit} a seguir representa essa dinâmica:
+            Vamos agora considerar o caso em que estamos diante de múltiplas máquinas caça-níqueis. Nesse caso, escolher uma máquina significa ir até ela (estado) e puxar a sua alavanca (ação), de modo que estaremos em um único estado por vez. Esse problema é equivalente a ter um único estado, mas múltiplas ações possíveis. A dinâmica de interação agora envolve também escolher uma ação a ser executada. Portanto, precisamos nos atentar a qual ação executar imediatamente e quais as recompensas esperadas, ou seja, o seu valor. Se existirem $k$ ações possíveis, podemos executar qualquer uma delas e receberemos alguma recompensa de acordo com uma distribuição de probabilidade. O diagrama da Figura~\ref{diag:simple-bandit} representa essa dinâmica.
         
             \begin{figure}[ht]
                 \centering
@@ -101,11 +104,11 @@
                 \label{diag:simple-bandit}
             \end{figure}
                     
-            Note que nesse caso podemos considerar que estamos diante de uma máquina caça-níquel com múltiplas alavancas, ou seja, uma \emph{multi-armed bandit}. Esse é um problema bem conhecido e muito estudado na literatura, muitas vezes referido somente como \emph{MAB}. Imagine que você vá jogar em uma caça-níquel com múltiplas alavancas. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você tem um documento contendo as recompensas possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
+            Note que nesse caso podemos considerar que estamos diante de uma máquina caça-níquel com múltiplas alavancas, ou seja, uma \emph{multi-armed bandit}. Esse é um problema bem conhecido e muito estudado na literatura, muitas vezes referido somente como \emph{MAB} ou \emph{k-armed bandits}. Imagine que você vá jogar em um caça-níquel com múltiplas alavancas. Cada máquina dará resultados diferentes com probabilidades diferentes, mas você encontrou um documento contendo as recompensas possíveis e suas probabilidades para cada máquina. Você só pode jogar uma única vez. Qual máquina você escolheria?
         
-            A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor, é aquela cujo retorno esperado é o maior. Em outras palavras, você deve escolher a ação cujo valor seja o maior. 
+            A escolha ótima, i.e., a escolha racional que potencialmente dará o maior valor, é aquela com o maior retorno esperado. Em outras palavras, você deve escolher a ação que maximiza o valor.
 
-            Por exemplo, considere o problema:
+            Por exemplo, considere o problema
 
             \begin{center}
             \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm, thick]
@@ -136,12 +139,11 @@
                 \draw[bend left]     (A3) to node[right] {$0.2$}  (A3R3);
             \end{tikzpicture}
             \end{center}
-            Qual ação escolher, $a_1$, $a_2$ ou $a_3$? Naturalmente, vamos calcular o valor de cada ação e a partir deles tomar alguma decisão. A decisão natural é escolher a ação com maior valor, que é chamada de ação \emph{gulosa}:
+            Qual ação escolher, $a_1$, $a_2$ ou $a_3$? Inicialmente, vamos calcular o valor de cada ação e a partir deles tomar alguma decisão. A decisão natural é escolher a ação com maior valor\footnote{Os argumentos da máxima, ou \emph{argmax}, é(são) o(s) elemento(s) cujos valores das funções são maximizadas.}, que é chamada de ação \emph{gulosa},
             \begin{equation}
                 A_{greedy} \ = \ \argmax_a q_*(a)\ .
             \end{equation}
-            
-            Calculando os valores das ações do exemplo anterior, temos:
+            Calculando os valores das ações do exemplo anterior, temos
             \begin{equation*}
             \begin{split}
                 q_*(a_1) \ = \ 0.88\ ,\\
@@ -149,18 +151,18 @@
                 q_*(a_3) \ = \ 0.95\ .
             \end{split}
             \end{equation*}
-            Portanto, a ação gulosa é $a_3$.
+            Portanto, a ação racional a ser executada será a ação gulosa $a_3$.
     
         \subsection{Estimativa do valor da ação}
 
-            Até agora todos as probabilidades e recompensas eram conhecidas. Se pensarmos em um caso mais real, ao encontrarmos $k$ máquinas saberíamos que temos $k$ ações possíveis, mas sem conhecer as probabilidades e recompensas de cada uma delas. De que modo poderíamos descobrir qual é a melhor ação após interagir com elas?
+            Até agora todos as probabilidades e recompensas eram conhecidas. Se pensarmos em um caso mais próximo ao real, ao encontrarmos $k$ máquinas saberíamos que temos $k$ ações possíveis, mas sem conhecer as probabilidades e recompensas de cada uma delas. De que modo poderíamos descobrir qual é a melhor ação após interagir com elas?
 
-            Inicialmente, não temos nenhuma informação sobre o valor, então qualquer ação é igualmente boa. Para descobrir informações de cada ação teríamos que executá-las algumas vezes e, a partir daí, ter alguma informação para definir uma estratégia de escolha adequada. Vamos definir a estimativa $Q$ como a média das recompensas recebidas até o tempo $t$ após executar uma ação $a$, dada por:
+            Inicialmente, não temos nenhuma informação sobre o valor, então qualquer ação é igualmente boa. Para descobrir informações de cada ação teríamos que executá-las algumas vezes e a partir daí ter alguma informação para definir uma estratégia de escolha adequada. Vamos definir a estimativa $Q$ como a média das recompensas recebidas até o tempo $t$ após executar uma ação $a$, dada por
             \begin{equation}
             \label{eq:estimativa-acao}
                 Q_t(a) \ = \ \frac{\sum\limits_{i=1}^{t-1} R_i(a)}{N_{t-1}(a)}\ ,
             \end{equation}
-            onde $r_i(a)$ é a recompensa recebida por executar $a$ no tempo $i$, ou $0$ se $a$ não foi executada em $i$, e $N_{t-1}(a)$ é o número de vezes que $a$ foi executada até o tempo $t-1$. Assim, à medida que as interações forem ocorrendo, teremos uma estimativa melhor do valor real de uma ação. Com $t$ tendendo ao infinito, $Q_t$ tende ao valor real $q_*$.
+            onde $R_i(a)$ é a recompensa recebida por executar $a$ no tempo $i$, ou $0$ se $a$ não foi executada em $i$, e $N_{t-1}(a)$ é o número de vezes que $a$ foi executada até o tempo $t-1$. Assim, à medida que as interações forem ocorrendo, teremos uma estimativa melhor do valor real de uma ação. Quando $t$ tende ao infinito, $Q_t$ tende ao valor real $q_*$.
 
             Considere um MAB com duas ações. Definimos uma estratégia em que as três primeiras jogadas serão na ação $a_1$ e as três jogadas seguinte serão em $a_2$, de forma a obter algum informação do valor delas. Para cada passo vamos calcular o valor estimado de cada ação. Suponha que obtivemos os seguintes resultados:
             \begin{tabbing}
@@ -174,7 +176,7 @@
             \end{tabbing}
             O que podemos inferir desses dados é que em $a_1$ duas recompensas são possíveis, $1$ com $\frac{2}{3}$ de probabilidade e $3$ com $\frac{1}{3}$ de probabilidade, de modo que $Q_6(a_1) = \frac{5}{3}$. Já para $a_2$ temos recompensa $0$ com $100\%$ de probabilidade, de modo que $Q_6(a_2) = 0$. Portanto, a ação gulosa nesse caso seria $a_1$.
             
-            Suponha que jogamos mais quatro vezes, duas em $a_1$ e duas em $a_2$, e obtivemos os resultados:
+            Suponha que jogamos mais quatro vezes, duas em $a_1$ e duas em $a_2$, e obtivemos os resultados
             \begin{tabbing}
                 \hspace{4.0cm}\=~~~~~~~~~~~~ \=~~~~~~~~~~~~ \=~~~~~~~~~~~~ \=~~~~~~~~~~~~~~~~~~~ \= \kill
                 \> $k = 7$   \> $a = 1$   \> $r = 1$   \> $Q_7(a_1) = 1.5$  \> $Q_7(a_2) = 0$\\
@@ -182,7 +184,7 @@
                 \> $k = 9$   \> $a = 2$   \> $r = 1000$\> $Q_9(a_1) = 1.8$  \> $Q_9(a_2) = 250$\\
                 \> $k = 10$  \> $a = 2$   \> $r = 0$   \> $Q_{10}(a_1) = 1.8$ \> $Q_{10}(a_2) = 200$\ .
             \end{tabbing}
-            Os novos valores das estimativas são:
+            Os novos valores das estimativas são
             \begin{equation*}
             \begin{split}
                 Q_{10}(a_1) & \ = \ 1.8\\
@@ -191,7 +193,7 @@
             \end{equation*}
             Portanto, a ação gulosa nesse caso seria $a_2$. 
             
-            A título de informação, a configuração exata que eu pensei desse MAB é:
+            A título de informação, a configuração exata que eu pensei desse MAB é
             \begin{center}
             \begin{tikzpicture}[-, >=stealth', auto, node distance=1.5cm, thick]
                 \node[state-node] (S1) {$s$};
@@ -212,7 +214,7 @@
                 \draw[bend left]     (A2) to node[right] {$0.01$} (A2R2);
             \end{tikzpicture}
             \end{center}
-            com:
+            com
             \begin{equation*}
             \begin{split}
                 q_*(a_1) & \ = \ 0.25 \cdot 3 + 0.75 \cdot 1 = 1.5 \\
@@ -222,14 +224,14 @@
 
             A estratégia que definimos de executar a ação $a_1$ nas primeiras $n$ jogadas e a ação $a_2$ nas $n$ jogadas seguintes, ou, de maneira mais geral, escolher ações sem se basear na estimativa e em seguida definir as ações gulosas, pode parecer boa. Contudo, um dos problemas dessa estratégia é o que acontece se uma recompensa tiver baixa probabilidade, como em $a_2$. 
 
-            Não seria difícil acontecer de uma recompensa com $1\%$ de probabilidade não ocorrer nas primeiras 15 execuções, por exemplo. Assim, poderíamos acreditar que $q_*(a_1) > q_*(a_2)$, o que não seria verdade. Dessa forma, sempre executar a ação gulosa após poucas estimativas iniciais, ou seja, explorar o resultado já conhecido, pode não ser bom. Uma maneira de contornar esse problema seria eventualmente executar ações de menor estimativa, ou seja, prospectar novos resultados, de modo que teríamos mais chances de ver que $q_*(a_2) > q_*(a_1)$.
+            Não seria difícil acontecer de uma recompensa com $1\%$ de probabilidade não ocorrer nas primeiras 15 execuções, por exemplo. Assim, poderíamos acreditar que $q_*(a_1) > q_*(a_2)$, o que não seria verdade. Dessa forma, sempre executar a ação gulosa após poucas estimativas iniciais, ou seja, \emph{explorar} o resultado já conhecido, pode não ser bom. Uma maneira de contornar esse problema seria eventualmente executar ações de menor estimativa, ou seja, \emph{prospectar} novos resultados, de modo que teríamos mais chances de ver que $q_*(a_2) > q_*(a_1)$.
 
             O exemplo anterior ilustra bem o quão importante é ter mais informações sobre cada estado para não fazer escolhas inadequadas. Além disso, evidencia a dúvida de quando parar de prospectar informações e passar a explorar os resultados de maneira gulosa. Na literatura, esse problema é conhecido como o \emph{Dilema Prospecção vs. Exploração}.
     
     \section{Dilema Prospecção vs. Exploração}
     
         \noindent
-        Pegando emprestado um exemplo que não lembro mais onde vi, imagine que você goste bastante de uma lanchonete que tem um ótimo hambúrguer. Você pode continuar sempre indo na mesma lanchonete. Você sempre vai comer um ótimo hambúrguer, mas pode ser que exista outra lanchonete que tenha um hambúrguer ainda melhor e você não vai saber. Você poderia decidir, por exemplo, nunca repetir uma lanchonete, assim você conheceria ótimas lanchonetes com ótimos hambúrguers, mas algumas vezes iria comer sanduíches ruins.
+        Pegando emprestado um exemplo que não lembro mais onde vi, imagine que você goste bastante de uma lanchonete que tem um ótimo hambúrguer. Você pode continuar sempre indo na mesma lanchonete. Você sempre vai comer um ótimo hambúrguer, mas pode ser que exista outra lanchonete que tenha um hambúrguer ainda melhor e você não vai saber. Ou você poderia decidir, por exemplo, nunca repetir uma lanchonete, assim você conheceria ótimas lanchonetes com ótimos hambúrguers, mas algumas vezes iria comer sanduíches ruins.
         
         Esse exemplo ilustra o dilema entre sempre escolher uma boa opção familiar (a mesma lanchonete), ou seja, \textbf{explorar} aquilo que já é conhecido, e \textbf{prospectar} (mudar de lanchonete), ou seja, testar outras opções ainda não visitadas. 
     
@@ -240,18 +242,18 @@
                 \item \textit{``Exploitation''} = Exploração
             \end{itemize}
 
-            Em inglês esse problema é conhecido como ``Exploration vs. Exploitation Dilemma''. O termo em português comum tanto para ``exploration'', quanto para ``exploitation'' é ``exploração''. Eu gosto de traduzir ``exploration'', a busca por informações novas, como ``prospecção'' e ``exploitation'', tirar proveito das informações conhecidas, como ``exploração''.
+            Em inglês, esse problema é conhecido como ``Exploration vs. Exploitation Dilemma''. O termo em português comum tanto para ``exploration'', quanto para ``exploitation'' é ``exploração''. Eu gosto de traduzir ``exploration'', a busca por informações novas, como ``prospecção'' e ``exploitation'', tirar proveito das informações conhecidas, como ``exploração''.
                 
         \subsection{Estratégias de balanceamento}
         
-            As estratégias para lidar com o dilema anterior se baseiam em executar ações de maneira gulosa na maior parte do tempo, mas ainda executar ações não-gulosas algumas vezes.
+            As estratégias mais comuns para lidar com o dilema anterior se baseiam em executar ações de maneira gulosa na maior parte do tempo, mas ainda executar ações não-gulosas algumas vezes.
         
             \subsubsection{Estratégias $\boldsymbol\varepsilon$}
             
                 \begin{itemize}
-                    \item \textbf{$\boldsymbol\varepsilon$-greedy}: executa a ação gulosa em uma porcentagem $(1-\varepsilon)$ e executa uma ação aleatória $\varepsilon$. Ex.: seja $\varepsilon = 0.1$, a ação a ser executada terá $90\%$ de chance de ser gulosa e $10\%$ de ser aleatória.
+                    \item \textbf{$\boldsymbol\varepsilon$-greedy}: executa a ação gulosa com probabilidade $(1-\varepsilon)$ e executa uma ação aleatória com probabilidade $\varepsilon$. Ex.: seja $\varepsilon = 0.1$, a ação a ser executada terá $90\%$ de chance de ser gulosa e $10\%$ de ser aleatória.
                     \item \textbf{$\boldsymbol\varepsilon$-first}: para um conjunto N de ações, executa $(1 - \varepsilon)N$ ações gulosas e executa $(\varepsilon N)$ ações não-gulosas. Ex.: sejam $\varepsilon = 0.2$ e $N = 10$, 8 ações serão gulosas e 2 ações serão aleatórias.
-                    \item \textbf{$\boldsymbol\varepsilon$-decay}: No início do aprendizado não há ainda uma boa distribuição das recompensas, de modo que os valores tendem a ser menos confiáveis, assim faz sentido prospectar as ações. Após algumas iterações, a recompensa já terá sido mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações a distribuição de recompensa será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura~ \ref{diag:epsilon-decay}, com $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$.
+                    \item \textbf{$\boldsymbol\varepsilon$-decay}: Ainda não há uma boa distribuição das recompensas no início do aprendizado, de modo que os valores tendem a ser menos confiáveis, portanto faz sentido prospectar as ações. Após algumas iterações, a recompensa já estará mais distribuída, de modo que faz sentido termos uma fase de exploração maior. Após várias iterações, a distribuição de recompensas será bem mais confiável, logo a fase de exploração deverá ser máxima. Essa estratégia é representada usando um $\varepsilon_{I}$ alto nas primeiras $I$ iterações (possivelmente $1$), um $\varepsilon_{F}$ bem baixo a partir da iteração $F$ e um $\varepsilon$ que diminui (decai) de $\varepsilon_{I}$ a $\varepsilon_{F}$ entre $I$ e $F$. O tipo de decaimento mais comum é o linear, representado na Figura~ \ref{diag:epsilon-decay} em que $\varepsilon_{I} = 1.0$, $\varepsilon_{F} = 0.1$, $I = 5$ e $F = 30$.
                     
                     \begin{figure}[ht]
                         \centering
@@ -282,7 +284,7 @@
                             \end{axis}
                         \end{tikzpicture}
                         
-                        \caption{$\varepsilon$-decay: $\varepsilon$ começa em $1.0$ e decai linearmente até $0.1$.}
+                        \caption{Ilustração da técnica de $\varepsilon$-decay. Nesse exemplo $\varepsilon$ começa em $1.0$ e decai linearmente até $0.1$.}
                         \label{diag:epsilon-decay}
                     \end{figure}
                 \end{itemize}
@@ -293,28 +295,27 @@
             
             Dois fatores influenciam a estimativa de uma ação. O primeiro, naturalmente, é o valor estimado e o segundo é a certeza que temos de que o primeiro é uma boa estimativa. Por exemplo, estimativas com uma grande incerteza associada podem ser bem maiores ou bem menores do que o estimado.
             
-            Assim, podemos adicionar um termo maior ou igual a zero que considere também a incerteza do valor estimado, de modo que a escolha de uma ação no tempo $t$, $A_t$, passe a ser baseada em:            
+            Assim, podemos adicionar um termo maior ou igual a zero que considere também a incerteza do valor estimado, de modo que a escolha de uma ação no tempo $t$, $A_t$, passe a ser baseada em
             \begin{equation}
                 A_t \ = \ \argmax_a \Big[ Q_t(a) + Incerteza(Q_a) \Big]\ .
             \end{equation}           
             
-            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$ (perceba que uma incerteza menor que zero não faz muito sentido prático). Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$. No caso do Limite de Confiança Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por:            
+            Note que se $Incerteza(Q_a) = 0$, então $A_t$ é o valor real da ação $a$. Se $Incerteza(Q_a) > 0$, então o valor de $a$ pode ser maior do que $Q_t(a)$, mas no máximo $A_t$ (uma incerteza menor que zero não faz muito sentido prático). Portanto, o termo de incerteza define o limite superior do valor verdadeiro de $a$. No caso do Limite de Confiança Superior (\emph{Upper Confidence Bound}, UCB), a incerteza é dada por
             \begin{equation}
                 Incerteza(Q_a) \ = \ c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}}\ .
             \end{equation}
-            
-            E, portanto, a escolha de uma ação é dada por:            
+            E, portanto, a escolha de uma ação é dada por    
             \begin{equation}
-                A_t \ \dot{=} \ \argmax_a \left[ Q_t(a) + c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} \ \right]\ ,
+                A_t \ = \ \argmax_a \left[ Q_t(a) + c \cdot \sqrt{\frac{\ln{t}}{N_t(a)}} \ \right]\ ,
             \end{equation}            
             \noindent
-            onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ aumenta mais do que $\ln{t}$, e se $a$ não for escolhida o valor da incerteza aumenta, pois $N_t(a)$ se mantém e $\ln{t}$ aumenta.
+            onde $c$ é o \emph{nível de confiança} e $N_t(a)$ é o número de vezes que a ação $a$ foi escolhida até o tempo $t$. Observe que quando $a$ for escolhida, o valor da incerteza diminui, pois $N_t(a)$ aumenta mais do que $\ln{t}$, e se $a$ não for escolhida, o valor da incerteza aumenta, pois $N_t(a)$ se mantém igual e $\ln{t}$ aumenta.
             
     \section{Versão incremental}
 
-        Lembrando de \eqref{eq:estimativa-acao}, uma maneira ingênua que poderíamos utilizar no cálculo da estimativa $Q_t(a)$ pode ser guardar todos os valores obtidos até o momento, calcular a soma dos valores e dividir por pelo número de vezes em que a ação foi executada. Em termos de implementação, teríamos um inteiro para guardar $N_t(a)$ e um array de valores para todos os $Q_t(a)$. Naturalmente, esse array crescerá a cada iteração, de modo que o uso de memória aumentará com o tempo. Não seria particularmente uma boa solução.
+        Lembrando da Equação~\eqref{eq:estimativa-acao}, uma maneira ingênua que poderíamos utilizar no cálculo da estimativa $Q_t(a)$ pode ser guardar todos os valores obtidos até o momento, calcular a soma dos valores e dividir pelo número de vezes em que a ação foi executada. Em termos de implementação, teríamos um valor inteiro para guardar $N_t(a)$ e um array de valores para todos os $Q_t(a)$. Naturalmente, esse array crescerá a cada iteração, de modo que o uso de memória aumentará com o tempo. Não seria particularmente uma boa solução.
         
-        Uma maneira de evitar usar um array de tamanho variável e manter o uso de memória constante é guardar a soma de $Q_t(a)$, $Soma_t(a)$ e atualizá-la a cada iteração:
+        Uma maneira de evitar usar um array de tamanho variável e manter o uso de memória constante é guardar a soma de $Q_t(a)$, $Soma_t(a)$, e atualizá-la a cada iteração, calculando
         \begin{equation}
         \label{eq:estimativa-soma}
         \begin{split}
@@ -323,19 +324,18 @@
         \end{split}
         \end{equation}
 
-        Para simplificar a notação, vamos avaliar uma ação por vez. Nesse caso, o uso do símbolo ``$(a)$'' se torna redundante, pois a ação será sempre $a$. Além disso, consideraremos somente os momentos em que ela foi executada, chamando de $n$. Portanto, $N_{t+1}(a)$ pode ser substituído por $n-1$ e $Q_{t+1}(a)$ por $Q_n$. Assim, o cálculo da estimativa para essa ação após ter sido executada $n-1$ vezes é:
+        Para simplificar a notação, vamos avaliar uma ação por vez. Nesse caso, o uso do símbolo ``$(a)$'' se torna redundante, pois a ação será sempre $a$. Além disso, consideraremos somente os momentos em que ela foi executada, chamando de $n$. Portanto, $N_{t+1}(a)$ pode ser substituído por $n-1$ e $Q_{t+1}(a)$ por $Q_n$. Assim, o cálculo da estimativa para essa ação após ter sido executada $n-1$ vezes é
         \begin{equation}
         \begin{split}
-            Q_n & \ \dot{=} \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}\\
+            Q_n & \ = \ \frac{R_1 + R_2 + \cdots + R_{n-1}}{n - 1}\\
             & = \ \frac{1}{n-1} \sum_{i=1}^{n-1} R_i .
         \end{split}
         \end{equation}
         
-        De \eqref{eq:estimativa-soma}, temos uma versão iterativa que utiliza memória constante. Entretanto, uma vez que o valor de $Q_t(a)$ já é guardado, poderíamos atualizá-lo diretamente, sem a necessidade da soma $Soma_t(a)$:
-        
+        Da Equação~\eqref{eq:estimativa-soma}, temos uma versão iterativa que utiliza memória constante. Entretanto, uma vez que o valor de $Q_t(a)$ já é guardado, poderíamos atualizá-lo diretamente, sem a necessidade de usar a $Soma_t(a)$, ou seja,
         \begin{subequations}
         \begin{align}
-            Q_{n+1} & \ \dot{=} \ \frac{1}{n} \sum_{i=1}^{n} R_i\\
+            Q_{n+1} & \ = \ \frac{1}{n} \sum_{i=1}^{n} R_i\\
             & = \ \frac{1}{n} \Bigg( R_n + \sum_{i=1}^{n-1} R_i \Bigg) \nonumber\\
             & = \ \frac{1}{n} R_n + \frac{1}{n} \sum_{i=1}^{n-1} R_i \nonumber\\
             & = \ \frac{1}{n} R_n + \frac{1}{n} \frac{(n-1)}{(n-1)} \sum_{i=1}^{n-1} R_i \nonumber\\
@@ -355,11 +355,11 @@
             
     \section{Problemas não-estacionários}
 
-        Em um problema \emph{estacionário} os valores reais das ações se mantêm os mesmos ao longo de todas as iterações. Já em um problema \emph{não-estacionário} os valores das ações mudam ao longo do tempo, seja por uma mudança nas probabilidades, seja por uma mudança nas recompensas, ou por ambos.
+        Em um problema \emph{estacionário} os valores reais das ações se mantêm os mesmos ao longo de todas as iterações. Já em um problema \emph{não-estacionário} os valores das ações mudam ao longo do tempo, seja por uma mudança nas probabilidades, seja por uma mudança nas recompensas, ou ambos.
 
         \todo{estacionaria vs nao estacionaria (exemplo das barras do 10-armed testbed)}
         
-        Por exemplo, um simples problema não-estacionário pode ser visto no diagrama \ref{diag:non-stationary} abaixo. Note que $p_1 \neq q_1$ e $p_2 \neq q_2$, caso contrário seria um problema estacionário. 
+        Por exemplo, um simples problema não-estacionário pode ser visto no diagrama da Figura~\ref{diag:non-stationary}. Note que $p_1 \neq q_1$ e $p_2 \neq q_2$, caso contrário seria um problema estacionário. 
         \begin{figure}[h]
             \centering
             \begin{subfigure}{.3\linewidth}
@@ -394,15 +394,15 @@
             \label{diag:non-stationary}
         \end{figure}
 
-        No caso dos problemas não-estacionários, o cálculo da estimativa em \eqref{eq:estimativa-qn} não é adequada, pois ela parte do fato que os valores das ações serão sempre os mesmos. Em um problema que muda com o tempo, faz sentido dar mais importância às informações mais recentes. Para tanto, em vez de usar um passo baseado no número de vezes que a ação foi executada e que diminui cada vez que isso acontece, $\frac{1}{n}$, podemos utilizar um passo constante, $\alpha$. O novo cálculo da estimativa será:
+        No caso dos problemas não-estacionários, o cálculo da estimativa na Equação~\eqref{eq:estimativa-qn} não é adequada, pois ela parte do fato de que os valores das ações serão sempre os mesmos. Em um problema que muda com o tempo, faz sentido dar mais importância às informações mais recentes. Para tanto, em vez de usar um passo baseado no número de vezes que a ação foi executada e que diminui cada vez que isso acontece, $\frac{1}{n}$, podemos utilizar um passo constante, $\alpha$. O novo cálculo da estimativa será
         \begin{equation}
-            Q_{n+1} \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big]\ .
+            Q_{n+1} \ = \ Q_n + \alpha \Big[ R_n - Q_n \Big]\ .
         \end{equation}
 
-        Observe que esse novo cálculo implica em uma média ponderada das recompensas recebidas e da estimativa inicial, em que as recompensas mais recentes terão mais peso, como mostrado em \eqref{eq:recency-weighted-average}.
+        Observe que esse novo cálculo implica em uma média ponderada das recompensas recebidas e da estimativa inicial, em que as recompensas mais recentes terão mais peso, como mostrado na Equação~\eqref{eq:recency-weighted-average}, pois
         \begin{subequations}
         \begin{align}
-            Q_{n+1} & \ \dot{=} \ Q_n + \alpha \Big[ R_n - Q_n \Big] \nonumber\\
+            Q_{n+1} & \ = \ Q_n + \alpha \Big[ R_n - Q_n \Big] \nonumber\\
             & = \ Q_n + \alpha R_n - \alpha Q_n \nonumber\\
             & = \ \alpha R_n + (1 - \alpha) Q_n \nonumber\\
             & = \ \alpha R_n + (1 - \alpha) \Big[ \alpha R_{n-1} + (1 - \alpha) Q_{n-1} \Big] \nonumber\\
@@ -425,31 +425,29 @@
 
         \subsection{Não-associativa}
             
-            Todos os exemplos vistos nessa nota foram de tarefas \emph{não-associativas}. Uma tarefa \emph{não-associativa} é uma tarefa em que não há mudança de configuração no ambiente. Assim, após uma ação ser escolhida, o agente recebe a recompensa adequada e volta para o início do problema. Por exemplo:            
+            Todos os exemplos vistos nessa nota foram de tarefas \emph{não-associativas}. Uma tarefa \emph{não-associativa} é uma tarefa em que não há mudança de configuração no ambiente. Assim, após uma ação ser escolhida, o agente recebe a recompensa adequada e volta para o início do problema. O diagrama típico de uma tarefa não-associativa é mostrado na Figura~\ref{diag:simple-bandit}. Para resolver um problema não-associativo utilizamos as avaliação das ações vistas anteriormente.
             
-            \begin{figure}[ht]
-                \centering
-                \simplebandit
-                \caption{Os exemplos vistos até aqui são de tarefas não-associativas, como o do diagrama~\ref{diag:simple-bandit}}
-                \label{diag:non-associative}
-            \end{figure}
+            %\begin{figure}[ht]
+            %    \centering
+            %    \simplebandit
+            %    \caption{Os exemplos vistos até aqui são de tarefas não-associativas, como o do diagrama~\ref{diag:simple-bandit}}
+            %    \label{diag:non-associative}
+            %\end{figure}
             
-            Para resolver um problema não-associativo utilizamos as avaliação das ações vistas anteriormente.
-    
         \subsection{Associativa}
         
-            Em um problema \emph{associativo} o ambiente pode mudar após uma ação ser escolhida. Nesse caso, existem diversas configurações de ambientes diferentes e uma delas será aquela a ser avaliada no momento. Observe que a escolha de uma ação não influencia na configuração encontrada na iteração seguinte.
+            Em um problema \emph{associativo} o ambiente pode mudar após uma ação ser escolhida. Nesse caso, existem diversas configurações de ambientes diferentes e uma delas será aquela a ser avaliada no momento. Mais ainda, no caso associativo a escolha de uma ação não influencia na configuração encontrada na iteração seguinte. Um exemplo de diagrama de tarefa associativa é mostrado na Figura~\ref{diag:associative}.
     
-            \begin{figure}
+            \begin{figure}[h]
                 \centering
                 \associativebandits
-                \caption{Exemplo de problema associativo: qualquer configuração é possível no início de cada iteração, sem que a escolha influencie no estado inicial da iteração seguinte}
-                \label{fig:my_label}
+                \caption{Exemplo de problema associativo: qualquer configuração é possível no início de cada iteração sem que a escolha influencie no estado inicial da iteração seguinte.}
+                \label{diag:associative}
             \end{figure}
             
-            Para resolver esse tipo de problema não podemos utilizar as técnicas de avaliação da função de valor da ação, pois o ambiente pode mudar completamente na iteração seguinte. Dessa forma, é necessário que haja uma informação adicional, chamada de \emph{contexto}, sobre qual ambiente está sendo jogado agora, para que possamos fazer um mapeamento de cada um deles e assim conseguir uma resposta ótima. Esse tipo de mapeamento se chama \emph{política} e será explorado no futuro.
+            Para resolver esse tipo de problema não podemos utilizar as técnicas de avaliação da função de valor da ação, pois o ambiente pode mudar completamente na iteração seguinte. Dessa forma, é necessário que haja uma informação adicional, chamada de \emph{contexto}, a respeito de qual é a configuração atual do ambiente, de modo que possamos fazer um mapeamento de cada um deles e assim conseguir uma resposta ótima. Esse tipo de mapeamento é uma \emph{política} e será explorado no futuro.
 
-            Por exemplo, considere que há uma máquina que pode assumir três configurações diferentes, $MAB_1$, $MAB_2$ e $MAB_3$, cada um com duas ações possíveis. Suponha ainda que nós sabemos o valor de cada ação de cada configuração:
+            Por exemplo, considere que há uma máquina que pode assumir três configurações diferentes, $MAB_1$, $MAB_2$ e $MAB_3$, cada uma com duas ações possíveis. Suponha ainda que nós sabemos o valor de cada ação de cada configuração
             \begin{equation*}
             \begin{split}
                 q_{*,1}(a_1) & = 5\\
@@ -462,19 +460,19 @@
             \end{equation*}
             No $MAB_1$ deveríamos executar a ação $a_1$. No $MAB_2$ deveríamos executar a ação $a_2$. No $MAB_3$ poderíamos executar qualquer ação.
             
-            Se não soubermos em qual $MAB$ estamos no momento, saber os valores das ações não adianta muito. Entretanto, se tivermos informações adicionais, ou seja, um contexto, sobre o $MAB$ atual, poderíamos executar a ação gulosa para ele. Digamos que cada um dos $MAB$ mostre uma cor diferente em um display. A informação de cores representa um contexto que nos dá informação suficiente para identificar a configuração atual e então executar as ações de maior valor.
+            Se não soubermos em qual $MAB$ estamos no momento, saber os valores das ações não adianta muito. Entretanto, se tivermos informações adicionais, ou seja, um contexto, sobre o $MAB$ atual, poderíamos executar a ação gulosa para ele. Por exemplo, digamos que cada um dos $MAB$s mostre uma cor diferente em um display. A informação de cores representa um contexto que nos dá informação suficiente para identificar a configuração atual e então executar as ações de maior valor.
             
         \subsection{Full RL Problem}
         
-            O \emph{problema completo de Aprendizado por Reforço} é um passo além de um não-associativo, pois cada ação levará a um determinado ``ambiente''. 
+            O \emph{problema completo de Aprendizado por Reforço} é um passo além de um não-associativo, pois cada ação levará a um determinado ``ambiente'', como ilustrado na Figura~\ref{diag:full-rl-problem}.
         
             \begin{figure}[ht]
                 \centering
                 \fullrldiagram
-                \caption{Diagrama ilustrando o problema completo do Aprendizado por Reforço}
-                \label{fig:full-rl-problem}
+                \caption{Diagrama ilustrando o problema completo do aprendizado por reforço}
+                \label{diag:full-rl-problem}
             \end{figure}
             
-            Nesse caso, não precisamos de uma informação adicional sobre o ambiente/estado em que estamos, já que essa informação pode ser encontrada diretamente a partir dos pares \emph{(estado, ação)}. Contudo, ainda é necessário mapear as melhores ações a partir de cada estado, a \emph{política}. É justamente sobre o problema completo do Aprendizado por Reforço que trataremos a seguir. Mais especificamente, sobre sua formalização como um \emph{Processo de Decisão de Markov}.
+            Nesse caso, não precisamos de uma informação adicional sobre o ambiente/estado em que estamos, já que essa informação pode ser encontrada diretamente a partir dos pares \emph{(estado, ação)}. Contudo, ainda é necessário mapear as melhores ações a partir de cada estado, ou seja, definir uma \emph{política}. É justamente sobre o problema completo do aprendizado por reforço que trataremos a seguir. Mais especificamente, sobre sua formalização matemática como um \emph{Processo de Decisão de Markov}.
 
 \end{document}
