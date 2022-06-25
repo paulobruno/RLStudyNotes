@@ -68,19 +68,29 @@
             }
             \end{center}
             
-            Naturalmente que consultei outras referências, mas, no geral, essas notas são notas de estudo desse livro. Sugiro a leitura dessas notas como uma introdução ao livro, portanto leia-o, que é gratuito.
+            Naturalmente que consultei outras referências, mas, no geral, essas notas são notas de estudo desse livro.
+            Sugiro a leitura dessas notas como uma introdução ao livro, portanto leia-o, que é gratuito.
             
-            Mais ainda, por considerá-lo como uma fonte básica, não o cito explicitamente ao longo das notas, mas considere que ele é citado implicitamente em todas elas. Portanto, caso queira usar algum trecho encontrado aqui, na maioria dos casos, cite o livro.
+            Mais ainda, por considerá-lo como uma fonte básica, não o cito explicitamente ao longo das notas, mas considere que ele é citado implicitamente em todas elas.
+            Portanto, caso queira usar algum trecho encontrado aqui, na maioria dos casos, cite o livro.
             
         \subsection{Rigor matemático}
         
-            Reforçando: essas notas foram feitas com o objetivo de estudos pessoais. Eu tentei escrevê-las em uma linguagem mais acessível para mim e certamente fui descuidado em alguns momentos com certos termos e definições. Dito isso, eu tento garantir um certo rigor matemático nas notas, mas não tanto. Por exemplo, algumas vezes posso mencionar que tal coisa foi provada como verdade e não pôr a prova ou sequer pôr uma referência a ela. Ou descrever algumas técnicas, mas omitir conceitos importantes, como na Seção \ref{sec:probabilidade}.
+            Reforçando: essas notas foram feitas com o objetivo de estudos pessoais.
+            Eu tentei escrevê-las em uma linguagem mais acessível para mim e certamente fui descuidado em alguns momentos com certos termos e definições.
+            Dito isso, eu tento garantir um certo rigor matemático nas notas, mas não tanto.
+            Por exemplo, algumas vezes posso mencionar que tal coisa foi provada como verdade e não pôr a prova ou sequer pôr uma referência a ela.
+            Ou descrever algumas técnicas, mas omitir conceitos importantes, como na Seção \ref{sec:probabilidade}.
             
-            Outra questão relacionada é a notação utilizada. Utilizo uma notação semelhante à do livro base, mas não exatamente igual. Apesar disso, tento manter a consistência ao longo de todas as notas. Caso ocorram diferenças de notação, muito provavelmente foi um equívoco meu e agradeço muito a quem puder apontá-las.
+            Outra questão relacionada é a notação utilizada.
+            Utilizo uma notação semelhante à do livro base, mas não exatamente igual.
+            Apesar disso, tento manter a consistência ao longo de todas as notas.
+            Caso ocorram diferenças de notação, muito provavelmente foi um equívoco meu e agradeço muito a quem puder apontá-las.
             
         \subsection{Comunicação, sugestões e críticas}
             
-            Ficarei \textbf{muito} agradecido em receber qualquer feedback, em especial sugestões de melhoria, correção de erros e críticas de modo geral. Peço, por gentileza, que se você tiver alguma coisa para dizer, crie uma \emph{issue} no github das notas
+            Ficarei \textbf{muito} agradecido em receber qualquer feedback, em especial sugestões de melhoria, correção de erros e críticas de modo geral.
+            Peço, por gentileza, que se você tiver alguma coisa para dizer, crie uma \emph{issue} no github das notas
             
             \begin{center}
                 \url{https://github.com/paulobruno/RLStudyNotes} .
@@ -90,11 +100,16 @@
             
     \section{Aprendizado por Refoço}
     
-        Comumente, consideramos três os paradigmas de Aprendizado de Máquina: Aprendizado Supervisionado, Aprendizado Não-Supervisionado e Aprendizado por Reforço. Dentre eles, o Aprendizado por Reforço é talvez o mais próximo da maneira como nós humanos construímos conhecimento, o que nos vem à mente quando pensamos em um aprendizado através da interação com o nosso ambiente. Diferentemente do Aprendizado Supervisionado, em que sabemos o resultado final esperado, e do Aprendizado Não-Supervisionado, cuja busca é encontrar padrões em um conjunto de dados, no Aprendizado por Reforço a construção do conhecimento se dá pela utilização da informação de um sinal positivo ou negativo dado como resposta a uma ação. 
+        Comumente, consideramos três os paradigmas de Aprendizado de Máquina: Aprendizado Supervisionado, Aprendizado Não-Supervisionado e Aprendizado por Reforço.
+        Dentre eles, o Aprendizado por Reforço é talvez o mais próximo da maneira como nós humanos construímos conhecimento, o que nos vem à mente quando pensamos em um aprendizado através da interação com o nosso ambiente.
+        Diferentemente do Aprendizado Supervisionado, em que sabemos o resultado final esperado, e do Aprendizado Não-Supervisionado, cuja busca é encontrar padrões em um conjunto de dados, no Aprendizado por Reforço a construção do conhecimento se dá pela utilização da informação de um sinal positivo ou negativo dado como resposta a uma ação. 
         
         \subsection{O que é ``reforço''?}
         
-            Antes de começar os estudos de Aprendizado por Reforço, vamos primeiro entender de onde vem o \emph{reforço}. Esse termo vem da psicologia e juntamente com o termo \emph{punição} foi introduzido no \emph{Behaviorismo}. Ambos são conceitos centrais do Behaviorismo e encapsulam em si a relação entre um estímulo e a sua consequência. Nesse sentido, a adição ou a remoção de uma recompensa faz com que a frequência de um comportamento aumente ou diminua.
+            Antes de começar os estudos de Aprendizado por Reforço, vamos primeiro entender de onde vem o \emph{reforço}.
+            Esse termo vem da psicologia e juntamente com o termo \emph{punição} foi introduzido no \emph{Behaviorismo}.
+            Ambos são conceitos centrais do Behaviorismo e encapsulam em si a relação entre um estímulo e a sua consequência.
+            Nesse sentido, a adição ou a remoção de uma recompensa faz com que a frequência de um comportamento aumente ou diminua.
         
             \subsubsection{Reforço vs. Punição}
             
@@ -142,15 +157,21 @@
             
     \section{Exemplos}
     
-        Um exemplo tradicional é o de um cachorro que toca uma campainha, recebe um petisco e passa a tocar seguidamente para receber mais petiscos (\emph{reforço positivo}). Outro caso bastante conhecido, e muito utilizado pelos pais como exemplo, é o da suposta criança que pega na tomada, leva um choque e então aprende a não fazer isso novamente (\emph{punição positiva}). Por fim, uma situação que vai nos ajudar bastante a ilustrar o Aprendizado por Reforço, e também muito utilizado em pesquisas, é a de um jogador aprendendo a jogar um jogo qualquer. Claro que nós podemos extrapolar os conceitos de Aprendizado por Reforço para outras tarefas não cotidianas, como problemas de estatística, engenharia e economia. De modo geral, os exemplos com jogos nos ajudam a rapidamente descrever um problema e visualizar a maneira como as técnicas de Aprendizado por Reforço o resolve.
+        Um exemplo tradicional é o de um cachorro que toca uma campainha, recebe um petisco e passa a tocar seguidamente para receber mais petiscos (\emph{reforço positivo}).
+        Outro caso bastante conhecido, e muito utilizado pelos pais como exemplo, é o da suposta criança que pega na tomada, leva um choque e então aprende a não fazer isso novamente (\emph{punição positiva}).
+        Por fim, uma situação que vai nos ajudar bastante a ilustrar o Aprendizado por Reforço, e também muito utilizado em pesquisas, é a de um jogador aprendendo a jogar um jogo qualquer.
+        Claro que nós podemos extrapolar os conceitos de Aprendizado por Reforço para outras tarefas não cotidianas, como problemas de estatística, engenharia e economia.
+        De modo geral, os exemplos com jogos nos ajudam a rapidamente descrever um problema e visualizar a maneira como as técnicas de Aprendizado por Reforço o resolve.
             
     \section{Características}
     
-        O Aprendizado por Reforço é caracterizado pela interação entre uma entidade que executa \textbf{ações}, o \textbf{agente}, e o \textbf{ambiente} em que ela está inserida. Mais ainda, o agente utiliza as informações presentes no \textbf{estado} atual do ambiente.
+        O Aprendizado por Reforço é caracterizado pela interação entre uma entidade que executa \textbf{ações}, o \textbf{agente}, e o \textbf{ambiente} em que ela está inserida.
+        Mais ainda, o agente utiliza as informações presentes no \textbf{estado} atual do ambiente.
         %, ou seja, as suas \emph{observações} do estado.
         Ocorre então um processo inerentemente sequencial de tentativa e erro, em que a melhoria do comportamento se dá de acordo com o conjunto de \textbf{recompensas} recebidas ao longo do processo, presentes e futuras, sejam elas positivas ou negativas.
         
-        Podemos explicitar quatro características intrínsecas ao Aprendizado por Reforço. São elas:
+        Podemos explicitar quatro características intrínsecas ao Aprendizado por Reforço.
+        São elas:
         
         \begin{enumerate}
             \item aprendizado por tentativa e erro;
@@ -161,32 +182,48 @@
         
         \subsection{Aprendizado por tentativa e erro}
         
-            O aprendizado por tentativa e erro é uma característica estudada na área da psicologia desde o século XIX. Ela está relacionada com o processo de aprendizado em que alguém executa uma ação e aprende se a ação executada foi boa ou ruim de acordo com a resposta recebida. Caso a resposta seja positiva, há uma tendência de que o comportamento se repita (reforço). Caso a resposta seja negativa, a tendência é de que o comportamento seja suprimido (punição).
+            O aprendizado por tentativa e erro é uma característica estudada na área da psicologia desde o século XIX.
+            Ela está relacionada com o processo de aprendizado em que alguém executa uma ação e aprende se a ação executada foi boa ou ruim de acordo com a resposta recebida.
+            Caso a resposta seja positiva, há uma tendência de que o comportamento se repita (reforço).
+            Caso a resposta seja negativa, a tendência é de que o comportamento seja suprimido (punição).
         
         \subsection{Problema de decisão sequencial}
         
-            Uma tarefa de Aprendizado por Reforço é um problema de decisão sequencial pois um estado só será atingido a partir de outros estados anteriores (com exceção, naturalmente, do estado inicial). Portanto, temos uma noção de sequência de estados percorrida pelo agente.
+            Uma tarefa de Aprendizado por Reforço é um problema de decisão sequencial pois um estado só será atingido a partir de outros estados anteriores (com exceção, naturalmente, do estado inicial).
+            Portanto, temos uma noção de sequência de estados percorrida pelo agente.
         
         
         \subsection{Tempo de resposta}
         
-            Outra característica do Aprendizado por Reforço é a possível demora para receber uma resposta significativa. Por exemplo, em alguns problemas de Aprendizado por Reforço a resposta pode ser conhecida a cada iteração; já em problemas de otimização sabemos a distância para a função objetivo em todos os instantes. No caso do Aprendizado por Reforço, temos tarefa de recompensas imediatas e tardias.
+            Outra característica do Aprendizado por Reforço é a possível demora para receber uma resposta significativa.
+            Por exemplo, em alguns problemas de Aprendizado por Reforço a resposta pode ser conhecida a cada iteração; já em problemas de otimização sabemos a distância para a função objetivo em todos os instantes.
+            No caso do Aprendizado por Reforço, temos tarefa de recompensas imediatas e tardias.
         
             \subsubsection{Recompensas imediatas}
         
-                Em algumas tarefas, recompensas significativas são recebidas após cada iteração, chamadas de \emph{recompensas imediatas}. Nesse caso, o agente poderá encontrar estratégias de curto prazo e ainda assim ser bem sucedido.
+                Em algumas tarefas, recompensas significativas são recebidas após cada iteração, chamadas de \emph{recompensas imediatas}.
+                Nesse caso, o agente poderá encontrar estratégias de curto prazo e ainda assim ser bem sucedido.
         
             \subsubsection{Recompensas tardias}
         
-                Na maioria dos problemas, no entanto, o agente interage várias vezes com o ambiente antes de receber uma recompensa significativa. Recompensas tardias (do inglês \emph{delayed rewards}) referem-se ao fato de que muitas ações podem não dar nenhuma resposta significativa imediatamente, de modo que só saberemos se uma ação levou a uma sequência de eventos boa no futuro. Por exemplo, em um jogo de xadrez cada jogador realizará dezenas de ações antes de saber a resposta final: vitória, derrota ou empate. Para resolver esse tipo de problema, é necessária a descoberta de estratégias de longo prazo.
+                Na maioria dos problemas, no entanto, o agente interage várias vezes com o ambiente antes de receber uma recompensa significativa.
+                Recompensas tardias (do inglês \emph{delayed rewards}) referem-se ao fato de que muitas ações podem não dar nenhuma resposta significativa imediatamente, de modo que só saberemos se uma ação levou a uma sequência de eventos boa no futuro.
+                Por exemplo, em um jogo de xadrez cada jogador realizará dezenas de ações antes de saber a resposta final: vitória, derrota ou empate.
+                Para resolver esse tipo de problema, é necessária a descoberta de estratégias de longo prazo.
         
         \subsection{Interação com um ambiente}
     
-            Diferentemente dos outros paradigmas de aprendizado, um conjunto de dados de entrada não é suficiente para o desenvolvimento dos modelos. No caso não-supervisionado, o objetivo é encontrar estruturas ocultas em coleções de dados, como tarefas de clusterização e redução de dimensionalidade. No caso supervisionado, o processo de aprendizado ocorre através de respostas instrutivas (do inglês \emph{instructive feedback}), que indicam qual a resposta esperada. Já no Aprendizado por Reforço, há a necessidade de que o agente interaja com um ambiente e possa ser capaz de avaliar o resultado das ações, bem como o novo estado em que se encontra. 
+            Diferentemente dos outros paradigmas de aprendizado, um conjunto de dados de entrada não é suficiente para o desenvolvimento dos modelos.
+            No caso não-supervisionado, o objetivo é encontrar estruturas ocultas em coleções de dados, como tarefas de clusterização e redução de dimensionalidade.
+            No caso supervisionado, o processo de aprendizado ocorre através de respostas instrutivas (do inglês \emph{instructive feedback}), que indicam qual a resposta esperada.
+            Já no Aprendizado por Reforço, há a necessidade de que o agente interaja com um ambiente e possa ser capaz de avaliar o resultado das ações, bem como o novo estado em que se encontra. 
             
     \section{Elementos}
     
-        O Aprendizado por Reforço é centrado em uma entidade que é responsável pelo processo de entender as informações disponíveis e tomar uma decisão a partir delas: o \textbf{agente}. No entanto, o agente não é o único elemento. Nas notas seguintes, entraremos em mais detalhes sobre o papel de cada um deles, bem como a formalização matemática por trás do Aprendizado por Reforço. Abaixo, segue uma descrição breve dos elementos mais importantes.
+        O Aprendizado por Reforço é centrado em uma entidade que é responsável pelo processo de entender as informações disponíveis e tomar uma decisão a partir delas: o \textbf{agente}.
+        No entanto, o agente não é o único elemento.
+        Nas notas seguintes, entraremos em mais detalhes sobre o papel de cada um deles, bem como a formalização matemática por trás do Aprendizado por Reforço.
+        Abaixo, segue uma descrição breve dos elementos mais importantes.
     
         \begin{itemize}
             \item Agente: elemento fundamental, o agente é o decisor;
@@ -199,7 +236,9 @@
         
         \subsection{Diagrama de interação}
     
-            Considerando os elementos e as características dos problemas de Aprendizado por Reforço, a interação entre eles é tradicionalmente simplificada da seguinte maneira. O agente. Essa interação é ilustrada na Figura~\ref{diag:classical-rl}.
+            Considerando os elementos e as características dos problemas de Aprendizado por Reforço, a interação entre eles é tradicionalmente simplificada da seguinte maneira. 
+            O agente. 
+            Essa interação é ilustrada na Figura~\ref{diag:classical-rl}.
         
             \begin{figure}[ht]
                 \centering
@@ -248,9 +287,14 @@
         
         \subsection{Deep Reinforcement Learning}
         
-            Na última década, as pesquisas em Aprendizado por Reforço receberam um novo ânimo. Em 2013, pesquisadores da então startup \emph{DeepMind Technologies} publicaram um artigo em que uniam um algoritmo de Aprendizado por Reforço, \emph{Q-Learning}, com o uso de \emph{Deep Neural Networks} para jogar jogos de \emph{Atari 2600}. Essa pesquisa resultou não somente em uma técnica nova, chamada de \emph{Deep Q-Networks} (DQN), mas também deu início a uma área de pesquisa totalmente nova: \emph{Deep Reinforcement Learning} (DRL). 
+            Na última década, as pesquisas em Aprendizado por Reforço receberam um novo ânimo.
+            Em 2013, pesquisadores da então startup \emph{DeepMind Technologies} publicaram um artigo em que uniam um algoritmo de Aprendizado por Reforço, \emph{Q-Learning}, com o uso de \emph{Deep Neural Networks} para jogar jogos de \emph{Atari 2600}.
+            Essa pesquisa resultou não somente em uma técnica nova, chamada de \emph{Deep Q-Networks} (DQN), mas também deu início a uma área de pesquisa totalmente nova: \emph{Deep Reinforcement Learning} (DRL). 
             
-            Desde então, muitas pesquisas surgiram nessa área. Em notas futuras, falaremos mais sobre DRL. Nas próximas notas, no entanto, veremos conceitos elementares de Aprendizado por Reforço, de modo a conhecer as técnicas e conceitos básicos antes de avançar para os modelos mais complexos de DRL. Para quem tiver a curiosidade de já procurar mais sobre o assunto, listo a seguir alguns dos marcos na área.
+            Desde então, muitas pesquisas surgiram nessa área.
+            Em notas futuras, falaremos mais sobre DRL.
+            Nas próximas notas, no entanto, veremos conceitos elementares de Aprendizado por Reforço, de modo a conhecer as técnicas e conceitos básicos antes de avançar para os modelos mais complexos de DRL.
+            Para quem tiver a curiosidade de já procurar mais sobre o assunto, listo a seguir alguns dos marcos na área.
             
             \subsubsection{Marcos \emph{recentes} utilizando DRL}
             
@@ -271,17 +315,24 @@
     \section{Brevíssima abordagem prática a alguns conceitos de Probabilidade e Estatística}
     \label{sec:probabilidade}
     
-        Ao longo dos estudos, um conhecimento básico em Probabilidade e Estatística seria muito útil, mas é essencial conhecer desde o início os conceitos de \emph{valor esperado}, ou \emph{esperança}, e \emph{probabilidade condicional}. Por sua importância, e até mesmo simplicidade nos casos básicos, eles serão resumidamente apresentados a seguir.
+        Ao longo dos estudos, um conhecimento básico em Probabilidade e Estatística seria muito útil, mas é essencial conhecer desde o início os conceitos de \emph{valor esperado}, ou \emph{esperança}, e \emph{probabilidade condicional}.
+        Por sua importância, e até mesmo simplicidade nos casos básicos, eles serão resumidamente apresentados a seguir.
         
         \textit{Nota: o objetivo dessa seção é mostrar como calcular alguns valores importantes relacionados à tomada de decisão em Aprendizado por Reforço. Por tentar ser didático e evitar falar mais conceitos do que o necessário, eu acabo sendo desleixado e não menciono conceitos extremamente importantes, como \emph{Espaço Amostral}. Peço desculpas por essa ``falha proposital'' e recomendo muito um estudo em Probabilidade e Estatística.}
             
         \subsection{Esperança}
             
-            O objetivo maior em tarefas de Aprendizado por Reforço é encontrar a política que decide executar as ações cujas recompensas são máximas. Mais ainda, como há um conjunto de probabilidades envolvidas, desejamos executar as ações que deem a maior recompensa \emph{esperada}. Para calcular as recompensas esperadas, utilizaremos o conceito de \emph{valor esperado}, ou \emph{esperança}.
+            O objetivo maior em tarefas de Aprendizado por Reforço é encontrar a política que decide executar as ações cujas recompensas são máximas.
+            Mais ainda, como há um conjunto de probabilidades envolvidas, desejamos executar as ações que deem a maior recompensa \emph{esperada}.
+            Para calcular as recompensas esperadas, utilizaremos o conceito de \emph{valor esperado}, ou \emph{esperança}.
             
-            Por exemplo, considere um dado não viciado de seis faces. Sabemos que podemos tirar valores de 1 a 6, mas qual é a média dos valores recebidos se jogarmos o dado várias vezes?
+            Por exemplo, considere um dado não viciado de seis faces.
+            Sabemos que podemos tirar valores de 1 a 6, mas qual é a média dos valores recebidos se jogarmos o dado várias vezes?
             
-            O \emph{valor esperado} pode ser descrito como segue. Considere uma variável aleatória $\RandomVariable{X}$ que pode assumir $k$ valores discretos\footnote{A variável aleatória e a distribuição de probabilidade podem ser contínuas, o que é o caso frequentemente. Entretanto, ao longo das notas só veremos exemplos discretos.} $x_1$, $x_2$, \dots, $x_k$. De acordo com uma distribuição de probabilidade $p$, cada um desses valores ocorre com uma probabilidade $p(x_1)$, $p(x_2)$, \dots, $p(x_k)$, respectivamente. A \emph{esperança} (ou \emph{valor esperado}) de $\RandomVariable{X}$ sob a distribuição $p$ é definida como
+            O \emph{valor esperado} pode ser descrito como segue.
+            Considere uma variável aleatória $\RandomVariable{X}$ que pode assumir $k$ valores discretos\footnote{A variável aleatória e a distribuição de probabilidade podem ser contínuas, o que é o caso frequentemente. Entretanto, ao longo das notas só veremos exemplos discretos.} $x_1$, $x_2$, \dots, $x_k$.
+            De acordo com uma distribuição de probabilidade $p$, cada um desses valores ocorre com uma probabilidade $p(x_1)$, $p(x_2)$, \dots, $p(x_k)$, respectivamente.
+            A \emph{esperança} (ou \emph{valor esperado}) de $\RandomVariable{X}$ sob a distribuição $p$ é definida como
             \begin{equation}
             \begin{aligned}
                 \label{eq:state-value}
@@ -291,34 +342,57 @@
             \end{equation}
             Para simplificar a notação, comumente o símbolo subscrito da distribuição de probabilidade $p$ é omitido, de modo que usamos somente $\ExpectedValue[\RandomVariable{X}]$.
     
-            Voltando ao exemplo anterior, considere um dado de seis faces não viciado, $\RandomVariable{D}$. Ele pode assumir um dos valores $\{1, 2, 3, 4, 5, 6\}$, cada um deles com probabilidade $\frac{1}{6}$. Assim, o valor esperado de $\RandomVariable{D}$ é
+            Voltando ao exemplo anterior, considere um dado de seis faces não viciado, $\RandomVariable{D}$.
+            Ele pode assumir um dos valores $\{1, 2, 3, 4, 5, 6\}$, cada um deles com probabilidade $\frac{1}{6}$.
+            Assim, o valor esperado de $\RandomVariable{D}$ é
             \begin{equation*}
             \begin{aligned}
                 \ExpectedValue[\RandomVariable{D}] & = \frac{1}{6} \cdot 1 + \frac{1}{6} \cdot 2 + \frac{1}{6} \cdot 3 + \frac{1}{6} \cdot 4 + \frac{1}{6} \cdot 5 + \frac{1}{6} \cdot 6 \\
                 & = 3.5\ .
             \end{aligned}
             \end{equation*}        
-            Note que o valor esperado é a média ponderada dos valores possíveis, em que a ponderação é dada de pela distribuição de probabilidade. Portanto, o valor esperado de um dado não-viciado de seis faces é $3.5$.
+            Note que o valor esperado é a média ponderada dos valores possíveis, em que a ponderação é dada de pela distribuição de probabilidade.
+            Portanto, o valor esperado de um dado não-viciado de seis faces é $3.5$.
         
         \subsection{Teorema da utilidade}
         
-            Suponha que temos dois caminhos para escolher. Um deles é bem iluminado, com várias pessoas passando e policiamento constante. O outro é escuro e isolado. Como podemos decidir qual é o melhor caminho a seguir? Intuitivamente, uma pessoa ``sábia'' escolheria o primeiro, por ser mais seguro.
+            Suponha que temos dois caminhos para escolher.
+            Um deles é bem iluminado, com várias pessoas passando e policiamento constante.
+            O outro é escuro e isolado.
+            Como podemos decidir qual é o melhor caminho a seguir?
+            Intuitivamente, uma pessoa ``sábia'' escolheria o primeiro, por ser mais seguro.
 
-            Como traduzir essa intuição aos modelos de decisão? Primeiramente, uma vez que sabemos calcular o valor esperado de uma variável aleatória, por exemplo a recompensa esperada, essa informação pode ser útil na nossa tomada de decisão. Considere também que conhecemos a distribuição de probabilidades de não sofrer atentados a cada passo dado. Mesmo com uma visão probabilística, a pergunta continua a mesma: como podemos decidir qual é o melhor caminho a seguir?
+            Como traduzir essa intuição aos modelos de decisão?
+            Primeiramente, uma vez que sabemos calcular o valor esperado de uma variável aleatória, por exemplo a recompensa esperada, essa informação pode ser útil na nossa tomada de decisão.
+            Considere também que conhecemos a distribuição de probabilidades de não sofrer atentados a cada passo dado.
+            Mesmo com uma visão probabilística, a pergunta continua a mesma: como podemos decidir qual é o melhor caminho a seguir?
 
-            Em questões desse tipo, utilizaremos o \emph{teorema da utilidade máxima esperada}, de John von Neumann e Oskar Morgenstern. Simplificadamente, ele nos diz que entre várias opções um \emph{agente racional} (o ``sábio'' no exemplo inicial) escolherá aquela de maior valor esperado. Ou seja, um agente racional escolherá a opção que lhe dará potencialmente o maior resultado, em outras palavras, a opção de maior \emph{utilidade}. 
+            Em questões desse tipo, utilizaremos o \emph{teorema da utilidade máxima esperada}, de John von Neumann e Oskar Morgenstern.
+            Simplificadamente, ele nos diz que entre várias opções um \emph{agente racional} (o ``sábio'' no exemplo inicial) escolherá aquela de maior valor esperado.
+            Ou seja, um agente racional escolherá a opção que lhe dará potencialmente o maior resultado, em outras palavras, a opção de maior \emph{utilidade}. 
             
-            Respondendo à pergunta feita anteriormente, um agente racional primeiro calcularia o valor esperado de cada caminho, como vimos nas seções anteriores, e em seguida escolheria o de maior utilidade. Nos estudos de Aprendizado por Reforço consideramos que o agente é sempre racional, pois o seu objetivo é obter a maior recompensa total esperada.
+            Respondendo à pergunta feita anteriormente, um agente racional primeiro calcularia o valor esperado de cada caminho, como vimos nas seções anteriores, e em seguida escolheria o de maior utilidade.
+            Nos estudos de Aprendizado por Reforço consideramos que o agente é sempre racional, pois o seu objetivo é obter a maior recompensa total esperada.
             
             \emph{Nota: observe que no mundo real não podemos considerar que seres humanos são agentes racionais. Muitas vezes escolhemos opções que não são ótimas por motivos pessoais. Esse é um assunto de muito estudo, por exemplo, em \emph{Teoria dos Jogos}.}
             
         \subsection{Probabilidade Condicional}
         
-            Alguns eventos são independentes, ou seja, o fato de um ocorrer não interfere na chance do outro ocorrer. O exemplo mais tradicional é o de jogar várias moedas e observar seus resultados. Independentemente do primeiro resultado ter sido cara ou coroa, a probabilidade de dar coroa na segunda jogada é a mesma ($50\%$ em uma moeda não viciada). Outros eventos, no entanto, são dependentes de eventos anteriores.
+            Alguns eventos são independentes, ou seja, o fato de um ocorrer não interfere na chance do outro ocorrer.
+            O exemplo mais tradicional é o de jogar várias moedas e observar seus resultados.
+            Independentemente do primeiro resultado ter sido cara ou coroa, a probabilidade de dar coroa na segunda jogada é a mesma ($50\%$ em uma moeda não viciada).
+            Outros eventos, no entanto, são dependentes de eventos anteriores.
             
-            Por exemplo, considere uma loteria que me dá $1\%$ de ser vencedor. Observe que eu só tenho a chance de vencer se participar do sorteio. Caso contrário, minha chance de ganhar será $0$. Dessa forma, fica claro que a minha chance de vencer nessa loteria está \emph{condicionada} ao fato de participar ou não do sorteio. Suponha que eu participe de $80\%$ dos sorteios, qual a minha chance total de ganhar?
+            Por exemplo, considere uma loteria que me dá $1\%$ de ser vencedor.
+            Observe que eu só tenho a chance de vencer se participar do sorteio.
+            Caso contrário, minha chance de ganhar será $0$.
+            Dessa forma, fica claro que a minha chance de vencer nessa loteria está \emph{condicionada} ao fato de participar ou não do sorteio.
+            Suponha que eu participe de $80\%$ dos sorteios, qual a minha chance total de ganhar?
             
-            Para responder essa pergunta, vamos utilizar o conceito de \emph{Probabilidade Condicional}. Seja $A$ um evento dependente de um evento $B$, a probabilidade condicional de $A$ em relação à $B$ é denotada por $P(A \mid B)$. Comumente, lemos $P(A \mid B)$ como ``a probabilidade de $A$ \emph{dado} $B$'', ou seja, a probabilidade do evento $A$ ocorrer, dado que o evento $B$ ocorreu. No exemplo anterior, seja $A = \{\text{ganhar na loteria}\}$ e $B = \{\text{participar do sorteio}\}$, $P(A | B) = 0.01$.
+            Para responder essa pergunta, vamos utilizar o conceito de \emph{Probabilidade Condicional}.
+            Seja $A$ um evento dependente de um evento $B$, a probabilidade condicional de $A$ em relação à $B$ é denotada por $P(A \mid B)$.
+            Comumente, lemos $P(A \mid B)$ como ``a probabilidade de $A$ \emph{dado} $B$'', ou seja, a probabilidade do evento $A$ ocorrer, dado que o evento $B$ ocorreu.
+            No exemplo anterior, seja $A = \{\text{ganhar na loteria}\}$ e $B = \{\text{participar do sorteio}\}$, $P(A | B) = 0.01$.
             
             Por definição, a probabilidade de $A$ \emph{condicionada} a $B$ é dada por
             \begin{equation}
@@ -354,7 +428,9 @@
                 & = P(B)\ .
             \end{aligned}
             \end{equation*}
-            Para tanto, devemos ter $P(A) \neq 0$ e $P(B) \neq 0$. Portanto, quando $A$ e $B$ são independentes, a probabilidade de $A$ não é condicionada à probabilidade de $B$. Lembre que
+            Para tanto, devemos ter $P(A) \neq 0$ e $P(B) \neq 0$.
+            Portanto, quando $A$ e $B$ são independentes, a probabilidade de $A$ não é condicionada à probabilidade de $B$.
+            Lembre que
             \begin{equation*}
                 P(A \mid B) \cdot P(B) = P(A \cap B)
             \end{equation*}
@@ -385,7 +461,10 @@
                 
             \subsubsection{Lei da probabilidade total}
             
-                Voltando ao exemplo do sorteio, já sabemos que $1\%$ é a probabilidade condicional de ganhar na loteria, $A$, em relação à participar do sorteio, $B$. Em outras palavras, se participarmos do sorteio, temos $1\%$ de chance de ganhar. Mas ainda não respondemos a pergunta inicial: suponha que eu participe de $80\%$ dos sorteios, qual a minha chance total de ganhar, seja participando ou não do sorteio? Responderemos essa questão utilizando a \emph{lei da probabilidade total}.
+                Voltando ao exemplo do sorteio, já sabemos que $1\%$ é a probabilidade condicional de ganhar na loteria, $A$, em relação à participar do sorteio, $B$.
+                Em outras palavras, se participarmos do sorteio, temos $1\%$ de chance de ganhar.
+                Mas ainda não respondemos a pergunta inicial: suponha que eu participe de $80\%$ dos sorteios, qual a minha chance total de ganhar, seja participando ou não do sorteio?
+                Responderemos essa questão utilizando a \emph{lei da probabilidade total}.
                 
                 A \emph{lei da probabilidade total} nos diz que a probabilidade total de um evento $A$ condicionada a $n$ eventos $B_n$ é dada por
                 \begin{equation}
@@ -409,11 +488,13 @@
                     & = 0.008\ .
                 \end{aligned}
                 \end{equation*}
-                Ou seja, a probabilidade total de ganharmos na loteria é $0.8\%$. Com isso, respondemos a nossa pergunta.
+                Ou seja, a probabilidade total de ganharmos na loteria é $0.8\%$.
+                Com isso, respondemos a nossa pergunta.
             
         \subsection{União dos conceitos}
                 
-            Nas próximas notas, usaremos a \emph{probabilidade condicional} do \textbf{agente} executar certas \textbf{ações} no \textbf{ambiente} dado que está em um certo \textbf{estado} para calcular o \emph{valor esperado} da \textbf{recompensa} total obtida. Então, compararemos dois ou mais os valores esperados das recompensas totais obtidas e utilizamos o \emph{teorema da utilidade} para decidir qual é o melhor conjunto de ações a seguir, ou seja, qual é a melhor \textbf{política}, o nosso objetivo final.
+            Nas próximas notas, usaremos a \emph{probabilidade condicional} do \textbf{agente} executar certas \textbf{ações} no \textbf{ambiente} dado que está em um certo \textbf{estado} para calcular o \emph{valor esperado} da \textbf{recompensa} total obtida.
+            Então, compararemos dois ou mais os valores esperados das recompensas totais obtidas e utilizamos o \emph{teorema da utilidade} para decidir qual é o melhor conjunto de ações a seguir, ou seja, qual é a melhor \textbf{política}, o nosso objetivo final.
             
     \printbibliography
     
