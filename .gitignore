@@ -1,4 +1,4 @@
-# pdftex
+# Latex
 *.aux
 *.fls
 *.log
@@ -6,8 +6,12 @@
 *.out
 *_latexmk
 *.synctex*
+*.bbl
+*.bcf
+*.blg
+*.run.xml
 
-# commit file
+# Commit file
 [Nn]otes.txt
 [Cc]ommit[Mm]essage*
 [Cc]ommit[Mm]sg*
