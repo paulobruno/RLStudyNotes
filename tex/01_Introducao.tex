@@ -28,19 +28,15 @@
 
 
 \newcommand{\todo}[1]{ --\textcolor{red}{\textbf{#1}}--}
-%\newcommand{\todo}[1]{}
 
 
-% PB: redefinir maketitle
 \makeatletter
 \def\@maketitle
 {
     \begin{flushleft}
         \let \footnote \thanks
         {\Large \textbf{\@title} \par}
-        %\vskip 0.5em
         {\large \textbf{\@author} \par}
-        %\vskip 0.5em
         {\large \textit{\@date}}
     \end{flushleft}
     \par
@@ -65,11 +61,11 @@
             Antes de qualquer coisa, fica o aviso: esses estudos foram quase totalmente baseados no livro de introdução ao Aprendizado por Reforço \cite{Sutton2018}
         
             \begin{center}
-            \noindent\fbox{%
-                \parbox{40em}{%
+            \noindent\fbox{
+                \parbox{40em}{
                     Richard S. Sutton and Andrew G. Barto. \textbf{Reinforcement Learning: An Introduction}. 2nd Edition. MIT Press, Cambridge, MA, 2018.
-                }%
-            }%
+                }
+            }
             \end{center}
             
             Naturalmente que consultei outras referências, mas, no geral, essas notas são notas de estudo desse livro. Sugiro a leitura dessas notas como uma introdução ao livro, portanto leia-o, que é gratuito.
