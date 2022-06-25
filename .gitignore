@@ -11,6 +11,9 @@
 *.blg
 *.run.xml
 
+# VS Code
+.vscode*
+
 # Commit file
 [Nn]otes.txt
 [Cc]ommit[Mm]essage*
